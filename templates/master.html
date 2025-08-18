@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        /* CSS Variables */
+        :root {
+            --sidebar-width: 280px;
+            --sidebar-collapsed-width: 80px;
+            --header-height: 70px;
+            --transition-speed: 0.3s;
+        }
+
+        /* Dark Theme */
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #0f172a;
+            --bs-body-color: #f8fafc;
+            --bs-secondary-bg: #1e293b;
+            --bs-tertiary-bg: #334155;
+            --bs-border-color: #475569;
+        }
+
+        /* Base Styles */
+        * {
+            transition: background-color var(--transition-speed) ease, 
+                       color var(--transition-speed) ease,
+                       border-color var(--transition-speed) ease;
+        }
+
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1040;
+            background-color: var(--bs-secondary-bg);
+            border-right: 1px solid var(--bs-border-color);
+            transition: width var(--transition-speed) ease;
+            overflow-y: auto;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar .nav-link {
+            color: var(--bs-body-color);
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--bs-tertiary-bg);
+            color: var(--bs-body-color);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--bs-primary);
+            color: white;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+
+        /* Collapsed Sidebar Styles */
+        .sidebar.collapsed .logo-text,
+        .sidebar.collapsed .nav-text,
+        .sidebar.collapsed .user-info,
+        .sidebar.collapsed .nav-section-title {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 0.75rem 0.5rem;
+        }
+
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+        }
+
+        .sidebar.collapsed .dropdown-toggle {
+            justify-content: center;
+            padding: 0.5rem;
+        }
+
+        .sidebar.collapsed .dropdown-toggle::after {
+            display: none;
+        }
+
+        .sidebar.collapsed .dropdown-toggle img {
+            width: 32px;
+            height: 32px;
+        }
+
+        section.message{
+            position: relative;
+            z-index: 1090;
+        }
+
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            background-color: var(--bs-body-bg);
+            transition: margin-left var(--transition-speed) ease;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Header */
+        .header {
+            height: var(--header-height);
+            background-color: var(--bs-secondary-bg);
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        /* Controls */
+        .sidebar-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .theme-toggle-btn,
+        .sidebar-collapse-btn {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            border-radius: 6px;
+        }
+
+        .collapse-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .collapse-icon.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* Fullscreen */
+        /* Sidebar Overlay */
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1039;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: var(--sidebar-width) !important;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+            }
+            
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+                width: var(--sidebar-width) !important;
+            }
+            
+            .sidebar.collapsed.show {
+                transform: translateX(0);
+            }
+
+            /* Reset collapsed styles on mobile */
+            .sidebar.collapsed .logo-text,
+            .sidebar.collapsed .nav-text,
+            .sidebar.collapsed .user-info,
+            .sidebar.collapsed .nav-section-title {
+                display: block !important;
+            }
+
+            .sidebar.collapsed .nav-link {
+                justify-content: flex-start;
+                padding: 0.5rem 1rem;
+            }
+
+            .sidebar.collapsed .nav-link i {
+                margin-right: 0.5rem;
+            }
+
+            .sidebar.collapsed .dropdown-toggle {
+                justify-content: flex-start;
+                padding: 0.5rem;
+            }
+
+            .sidebar.collapsed .dropdown-toggle::after {
+                display: block;
+            }
+
+            .sidebar.collapsed .dropdown-toggle img {
+                width: 40px;
+                height: 40px;
+                margin-right: 0.5rem;
+            }
+        }
+
+        /* Utility Classes */
+        .nav-section-title {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.7;
+        }
+
+        .user-name {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            opacity: 0.7;
+        }
+
+        /* Card Enhancements */
+        .card {
+            border-radius: 12px;
+            border: 1px solid var(--bs-border-color);
+            background-color: var(--bs-secondary-bg);
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        /* Button Enhancements */
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        }
+
+        /* Dropdown Enhancements */
+        .dropdown-menu {
+            border-radius: 8px;
+            border: 1px solid var(--bs-border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-item {
+            transition: all var(--transition-speed) ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    </style>
+</head>
+<body class="d-flex">
+    <!-- Sidebar -->
+    <div class="sidebar d-flex flex-column flex-shrink-0 p-3" id="sidebar">
+        <!-- Logo -->
+        <div class="d-flex align-items-center mb-4">
+            <div class="logo-icon bg-primary text-white me-2">
+                <i class="bi bi-speedometer2 me-2"></i>
+            </div>
+            <span class="logo-text fs-5 fw-bold">Dashboard</span>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="nav nav-pills flex-column mb-auto">
+            <div class="nav-section-title mb-2 text-muted">Main</div>
+            <a href="{% url 'accounts:dashboard' %}" 
+                class="nav-link {% if request.resolver_match.url_name == 'dashboard' and request.resolver_match.namespace == 'accounts' %}active{% endif %}">
+                <i class="bi bi-house-door me-2"></i>
+                <span class="nav-text">Overview</span>
+            </a>
+            
+
+        </nav>
+        
+        <!-- User Profile -->
+        <div class="dropdown mt-auto">
+            <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" 
+               id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if profile.profile_pic %}
+                    <img src="{{ profile.profile_pic.url }}" alt="User" width="40" height="40" class="rounded-circle me-2">
+                {% else %}
+                    <img src="/static/defaults/avatar.png" alt="User" width="40" height="40" class="rounded-circle me-2">
+                {% endif %}
+                <div class="user-info">
+                    <div class="user-name">{{ user.username }}</div>
+                    <div class="user-role text-muted">
+                        {% if is_superuser %}
+                            Super Admin
+                        {% elif is_staff %}
+                            Staff
+                        {% else %}
+                            Customer
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            <ul class="dropdown-menu text-small shadow">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content flex-grow-1" id="mainContent">
+        <!-- Header -->
+        <header class="header d-flex align-items-center justify-content-between px-4 sticky-top">
+            <div class="d-flex align-items-center">
+                <div class="sidebar-controls me-3">
+                    <button class="btn btn-outline-secondary sidebar-collapse-btn" id="sidebarCollapseBtn">
+                        <i class="bi bi-chevron-left collapse-icon"></i>
+                    </button>
+                </div>
+                <h1 class="h4 mb-0">Dashboard</h1>
+            </div>
+            
+            <div class="d-flex align-items-center gap-2">
+                <button class="btn btn-outline-secondary" id="fullscreenBtn">
+                    <i class="bi bi-fullscreen" id="fullscreenIcon"></i>
+                </button>
+                
+                <button class="btn btn-outline-secondary theme-toggle-btn" id="themeToggleBtn">
+                    <i class="bi bi-moon" id="themeIcon"></i>
+                </button>
+                
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                            id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {% if profile.profile_pic %}
+                            <img src="{{ profile.profile_pic.url }}"  alt="customer" width="32" height="32" class="rounded-circle me-1">
+                        {% else %}
+                            <img src="/static/defaults/avatar.png" alt="User" width="32" height="32" class="rounded-circle me-1">
+                        {% endif %}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        
+        <section class="message">
+            {% if messages %}
+                <div id="django-messages" class="container d-flex justify-content-end" style="position: relative">
+                    {% for message in messages %}
+                        <div class="alert 
+                            {% if 'success' in message.tags %}alert-success
+                            {% elif 'info' in message.tags %}alert-info
+                            {% elif 'warning' in message.tags %}alert-warning
+                            {% elif 'error' in message.tags %}alert-danger
+                            {% else %}alert-secondary{% endif %}
+                                    alert-dismissible fade show" role="alert" style="position: absolute; top: 0; right: 0;">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+    
+        <!-- Main Content Area -->
+        <main class="p-4">
+            <div class="container-fluid">
+                <!-- Welcome Card -->
+                {% block content %}{% endblock content %}
+            </div>
+        </main>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Auto-hide after 3 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                alert.style.transition = 'opacity 0.5s ease';
+                alert.style.opacity = '0';
+                setTimeout(() => alert.remove(), 500); // remove after fade
+            });
+        }, 5000);
+    </script>
+    <script>
+        
+        class Dashboard {
+            constructor() {
+                this.initializeElements();
+                this.initializeState();
+                this.bindEvents();
+                this.loadSavedPreferences();
+            }
+            
+            initializeElements() {
+                this.elements = {
+                    sidebar: document.getElementById('sidebar'),
+                    mainContent: document.getElementById('mainContent'),
+                    sidebarCollapseBtn: document.getElementById('sidebarCollapseBtn'),
+                    themeToggleBtn: document.getElementById('themeToggleBtn'),
+                    sidebarOverlay: document.getElementById('sidebarOverlay'),
+                    fullscreenBtn: document.getElementById('fullscreenBtn'),
+                    themeIcon: document.getElementById('themeIcon'),
+                    fullscreenIcon: document.getElementById('fullscreenIcon')
+                };
+            }
+            
+            initializeState() {
+                this.state = {
+                    sidebarCollapsed: false,
+                    isMobile: window.innerWidth <= 992,
+                    isFullscreen: false,
+                    theme: 'light'
+                };
+            }
+            
+            bindEvents() {
+                // Sidebar events
+                this.elements.sidebarCollapseBtn?.addEventListener('click', () => this.toggleSidebar());
+                this.elements.sidebarOverlay?.addEventListener('click', () => this.closeMobileSidebar());
+                
+                // Theme toggle
+                this.elements.themeToggleBtn?.addEventListener('click', () => this.toggleTheme());
+                
+                // Fullscreen toggle
+                this.elements.fullscreenBtn?.addEventListener('click', () => this.toggleFullscreen());
+                
+                // Window events
+                window.addEventListener('resize', () => this.handleResize());
+                document.addEventListener('fullscreenchange', () => this.handleFullscreenChange());
+            }
+            
+            toggleSidebar() {
+                if (this.state.isMobile) {
+                    this.toggleMobileSidebar();
+                } else {
+                    this.toggleDesktopSidebar();
+                }
+            }
+            
+            toggleDesktopSidebar() {
+                this.state.sidebarCollapsed = !this.state.sidebarCollapsed;
+                this.elements.sidebar.classList.toggle('collapsed', this.state.sidebarCollapsed);
+
+                // Toggle rotation manually
+                this.elements.sidebarCollapseBtn.querySelector('.collapse-icon')?.classList.toggle('rotated', this.state.sidebarCollapsed);
+
+                this.saveSidebarState();
+            }
+            
+            toggleMobileSidebar() {
+                const isOpen = this.elements.sidebar.classList.contains('show');
+                if (isOpen) {
+                    this.closeMobileSidebar();
+                } else {
+                    this.openMobileSidebar();
+                }
+            }
+            
+            openMobileSidebar() {
+                this.elements.sidebar.classList.add('show');
+                this.elements.sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            closeMobileSidebar() {
+                this.elements.sidebar.classList.remove('show');
+                this.elements.sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+            
+            toggleTheme() {
+                this.state.theme = this.state.theme === 'light' ? 'dark' : 'light';
+                this.applyTheme();
+                this.saveTheme();
+            }
+            
+            applyTheme() {
+                document.documentElement.setAttribute('data-bs-theme', this.state.theme);
+                const iconClass = this.state.theme === 'dark' ? 'bi-sun' : 'bi-moon';
+                this.elements.themeIcon.className = `bi ${iconClass}`;
+            }
+            
+            toggleFullscreen() {
+                if (!this.state.isFullscreen) {
+                    this.enterFullscreen();
+                } else {
+                    this.exitFullscreen();
+                }
+            }
+            
+            enterFullscreen() {
+                if (document.documentElement.requestFullscreen) {
+                    document.documentElement.requestFullscreen()
+                        .catch(err => console.warn('Fullscreen failed:', err));
+                }
+            }
+            
+            exitFullscreen() {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen()
+                        .catch(err => console.warn('Exit fullscreen failed:', err));
+                }
+            }
+            
+            handleFullscreenChange() {
+                this.state.isFullscreen = !!document.fullscreenElement;
+                const iconClass = this.state.isFullscreen ? 'bi-fullscreen-exit' : 'bi-fullscreen';
+                this.elements.fullscreenIcon.className = `bi ${iconClass}`;
+            }
+            
+            handleResize() {
+                const wasMobile = this.state.isMobile;
+                this.state.isMobile = window.innerWidth <= 992;
+                
+                if (wasMobile !== this.state.isMobile) {
+                    this.closeMobileSidebar();
+                    if (!this.state.isMobile) {
+                        this.elements.sidebar.classList.toggle('collapsed', this.state.sidebarCollapsed);
+                    }
+                }
+            }
+            
+            loadSavedPreferences() {
+                this.loadTheme();
+                this.loadSidebarState();
+            }
+            
+            loadTheme() {
+                try {
+                    const savedTheme = localStorage.getItem('theme');
+                    this.state.theme = savedTheme === 'dark' ? 'dark' : 'light'; // fallback to light
+                } catch (error) {
+                    console.warn('Could not load theme from localStorage:', error);
+                    this.state.theme = 'light';
+                }
+                this.applyTheme();
+            }
+            
+            loadSidebarState() {
+                // Default to not collapsed
+                this.state.sidebarCollapsed = false;
+                if (!this.state.isMobile) {
+                    this.elements.sidebar.classList.toggle('collapsed', this.state.sidebarCollapsed);
+                }
+            }
+            saveTheme() {
+                try {
+                    localStorage.setItem('theme', this.state.theme);
+                } catch (error) {
+                    console.warn('Could not save theme to localStorage:', error);
+                }
+            }
+            
+            saveSidebarState() {
+                // Sidebar state would be saved here if localStorage was available
+                console.log('Sidebar state saved:', this.state.sidebarCollapsed);
+            }
+        }
+
+        // Initialize dashboard when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.dashboard = new Dashboard();
+        });
+    </script>
+</body>
+</html>

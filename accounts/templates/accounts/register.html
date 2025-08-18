@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Form Design</title>
+
+    <!--font awesome(for icons)-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <style>
+      /* Google Fonts(Poppins) */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0f6edbff 0%, #00faddff 100%);
+        background-size: cover;
+        background-position: center;
+        padding: 20px 0;
+      }
+
+      .wrapper {
+        position: relative;
+        width: 480px;
+        min-height: 520px;
+        background: transparent;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(15px);
+        margin: 20px 0;
+      }
+
+      .wrapper form {
+        width: 100%;
+        padding: 40px;
+      }
+
+      .wrapper h1 {
+        font-size: 2em;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .wrapper .input-box {
+        position: relative;
+        width: 100%;
+        margin: 25px 0;
+        border-bottom: 2px solid #fff;
+      }
+
+      .wrapper .input-box input {
+        width: 100%;
+        height: 50px;
+        background: transparent;
+        outline: none;
+        border: none;
+        font-size: 1em;
+        color: #fff;
+        padding: 0 40px 0 5px;
+      }
+
+      .wrapper .input-box input::placeholder {
+        color: transparent;
+      }
+
+      .wrapper .input-box label {
+        position: absolute;
+        top: 50%;
+        left: 5px;
+        transform: translateY(-50%);
+        font-size: 1em;
+        color: #fff;
+        pointer-events: none;
+        transition: 0.5s;
+      }
+
+      .wrapper .input-box input:focus ~ label,
+      .wrapper .input-box input:not(:placeholder-shown) ~ label {
+        top: -5px;
+        font-size: 0.8em;
+      }
+
+      .wrapper .input-box .icon {
+        position: absolute;
+        right: 8px;
+        color: #fff;
+        font-size: 1.2em;
+        line-height: 57px;
+      }
+
+      .wrapper .row {
+        margin: 15px 0;
+        font-size: 0.9em;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .wrapper .row input[type="checkbox"] {
+        width: auto;
+        height: auto;
+        margin: 0;
+        accent-color: #fff;
+      }
+
+      .wrapper .row a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .wrapper .row a:hover {
+        text-decoration: underline;
+      }
+
+      .wrapper .btn {
+        width: 100%;
+        height: 45px;
+        background: #fff;
+        outline: none;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 500;
+        color: #000;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .wrapper .btn:hover {
+        background: #f0f0f0;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+      }
+
+      .wrapper .login-link {
+        font-size: 0.9em;
+        color: #fff;
+        text-align: center;
+        margin: 25px 0 10px;
+      }
+
+      .wrapper .login-link a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .wrapper .login-link a:hover {
+        text-decoration: underline;
+      }
+
+      .password-strength {
+        font-size: 0.8em;
+        color: #fff;
+        margin-top: 5px;
+        opacity: 0.8;
+      }
+
+      .strength-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
+        margin-top: 5px;
+        overflow: hidden;
+      }
+
+      .strength-fill {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #ff4757, #ffa502, #2ed573);
+        transition: width 0.3s ease;
+      }
+
+      .error-message {
+        color: #ff4757;
+        font-size: 0.8em;
+        margin-top: 5px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .error-message.show {
+        opacity: 1;
+      }
+
+      @media (max-width: 480px) {
+        .wrapper {
+          width: 95%;
+          min-height: auto;
+          border: none;
+          border-radius: 0px;
+          margin: 0;
+        }
+
+        .wrapper form {
+          padding: 30px 20px;
+        }
+
+        .wrapper .input-box {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <form  id="registerForm" method="POST">
+        {% csrf_token %}
+        <h1>Register</h1>
+        <div class="input-box">
+            <i class="fa fa-phone icon"></i>
+            <input type="text" name="phone" placeholder=" " required id="phone" />
+            <label>Phone</label>
+        </div>
+
+        <div class="input-box">
+          <i class="fas fa-user-circle icon"></i>
+          <input type="text" name="username" placeholder=" " required id="username" />
+          <label>Username</label>
+        </div>
+        <div class="error-message" id="usernameError">Username must be at least 3 characters long</div>
+
+        <div class="input-box">
+          <i class="fas fa-lock icon"></i>
+          <input type="password" name="password1" placeholder=" " required id="password" />
+          <label>Password</label>
+        </div>
+        <div class="password-strength">
+            <div class="strength-bar">
+              <div class="strength-fill" id="strengthFill"></div>
+            </div>
+            <span id="strengthText"></span>
+        </div>
+
+        <div class="input-box">
+          <i class="fas fa-lock icon"></i>
+          <input type="password" name="password2" placeholder=" " required id="confirmPassword" />
+          <label>Confirm Password</label>
+        </div>
+        <div class="error-message" id="passwordError">Passwords do not match</div>
+
+        <div class="row">
+          <input type="checkbox" id="terms" />
+          <label for="terms">I agree to the <a href="#">Terms & Conditions</a></label>
+        </div>
+
+        <button type="submit" class="btn">Create Account</button>
+
+        <div class="login-link">
+          <p>Already have an account? <a href="{% url 'accounts:login' %}">Login here</a></p>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      // Form elements
+      const fullNameInput = document.getElementById('fullName');
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+      const confirmPasswordInput = document.getElementById('confirmPassword');
+      const strengthFill = document.getElementById('strengthFill');
+      const strengthText = document.getElementById('strengthText');
+      const usernameError = document.getElementById('usernameError');
+      const passwordError = document.getElementById('passwordError');
+      const registerForm = document.getElementById('registerForm');
+
+      // Password strength checker
+      function checkPasswordStrength(password) {
+        let strength = 0;
+        let feedback = '';
+
+        if (password.length >= 8) strength += 1;
+        if (password.match(/[a-z]/)) strength += 1;
+        if (password.match(/[A-Z]/)) strength += 1;
+        if (password.match(/[0-9]/)) strength += 1;
+        if (password.match(/[^a-zA-Z0-9]/)) strength += 1;
+
+        switch (strength) {
+          case 0:
+          case 1:
+            feedback = 'Very Weak';
+            strengthFill.style.width = '20%';
+            strengthFill.style.background = '#ff4757';
+            break;
+          case 2:
+            feedback = 'Weak';
+            strengthFill.style.width = '40%';
+            strengthFill.style.background = '#ff6b7a';
+            break;
+          case 3:
+            feedback = 'Fair';
+            strengthFill.style.width = '60%';
+            strengthFill.style.background = '#ffa502';
+            break;
+          case 4:
+            feedback = 'Good';
+            strengthFill.style.width = '80%';
+            strengthFill.style.background = '#7bed9f';
+            break;
+          case 5:
+            feedback = 'Strong';
+            strengthFill.style.width = '100%';
+            strengthFill.style.background = '#2ed573';
+            break;
+        }
+
+        strengthText.textContent = feedback;
+        return strength;
+      }
+
+      // Username validation
+      function validateUsername(username) {
+        if (username.length < 3) {
+          usernameError.classList.add('show');
+          usernameInput.style.borderBottomColor = '#ff4757';
+          return false;
+        } else {
+          usernameError.classList.remove('show');
+          usernameInput.style.borderBottomColor = '#fff';
+          return true;
+        }
+      }
+
+      // Password confirmation validation
+      function validatePasswordConfirmation(password, confirmPassword) {
+        if (confirmPassword && password !== confirmPassword) {
+          passwordError.classList.add('show');
+          confirmPasswordInput.style.borderBottomColor = '#ff4757';
+          return false;
+        } else {
+          passwordError.classList.remove('show');
+          confirmPasswordInput.style.borderBottomColor = '#fff';
+          return true;
+        }
+      }
+
+      // Event listeners
+      passwordInput.addEventListener('input', function() {
+        const password = this.value;
+        if (password.length > 0) {
+          checkPasswordStrength(password);
+        } else {
+          strengthFill.style.width = '0%';
+          strengthText.textContent = '';
+        }
+        
+        // Revalidate password confirmation if it has content
+        if (confirmPasswordInput.value) {
+          validatePasswordConfirmation(password, confirmPasswordInput.value);
+        }
+      });
+
+      usernameInput.addEventListener('input', function() {
+        validateUsername(this.value);
+      });
+
+      confirmPasswordInput.addEventListener('input', function() {
+        validatePasswordConfirmation(passwordInput.value, this.value);
+      });
+    </script>
+  </body>
+</html>
