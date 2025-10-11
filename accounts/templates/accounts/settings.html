@@ -1,0 +1,94 @@
+{% extends 'master.html' %}
+
+{% load static %}
+
+{% block styles %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'backend/css/profile.css' %}">
+{% endblock styles %}
+
+{% block content %}
+    <div class="profile-container container">
+        <div class="profile-header animate-on-scroll">
+            <h1>Profile Settings</h1>
+            <p>Manage your personal information and preferences</p>
+        </div>
+
+        <div class="profile-grid">
+            <!-- Password Reset Section -->
+            <div class="glass-card animate-on-scroll full-width">
+                <div class="section-title">
+                    <i class="bi bi-lock"></i>
+                    Password & Security
+                </div>
+                <form method="POST" action="{% url 'accounts:update_password' %}">
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <div class="col-md-12">
+                            <label for="oldPassword" class="form-label">Current Password</label>
+                            <input type="password" name="current_password" class="form-control" id="oldPassword" placeholder=" ">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="newPassword" class="form-label">New Password</label>
+                            <input type="password" name="new_password" class="form-control" id="newPassword" placeholder=" ">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                            <input type="password" name="confirm_password" class="form-control" id="confirmPassword" placeholder=" ">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-key me-2"></i>Change Password
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Password strength checker
+        function checkPasswordStrength() {
+            const password = document.getElementById('newPassword').value;
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]/)) strength++;
+            if (password.match(/[A-Z]/)) strength++;
+            if (password.match(/[0-9]/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+            strengthBar.className = 'password-strength-bar';
+            
+            if (strength < 2) {
+                strengthBar.classList.add('strength-weak');
+            } else if (strength < 3) {
+                strengthBar.classList.add('strength-fair');
+            } else if (strength < 4) {
+                strengthBar.classList.add('strength-good');
+            } else {
+                strengthBar.classList.add('strength-strong');
+            }
+        }
+
+        // Animate on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+{% endblock content %}

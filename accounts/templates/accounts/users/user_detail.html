@@ -21,7 +21,7 @@
                 <tr>
                     <td>Profile Photo</td>
                     <td>
-                        <img src="{{user.profile.profile_pic}}" alt="" />
+                        <img src="{{user.profile.profile_pic.url}}" alt="" />
                     </td>
                     <td></td>
                 </tr>
@@ -96,7 +96,7 @@
                 <tr>
                     <td>Status</td>
                     <td>
-                        <span class="fs-6 badge {% if user.activity.is_online %}bg-success{% else %}bg-secondary{% endif %}">{% if user.activity.is_online %}Active{% else %}Inactive{% endif %}</span>
+                        <span class="fs-6 badge {% if user.activity.is_online %}bg-success{% else %}bg-secondary{% endif %}">{% if user.activity.is_online %}Online{% else %}Offline{% endif %}</span>
                         <span class="fs-6 badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
                     </td>
                     <td>

@@ -7,7 +7,8 @@ from .models import Profile, UserActivity, UserAccessLog
 from django.utils.timezone import now
 from django.db.models import Q
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash
 
 
 # Create your views here.
@@ -65,15 +66,17 @@ def login_view(request):
 
     return render(request, 'accounts/login.html')
 
+@login_required(login_url='accounts:login')
 def logout_view(request):
     logout(request)
     messages.success(request, 'Logout successful')
     return redirect('accounts:login')
 
+@login_required(login_url='accounts:login')
 def dashboard_view(request):
     return render(request, 'accounts/dashboard.html')
 
-
+@login_required(login_url='accounts:login')
 def all_user_list_view(request):
     searchQ = request.GET.get('search')
     roleQ = request.GET.get('role', '')
@@ -105,6 +108,7 @@ def all_user_list_view(request):
     }
     return render(request, 'accounts/users/all_user_list.html', context)
 
+@login_required(login_url='accounts:login')
 def user_activity_list(request):
     activities = UserActivity.objects.select_related('user').all()
     return render(request, 'accounts/users/user_activity_list.html', {
@@ -113,19 +117,21 @@ def user_activity_list(request):
     })
 
 
-
+@login_required(login_url='accounts:login')
 def user_access_log_list(request):
     logs = UserAccessLog.objects.select_related('user').order_by('-login_time')[:100]
     return render(request, 'accounts/users/user_access_log_list.html', {
         'logs': logs
     })
 
+@login_required(login_url='accounts:login')
 def user_detail_view(request, user_id):
     user = User.objects.get(id=user_id)
     return render(request, 'accounts/users/user_detail.html', {
         'user': user
     })
 
+@login_required(login_url='accounts:login')
 def toggle_user_status(request, user_id):
     user = User.objects.get(id=user_id)
     user.is_active = not user.is_active
@@ -134,3 +140,101 @@ def toggle_user_status(request, user_id):
     if refer_page:
         return HttpResponseRedirect(refer_page)
     return redirect('accounts:all_user_list')
+
+
+@login_required(login_url='accounts:login')
+def user_profile_view(request):
+    return render(request, 'accounts/profile.html')
+
+@login_required(login_url='accounts:login')
+def update_personal_info(request):
+    if request.method == 'POST':
+        user = request.user
+        user.first_name = request.POST.get('first_name', '')
+        user.last_name = request.POST.get('last_name', '')
+        user.username = request.POST.get('username', '')
+        user.email = request.POST.get('email', '')
+        
+        try:
+            user.save()
+            messages.success(request, 'Personal information updated successfully!')
+        except Exception as e:
+            messages.error(request, f'Error updating personal information: {str(e)}')
+    
+    return redirect('accounts:user_profile')
+
+@login_required(login_url='accounts:login')
+def update_profile_info(request):
+    if request.method == 'POST':
+        user = request.user
+        profile = user.profile
+        
+        profile.phone = request.POST.get('phone', '')
+        profile.country = request.POST.get('country', '')
+        profile.state = request.POST.get('state', '')
+        profile.city = request.POST.get('city', '')
+        profile.address = request.POST.get('address', '')
+        profile.zipcode = request.POST.get('zipcode', '')
+        profile.bio = request.POST.get('bio', '')
+        
+        try:
+            profile.save()
+            messages.success(request, 'Profile information updated successfully!')
+        except Exception as e:
+            messages.error(request, f'Error updating profile information: {str(e)}')
+    
+    return redirect('accounts:user_profile')
+
+@login_required(login_url='accounts:login')
+def update_profile_pic_view(request):
+    if request.method == 'POST':
+        user = request.user
+        if 'image' in request.FILES:
+            user.profile.profile_pic = request.FILES['image']
+            try:
+                user.profile.save()
+                messages.success(request, 'Profile picture updated successfully!')
+            except Exception as e:
+                messages.error(request, f'Error updating profile picture: {str(e)}')
+    
+    refer_page = request.META.get('HTTP_REFERER')
+    if refer_page:
+        return HttpResponseRedirect(refer_page)
+    return redirect('accounts:user_profile')
+
+@login_required(login_url='accounts:login')
+def remove_profile_pic_view(request):
+    if request.method == 'POST':
+        user = request.user
+        if user.profile.profile_pic:
+            user.profile.profile_pic.delete()
+            messages.success(request, 'Profile picture removed successfully!')
+        else:
+            messages.info(request, 'No profile picture to remove.')
+    
+    return redirect('accounts:user_profile')
+
+@login_required(login_url='accounts:login')
+def settings_view(request):
+    return render(request, 'accounts/settings.html')
+
+@login_required(login_url='accounts:login')
+def update_password_view(request):
+    if request.method == 'POST':
+        user = request.user
+        current_password = request.POST.get('current_password', '')
+        new_password = request.POST.get('new_password', '')
+        confirm_password = request.POST.get('confirm_password', '')
+        
+        if user.check_password(current_password):
+            if new_password == confirm_password:
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Password updated successfully!')
+            else:
+                messages.error(request, 'New password and confirm password do not match.')
+        else:
+            messages.error(request, 'Current password is incorrect.')
+    
+    return redirect('accounts:settings')
