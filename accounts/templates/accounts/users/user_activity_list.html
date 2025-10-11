@@ -1,0 +1,42 @@
+{% extends "master.html" %}
+{% load activity_tags %}
+{% block content %}
+<h2>User Activity</h2>
+<div class="text-end my-4">
+    <a href="{% url 'accounts:all_user_list' %}" class="btn btn-primary">Back to User</a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Last Activity</th>
+            <th>Online</th>
+            <th>IP</th>
+            <th>Device</th>
+            <th>Browser</th>
+            <th>Last Login</th>
+            <th>Last Logout</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in activities %}
+        <tr>
+            <td>{{ a.user.username }}</td>
+            <td>{{ a.last_activity }}</td>
+            <td>
+                {% if a.is_online and a.last_activity|is_recent %}
+                    <span class="badge bg-success">Online</span>
+                {% else %}
+                    <span class="badge bg-secondary">Offline</span>
+                {% endif %}
+            </td>
+            <td>{{ a.current_ip }}</td>
+            <td>{{ a.current_device }}</td>
+            <td>{{ a.current_browser }}</td>
+            <td>{{ a.last_login_time }}</td>
+            <td>{{ a.last_logout_time|default:"N/A" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

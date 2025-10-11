@@ -17,7 +17,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile_pics', blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
     class Meta:
         verbose_name = 'Profile'
@@ -59,13 +59,16 @@ class UserActivity(models.Model):
         return f"{self.user.username} Activity"
 
     def update_activity(self, request):
-        """Convenience method to update this model with request info"""
         from user_agents import parse
-        user_agent = parse(request.META.get('HTTP_USER_AGENT', ''))
+        user_agent_str = request.META.get('HTTP_USER_AGENT', '')
+        user_agent = parse(user_agent_str)
+
         self.last_activity = timezone.now()
         self.current_ip = self.get_client_ip(request)
-        self.current_device = user_agent.device.family
-        self.current_browser = user_agent.browser.family
+        self.current_device = user_agent.device.family or "Unknown Device"
+        self.current_browser = f"{user_agent.browser.family} {user_agent.browser.version_string}"
+        self.current_os = f"{user_agent.os.family} {user_agent.os.version_string}"
+        self.user_agent = user_agent_str  # (Add this field in your model if useful)
         self.is_online = True
         self.save()
 

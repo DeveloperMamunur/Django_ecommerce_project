@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+{% block content %}
+<h2>User Access Logs</h2>
+<p>List of user access logs.</p>
+<div class="text-end my-4">
+    <a href="{% url 'accounts:all_user_list' %}" class="btn btn-primary">Back to User</a>
+</div>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>IP</th>
+            <th>Device</th>
+            <th>Browser</th>
+            <th>OS</th>
+            <th>User-Agent</th>
+            <th>Login Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.user.username|default:"Anonymous" }}</td>
+            <td>{{ log.ip_address }}</td>
+            <td>{{ log.device_type }}</td>
+            <td>{{ log.browser }}</td>
+            <td>{{ log.os }}</td>
+            <td><small>{{ log.user_agent }}</small></td>
+            <td>{{ log.login_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

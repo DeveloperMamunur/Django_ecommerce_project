@@ -1,0 +1,113 @@
+{% extends 'master.html' %}
+
+{% block content %}
+    <h1 class="text-center">User Details</h1>
+    <div class="container mt-4 mx-auto">
+        <div class="mb-4">
+            <div class="d-flex justify-content-end gap-3">
+                <a href="{% url 'accounts:all_user_list' %}" class="btn btn-primary">Back to User</a>
+            </div>
+        </div>
+        <!-- user_status_list.html -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Profile Photo</td>
+                    <td>
+                        <img src="{{user.profile.profile_pic}}" alt="" />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>User Name</td>
+                    <td>{{user.username}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>First Name</td>
+                    <td>{{user.first_name}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{user.last_name}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>{{user.profile.phone}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{user.email}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Role</td>
+                    <td>
+                        {% if user.is_superuser %}
+                            Super Admin
+                        {% elif user.is_staff %}
+                            Staff
+                        {% else %}
+                            Customer
+                        {% endif %}
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Join Date</td>
+                    <td>{{user.date_joined}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{user.profile.address}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td>{{user.profile.city}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td>{{user.profile.state}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Country</td>
+                    <td>{{user.profile.country}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Zip Code</td>
+                    <td>{{user.profile.zipcode}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Status</td>
+                    <td>
+                        <span class="fs-6 badge {% if user.activity.is_online %}bg-success{% else %}bg-secondary{% endif %}">{% if user.activity.is_online %}Active{% else %}Inactive{% endif %}</span>
+                        <span class="fs-6 badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
+                    </td>
+                    <td>
+                        <a href="{% url 'accounts:toggle_user_status' user.id %}" class="btn {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">{% if user.is_active %}Inactive{% else %}Active{% endif %}</a>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock content %}

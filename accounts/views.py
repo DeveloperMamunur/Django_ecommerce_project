@@ -3,7 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, UserActivity, UserAccessLog
+from django.utils.timezone import now
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+
 
 
 # Create your views here.
@@ -68,3 +72,65 @@ def logout_view(request):
 
 def dashboard_view(request):
     return render(request, 'accounts/dashboard.html')
+
+
+def all_user_list_view(request):
+    searchQ = request.GET.get('search')
+    roleQ = request.GET.get('role', '')
+
+    users = User.objects.all()
+
+    if searchQ:
+        users = users.filter(
+            Q(username__icontains=searchQ) |
+            Q(first_name__icontains=searchQ) |
+            Q(last_name__icontains=searchQ) |
+            Q(email__icontains=searchQ) |
+            Q(profile__phone__icontains=searchQ)
+        )
+
+    if roleQ == 'superadmin':
+        users = users.filter(is_superuser=True)
+    elif roleQ == 'staff':
+        users = users.filter(is_staff=True, is_superuser=False)
+    elif roleQ == 'customer':
+        users = users.filter(is_staff=False, is_superuser=False)
+
+
+
+    context = {
+        'users': users,
+        'searchQ': searchQ,
+        'roleQ': roleQ,
+    }
+    return render(request, 'accounts/users/all_user_list.html', context)
+
+def user_activity_list(request):
+    activities = UserActivity.objects.select_related('user').all()
+    return render(request, 'accounts/users/user_activity_list.html', {
+        'activities': activities,
+        'now': now(),  # ✅ Pass current time to the template
+    })
+
+
+
+def user_access_log_list(request):
+    logs = UserAccessLog.objects.select_related('user').order_by('-login_time')[:100]
+    return render(request, 'accounts/users/user_access_log_list.html', {
+        'logs': logs
+    })
+
+def user_detail_view(request, user_id):
+    user = User.objects.get(id=user_id)
+    return render(request, 'accounts/users/user_detail.html', {
+        'user': user
+    })
+
+def toggle_user_status(request, user_id):
+    user = User.objects.get(id=user_id)
+    user.is_active = not user.is_active
+    user.save()
+    refer_page = request.META.get('HTTP_REFERER')
+    if refer_page:
+        return HttpResponseRedirect(refer_page)
+    return redirect('accounts:all_user_list')
