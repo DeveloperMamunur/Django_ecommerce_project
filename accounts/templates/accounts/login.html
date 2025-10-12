@@ -1,179 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--Created by Tivotal-->
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Form Design</title>
-
-    <!--font awesome(for icons)-->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-
-    <style>
-      /* Google Fonts(Poppins) */
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
-
-      * {
-        font-family: "Poppins", sans-serif;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #0f6edbff 0%, #00faddff 100%);
-        {% comment %} background: url("/static/log-reg/bg.jpg") no-repeat center center fixed; {% endcomment %}
-        background-size: cover;
-        background-position: center;
-      }
-
-      .wrapper {
-        position: relative;
-        width: 420px;
-        height: 450px;
-        background: transparent;
-        border: 2px solid rgba(255, 255, 255, 0.5);
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(15px);
-      }
-
-      .wrapper h1 {
-        font-size: 2em;
-        color: #fff;
-        text-align: center;
-      }
-
-      .wrapper .input-box {
-        position: relative;
-        width: 310px;
-        margin: 30px 0;
-        border-bottom: 2px solid #fff;
-      }
-
-      .wrapper .input-box input {
-        width: 100%;
-        height: 50px;
-        background: transparent;
-        outline: none;
-        border: none;
-        font-size: 1em;
-        color: #fff;
-        padding: 0 40px 0 5px;
-      }
-
-      .wrapper .input-box input::placeholder {
-        color: transparent;
-      }
-
-      .wrapper .input-box label {
-        position: absolute;
-        top: 50%;
-        left: 5px;
-        transform: translateY(-50%);
-        font-size: 1em;
-        color: #fff;
-        pointer-events: none;
-        transition: 0.5s;
-      }
-
-      .wrapper .input-box input:focus ~ label,
-      .wrapper .input-box input:not(:placeholder-shown) ~ label {
-        top: -5px;
-        font-size: 0.8em;
-      }
-
-      .wrapper .input-box .icon {
-        position: absolute;
-        right: 8px;
-        color: #fff;
-        font-size: 1.2em;
-        line-height: 57px;
-      }
-
-      .wrapper .row {
-        margin: -15px 0 15px;
-        font-size: 0.9em;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .wrapper .row label {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-      }
-
-      .wrapper .row a {
-        color: #fff;
-        text-decoration: none;
-      }
-
-      .wrapper .row a:hover {
-        text-decoration: underline;
-      }
-
-      .wrapper .btn {
-        width: 100%;
-        height: 40px;
-        background: #fff;
-        outline: none;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-        font-size: 1em;
-        font-weight: 500;
-        color: #000;
-        margin-top: 10px;
-        transition: background 0.3s ease;
-      }
-
-      .wrapper .btn:hover {
-        background: #f0f0f0;
-      }
-
-      .wrapper .signup-link {
-        font-size: 0.9em;
-        color: #fff;
-        text-align: center;
-        margin: 25px 0 10px;
-      }
-
-      .wrapper .signup-link a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      .wrapper .signup-link a:hover {
-        text-decoration: underline;
-      }
-
-      @media (max-width: 360px) {
-        .wrapper {
-          width: 100%;
-          height: 100vh;
-          border: none;
-          border-radius: 0px;
-        }
-
-        .wrapper .input-box {
-          width: 290px;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/guest/login.css">
   </head>
   <body>
+    <!-- Bootstrap Notification Section -->
+    <section class="message">
+      {% if messages %}
+        <div id="django-messages" class="container-fluid">
+          {% for message in messages %}
+            <div class="alert 
+              {% if 'success' in message.tags %}alert-success
+              {% elif 'info' in message.tags %}alert-info
+              {% elif 'warning' in message.tags %}alert-warning
+              {% elif 'error' in message.tags %}alert-danger
+              {% else %}alert-secondary{% endif %}
+              alert-dismissible fade show" role="alert">
+              <i class="fas 
+                {% if 'success' in message.tags %}fa-check-circle
+                {% elif 'info' in message.tags %}fa-info-circle
+                {% elif 'warning' in message.tags %}fa-exclamation-triangle
+                {% elif 'error' in message.tags %}fa-times-circle
+                {% else %}fa-bell{% endif %} me-2"></i>
+              {{ message }}
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </section>
+
     <div class="wrapper">
       <form method="POST">
         {% csrf_token %}
@@ -189,7 +55,7 @@
           <label>Password</label>
         </div>
 
-        <div class="row">
+        <div class="d-flex justify-content-between align-items-center">
           <label><input type="checkbox" />Remember me</label>
           <a href="#">Forgot password?</a>
         </div>
@@ -201,5 +67,23 @@
         </div>
       </form>
     </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Auto-dismiss Bootstrap alerts after 5 seconds
+      document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('#django-messages .alert');
+        alerts.forEach(alert => {
+          setTimeout(() => {
+            const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+            alert.classList.add('hiding');
+            setTimeout(() => {
+              bsAlert.close();
+            }, 300);
+          }, 5000);
+        });
+      });
+    </script>
   </body>
 </html>

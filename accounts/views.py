@@ -32,6 +32,13 @@ def register_view(request):
         if len(password1) < 8:
             return render(request, 'accounts/register.html', {'error': 'Password must be at least 8 characters long'})
 
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists')
+            return render(request, 'accounts/register.html')
+        if Profile.objects.filter(phone=phone).exists():
+            messages.error(request, 'Phone number already exists')
+            return render(request, 'accounts/register.html')
+
         user = User.objects.create_user(username=username, password=password1)
         profile = Profile.objects.create(user=user, phone=phone)
         profile.save()
@@ -45,21 +52,23 @@ def register_view(request):
 
 def login_view(request):
     if request.method == 'POST':
-        phone = request.POST.get('phone')
-        password = request.POST.get('password')
+        phone = request.POST.get('phone', '').strip()
+        password = request.POST.get('password', '').strip()
 
-        profile = Profile.objects.get(phone=phone)
-        username = profile.user.username
+        try:
+            profile = Profile.objects.get(phone=phone)
+            username = profile.user.username
+        except Profile.DoesNotExist:
+            messages.error(request, 'Invalid phone number or password.')
+            return render(request, 'accounts/login.html')
+
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
-            next_url = request.GET.get('next')
-            if next_url:
-                next_url = next_url.strip()
-            else:
-                next_url = 'accounts:dashboard'
-            messages.success(request, 'Login successful')
-            return redirect('accounts:dashboard')
+            next_url = request.GET.get('next', 'accounts:dashboard')
+            messages.success(request, 'Login successful.')
+            return redirect(next_url)
         else:
             messages.error(request, 'Invalid username or password')
             return render(request, 'accounts/login.html')

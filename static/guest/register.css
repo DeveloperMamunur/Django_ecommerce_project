@@ -1,0 +1,286 @@
+   @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+   * {
+       font-family: "Poppins", sans-serif;
+       margin: 0;
+       padding: 0;
+       box-sizing: border-box;
+   }
+
+   body {
+       min-height: 100vh;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       background: linear-gradient(135deg, #0f6edbff 0%, #00faddff 100%);
+       background-size: cover;
+       background-position: center;
+       padding: 20px 0;
+   }
+
+   .wrapper {
+       position: relative;
+       width: 480px;
+       min-height: 520px;
+       background: transparent;
+       border: 2px solid rgba(255, 255, 255, 0.5);
+       border-radius: 20px;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       backdrop-filter: blur(15px);
+       margin: 20px 0;
+   }
+
+   .wrapper form {
+       width: 100%;
+       padding: 40px;
+   }
+
+   .wrapper h1 {
+       font-size: 2em;
+       color: #fff;
+       text-align: center;
+       margin-bottom: 30px;
+   }
+
+   .wrapper .input-box {
+       position: relative;
+       width: 100%;
+       margin: 25px 0;
+       border-bottom: 2px solid #fff;
+   }
+
+   .wrapper .input-box input {
+       width: 100%;
+       height: 50px;
+       background: transparent;
+       outline: none;
+       border: none;
+       font-size: 1em;
+       color: #fff;
+       padding: 0 40px 0 5px;
+   }
+
+   .wrapper .input-box input::placeholder {
+       color: transparent;
+   }
+
+   .wrapper .input-box label {
+       position: absolute;
+       top: 50%;
+       left: 5px;
+       transform: translateY(-50%);
+       font-size: 1em;
+       color: #fff;
+       pointer-events: none;
+       transition: 0.5s;
+   }
+
+   .wrapper .input-box input:focus~label,
+   .wrapper .input-box input:not(:placeholder-shown)~label {
+       top: -5px;
+       font-size: 0.8em;
+   }
+
+   .wrapper .input-box .icon {
+       position: absolute;
+       right: 8px;
+       color: #fff;
+       font-size: 1.2em;
+       line-height: 57px;
+   }
+
+   .wrapper .row {
+       margin: 15px 0;
+       font-size: 0.9em;
+       color: #fff;
+       display: flex;
+       align-items: center;
+       gap: 8px;
+   }
+
+   .wrapper .row input[type="checkbox"] {
+       width: auto;
+       height: auto;
+       margin: 0;
+       accent-color: #fff;
+   }
+
+   .wrapper .row a {
+       color: #fff;
+       text-decoration: none;
+   }
+
+   .wrapper .row a:hover {
+       text-decoration: underline;
+   }
+
+   .wrapper .btn {
+       width: 100%;
+       height: 45px;
+       background: #fff;
+       outline: none;
+       border: none;
+       border-radius: 40px;
+       cursor: pointer;
+       font-size: 1em;
+       font-weight: 500;
+       color: #000;
+       margin-top: 20px;
+       transition: all 0.3s ease;
+   }
+
+   .wrapper .btn:hover {
+       background: #f0f0f0;
+       transform: translateY(-2px);
+       box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+   }
+
+   .wrapper .login-link {
+       font-size: 0.9em;
+       color: #fff;
+       text-align: center;
+       margin: 25px 0 10px;
+   }
+
+   .wrapper .login-link a {
+       color: #fff;
+       text-decoration: none;
+       font-weight: 600;
+   }
+
+   .wrapper .login-link a:hover {
+       text-decoration: underline;
+   }
+
+   .password-strength {
+       font-size: 0.8em;
+       color: #fff;
+       margin-top: 5px;
+       opacity: 0.8;
+   }
+
+   .strength-bar {
+       width: 100%;
+       height: 4px;
+       background: rgba(255, 255, 255, 0.3);
+       border-radius: 2px;
+       margin-top: 5px;
+       overflow: hidden;
+   }
+
+   .strength-fill {
+       height: 100%;
+       width: 0%;
+       background: linear-gradient(90deg, #ff4757, #ffa502, #2ed573);
+       transition: width 0.3s ease;
+   }
+
+   .error-message {
+       color: #ff4757;
+       font-size: 0.8em;
+       margin-top: 5px;
+       opacity: 0;
+       transition: opacity 0.3s ease;
+   }
+
+   .error-message.show {
+       opacity: 1;
+   }
+
+   /* Bootstrap Notification Customization */
+   #django-messages {
+       position: fixed;
+       top: 20px;
+       right: 20px;
+       z-index: 9999;
+       max-width: 400px;
+   }
+
+   #django-messages .alert {
+       backdrop-filter: blur(10px);
+       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+       border-radius: 10px;
+       margin-bottom: 10px;
+       animation: slideIn 0.3s ease-out;
+       min-width: 300px;
+       border-left-width: 4px;
+   }
+
+   @keyframes slideIn {
+       from {
+           transform: translateX(400px);
+           opacity: 0;
+       }
+
+       to {
+           transform: translateX(0);
+           opacity: 1;
+       }
+   }
+
+   @keyframes slideOut {
+       to {
+           transform: translateX(400px);
+           opacity: 0;
+       }
+   }
+
+   #django-messages .alert.hiding {
+       animation: slideOut 0.3s ease-in forwards;
+   }
+
+   #django-messages .alert-success {
+       background: rgba(40, 167, 69, 0.95);
+       border-left-color: #1e7e34;
+   }
+
+   #django-messages .alert-info {
+       background: rgba(23, 162, 184, 0.95);
+       border-left-color: #117a8b;
+   }
+
+   #django-messages .alert-warning {
+       background: rgba(255, 193, 7, 0.95);
+       color: #212529;
+       border-left-color: #d39e00;
+   }
+
+   #django-messages .alert-danger {
+       background: rgba(220, 53, 69, 0.95);
+       border-left-color: #bd2130;
+   }
+
+   #django-messages .alert-secondary {
+       background: rgba(108, 117, 125, 0.95);
+       border-left-color: #545b62;
+   }
+
+   @media (max-width: 480px) {
+       .wrapper {
+           width: 95%;
+           min-height: auto;
+           border: none;
+           border-radius: 0px;
+           margin: 0;
+       }
+
+       .wrapper form {
+           padding: 30px 20px;
+       }
+
+       .wrapper .input-box {
+           width: 100%;
+       }
+
+       #django-messages {
+           right: 10px;
+           left: 10px;
+           max-width: none;
+       }
+
+       #django-messages .alert {
+           min-width: auto;
+       }
+   }
