@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
+from core.permissions import CheckUserPermission
 
 
 # Create your views here.
@@ -87,6 +88,8 @@ def dashboard_view(request):
 
 @login_required(login_url='accounts:login')
 def all_user_list_view(request):
+    if not CheckUserPermission(request, 'can_view', 'accounts:all_user_list'):
+        return render(request, '403.html')
     searchQ = request.GET.get('search')
     roleQ = request.GET.get('role', '')
 
@@ -119,6 +122,8 @@ def all_user_list_view(request):
 
 @login_required(login_url='accounts:login')
 def user_activity_list(request):
+    if not CheckUserPermission(request, 'can_view', 'accounts:user_activity_list'):
+        return render(request, '403.html')
     activities = UserActivity.objects.select_related('user').all()
     return render(request, 'accounts/users/user_activity_list.html', {
         'activities': activities,
@@ -128,6 +133,8 @@ def user_activity_list(request):
 
 @login_required(login_url='accounts:login')
 def user_access_log_list(request):
+    if not CheckUserPermission(request, 'can_view', 'accounts:user_access_log_list'):
+        return render(request, '403.html')
     logs = UserAccessLog.objects.select_related('user').order_by('-login_time')[:100]
     return render(request, 'accounts/users/user_access_log_list.html', {
         'logs': logs
@@ -135,6 +142,8 @@ def user_access_log_list(request):
 
 @login_required(login_url='accounts:login')
 def user_detail_view(request, user_id):
+    if not CheckUserPermission(request, 'can_view', 'accounts:user_detail'):
+        return render(request, '403.html')
     user = User.objects.get(id=user_id)
     return render(request, 'accounts/users/user_detail.html', {
         'user': user
@@ -142,6 +151,8 @@ def user_detail_view(request, user_id):
 
 @login_required(login_url='accounts:login')
 def toggle_user_status(request, user_id):
+    if not CheckUserPermission(request, 'can_update', 'accounts:toggle_user_status'):
+        return render(request, '403.html')
     user = User.objects.get(id=user_id)
     user.is_active = not user.is_active
     user.save()

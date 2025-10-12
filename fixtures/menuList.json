@@ -1,0 +1,97 @@
+[
+    {
+        "model": "core.MenuList",
+        "pk": 1,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "All Users List",
+            "menu_url": "accounts:all_user_list",
+            "menu_icon": "bi bi-people",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 3,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 2,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "Users Activity List",
+            "menu_url": "accounts:user_activity_list",
+            "menu_icon": "bi bi-graph-up-arrow",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 3,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 3,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "Users Access Logs",
+            "menu_url": "accounts:user_access_log_list",
+            "menu_icon": "bi bi-journal-text",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 3,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 4,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "Users Details",
+            "menu_url": "accounts:user_detail",
+            "menu_icon": "bi bi-person-vcard",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 3,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 5,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "Toggle User Status",
+            "menu_url": "accounts:toggle_user_status",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 3,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    }
+]
