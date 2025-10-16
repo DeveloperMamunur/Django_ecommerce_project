@@ -1,0 +1,182 @@
+[
+  {
+    "model": "products.Brand",
+    "pk": 1,
+    "fields": {
+      "name": "Nike",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+      "description": "Nike sportswear and footwear",
+      "is_active": true,
+      "created_at": "2023-06-01T10:00:00Z",
+      "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 2,
+    "fields": {
+      "name": "Adidas",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",
+      "description": "Adidas sports and lifestyle products",
+      "is_active": true,
+      "created_at": "2023-06-02T10:00:00Z",
+      "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 3,
+    "fields": {
+      "name": "Puma",
+      "image": "https://logo.clearbit.com/puma.com",
+      "description": "Puma athletic and casual footwear",
+      "is_active": true,
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 4,
+    "fields": {
+      "name": "Reebok",
+      "image": "https://logo.clearbit.com/reebok.com",
+      "description": "Reebok shoes, apparel, and accessories",
+      "is_active": true,
+      "created_at": "2023-06-04T10:00:00Z",
+      "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 5,
+    "fields": {
+      "name": "Under Armour",
+      "image": "https://logo.clearbit.com/underarmour.com",
+      "description": "Under Armour performance apparel",
+      "is_active": true,
+      "created_at": "2023-06-05T10:00:00Z",
+      "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 6,
+    "fields": {
+      "name": "Canon",
+      "image": "https://logo.clearbit.com/canon.com",
+      "description": "Canon cameras and imaging devices",
+      "is_active": true,
+      "created_at": "2023-06-06T10:00:00Z",
+      "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 7,
+    "fields": {
+      "name": "Nikon",
+      "image": "https://logo.clearbit.com/nikon.com",
+      "description": "Nikon cameras and optics",
+      "is_active": true,
+      "created_at": "2023-06-07T10:00:00Z",
+      "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 8,
+    "fields": {
+      "name": "Sony",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Sony_logo.svg",
+      "description": "Sony electronics and entertainment",
+      "is_active": true,
+      "created_at": "2023-06-08T10:00:00Z",
+      "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 9,
+    "fields": {
+      "name": "Samsung",
+      "image": "https://logo.clearbit.com/samsung.com",
+      "description": "Samsung electronics and appliances",
+      "is_active": true,
+      "created_at": "2023-06-09T10:00:00Z",
+      "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 10,
+    "fields": {
+      "name": "LG",
+      "image": "https://logo.clearbit.com/lg.com",
+      "description": "LG home electronics and appliances",
+      "is_active": true,
+      "created_at": "2023-06-10T10:00:00Z",
+      "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 11,
+    "fields": {
+      "name": "Apple",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      "description": "Apple electronics and devices",
+      "is_active": true,
+      "created_at": "2023-06-11T10:00:00Z",
+      "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 12,
+    "fields": {
+      "name": "Microsoft",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
+      "description": "Microsoft software and devices",
+      "is_active": true,
+      "created_at": "2023-06-12T10:00:00Z",
+      "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 13,
+    "fields": {
+      "name": "Bosch",
+      "image": "https://logo.clearbit.com/bosch.com",
+      "description": "Bosch home appliances and tools",
+      "is_active": true,
+      "created_at": "2023-06-13T10:00:00Z",
+      "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 14,
+    "fields": {
+      "name": "Panasonic",
+      "image": "https://logo.clearbit.com/panasonic.com",
+      "description": "Panasonic electronics and appliances",
+      "is_active": true,
+      "created_at": "2023-06-14T10:00:00Z",
+      "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.Brand",
+    "pk": 15,
+    "fields": {
+      "name": "Philips",
+      "image": "https://logo.clearbit.com/philips.com",
+      "description": "Philips home appliances and electronics",
+      "is_active": true,
+      "created_at": "2023-06-15T10:00:00Z",
+      "updated_at": "2023-06-15T10:00:00Z"
+    }
+  }
+]

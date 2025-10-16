@@ -1,0 +1,62 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Upload Images for {{ product.name }}</h3>
+        <a href="{% url 'products:product_image_list' product.id %}" class="btn btn-primary mt-3">Back</a>
+    </div>
+
+  <!-- Image Upload Form -->
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="id_image" class="form-label fw-bold">Select Images</label>
+      {{ form.image }}
+    </div>
+
+    <!--  Preview Area -->
+    <div id="preview" class="row mt-3"></div>
+
+    <button type="submit" class="btn btn-primary mt-3">Upload</button>
+  </form>
+</div>
+
+<!-- JavaScript for Image Preview -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('id_image');
+  const preview = document.getElementById('preview');
+
+  if (input) {
+    input.addEventListener('change', function() {
+      preview.innerHTML = ''; 
+
+      const files = input.files;
+      if (files.length === 0) return;
+
+      Array.from(files).forEach(file => {
+        if (!file.type.startsWith('image/')) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const col = document.createElement('div');
+          col.classList.add('col-md-3', 'mb-3');
+
+          col.innerHTML = `
+            <div class="card shadow-sm">
+              <img src="${e.target.result}" class="card-img-top" style="height:180px;object-fit:cover;border-radius:6px;">
+            </div>
+          `;
+
+          preview.appendChild(col);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+  }
+});
+</script>
+{% endblock %}

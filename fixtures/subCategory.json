@@ -1,0 +1,392 @@
+[
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 1,
+    "fields": {
+        "main_category": 1,
+        "name": "Laptops",
+        "slug": "laptops",
+        "image": "https://example.com/laptops.jpg",
+        "is_active": true,
+        "created_at": "2023-06-01T10:00:00Z",
+        "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 2,
+    "fields": {
+        "main_category": 1,
+        "name": "Mobile Phones",
+        "slug": "mobile-phones",
+        "image": "https://example.com/mobile_phones.jpg",
+        "is_active": true,
+        "created_at": "2023-06-02T10:00:00Z",
+        "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 3,
+    "fields": {
+        "main_category": 1,
+        "name": "Cameras",
+        "slug": "cameras",
+        "image": "https://example.com/cameras.jpg",
+        "is_active": true,
+        "created_at": "2023-06-03T10:00:00Z",
+        "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 4,
+    "fields": {
+        "main_category": 2,
+        "name": "Men Clothing",
+        "slug": "men-clothing",
+        "image": "https://example.com/men_clothing.jpg",
+        "is_active": true,
+        "created_at": "2023-06-04T10:00:00Z",
+        "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 5,
+    "fields": {
+        "main_category": 2,
+        "name": "Women Clothing",
+        "slug": "women-clothing",
+        "image": "https://example.com/women_clothing.jpg",
+        "is_active": true,
+        "created_at": "2023-06-05T10:00:00Z",
+        "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 6,
+    "fields": {
+        "main_category": 2,
+        "name": "Footwear",
+        "slug": "footwear",
+        "image": "https://example.com/footwear.jpg",
+        "is_active": true,
+        "created_at": "2023-06-06T10:00:00Z",
+        "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 7,
+    "fields": {
+        "main_category": 3,
+        "name": "Furniture",
+        "slug": "furniture",
+        "image": "https://example.com/furniture.jpg",
+        "is_active": true,
+        "created_at": "2023-06-07T10:00:00Z",
+        "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 8,
+    "fields": {
+        "main_category": 3,
+        "name": "Kitchen Appliances",
+        "slug": "kitchen-appliances",
+        "image": "https://example.com/kitchen_appliances.jpg",
+        "is_active": true,
+        "created_at": "2023-06-08T10:00:00Z",
+        "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 9,
+    "fields": {
+        "main_category": 3,
+        "name": "Home Decor",
+        "slug": "home-decor",
+        "image": "https://example.com/home_decor.jpg",
+        "is_active": true,
+        "created_at": "2023-06-09T10:00:00Z",
+        "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 10,
+    "fields": {
+        "main_category": 4,
+        "name": "Fitness Equipment",
+        "slug": "fitness-equipment",
+        "image": "https://example.com/fitness_equipment.jpg",
+        "is_active": true,
+        "created_at": "2023-06-10T10:00:00Z",
+        "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 11,
+    "fields": {
+        "main_category": 4,
+        "name": "Outdoor Gear",
+        "slug": "outdoor-gear",
+        "image": "https://example.com/outdoor_gear.jpg",
+        "is_active": true,
+        "created_at": "2023-06-11T10:00:00Z",
+        "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 12,
+    "fields": {
+        "main_category": 5,
+        "name": "Skincare",
+        "slug": "skincare",
+        "image": "https://example.com/skincare.jpg",
+        "is_active": true,
+        "created_at": "2023-06-12T10:00:00Z",
+        "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 13,
+    "fields": {
+        "main_category": 5,
+        "name": "Makeup",
+        "slug": "makeup",
+        "image": "https://example.com/makeup.jpg",
+        "is_active": true,
+        "created_at": "2023-06-13T10:00:00Z",
+        "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 14,
+    "fields": {
+        "main_category": 6,
+        "name": "Action Figures",
+        "slug": "action-figures",
+        "image": "https://example.com/action_figures.jpg",
+        "is_active": true,
+        "created_at": "2023-06-14T10:00:00Z",
+        "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 15,
+    "fields": {
+        "main_category": 6,
+        "name": "Board Games",
+        "slug": "board-games",
+        "image": "https://example.com/board_games.jpg",
+        "is_active": true,
+        "created_at": "2023-06-15T10:00:00Z",
+        "updated_at": "2023-06-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 16,
+    "fields": {
+        "main_category": 7,
+        "name": "Car Accessories",
+        "slug": "car-accessories",
+        "image": "https://example.com/car_accessories.jpg",
+        "is_active": true,
+        "created_at": "2023-06-16T10:00:00Z",
+        "updated_at": "2023-06-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 17,
+    "fields": {
+        "main_category": 7,
+        "name": "Motorbike Accessories",
+        "slug": "motorbike-accessories",
+        "image": "https://example.com/motorbike_accessories.jpg",
+        "is_active": true,
+        "created_at": "2023-06-17T10:00:00Z",
+        "updated_at": "2023-06-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 18,
+    "fields": {
+        "main_category": 8,
+        "name": "Fiction Books",
+        "slug": "fiction-books",
+        "image": "https://example.com/fiction_books.jpg",
+        "is_active": true,
+        "created_at": "2023-06-18T10:00:00Z",
+        "updated_at": "2023-06-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 19,
+    "fields": {
+        "main_category": 8,
+        "name": "Non-Fiction Books",
+        "slug": "non-fiction-books",
+        "image": "https://example.com/nonfiction_books.jpg",
+        "is_active": true,
+        "created_at": "2023-06-19T10:00:00Z",
+        "updated_at": "2023-06-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 20,
+    "fields": {
+        "main_category": 9,
+        "name": "Supplements",
+        "slug": "supplements",
+        "image": "https://example.com/supplements.jpg",
+        "is_active": true,
+        "created_at": "2023-06-20T10:00:00Z",
+        "updated_at": "2023-06-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 21,
+    "fields": {
+        "main_category": 9,
+        "name": "Exercise Gear",
+        "slug": "exercise-gear",
+        "image": "https://example.com/exercise_gear.jpg",
+        "is_active": true,
+        "created_at": "2023-06-21T10:00:00Z",
+        "updated_at": "2023-06-21T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 22,
+    "fields": {
+        "main_category": 10,
+        "name": "Dog Supplies",
+        "slug": "dog-supplies",
+        "image": "https://example.com/dog_supplies.jpg",
+        "is_active": true,
+        "created_at": "2023-06-22T10:00:00Z",
+        "updated_at": "2023-06-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 23,
+    "fields": {
+        "main_category": 10,
+        "name": "Cat Supplies",
+        "slug": "cat-supplies",
+        "image": "https://example.com/cat_supplies.jpg",
+        "is_active": true,
+        "created_at": "2023-06-23T10:00:00Z",
+        "updated_at": "2023-06-23T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 24,
+    "fields": {
+        "main_category": 11,
+        "name": "Beverages",
+        "slug": "beverages",
+        "image": "https://example.com/beverages.jpg",
+        "is_active": true,
+        "created_at": "2023-06-24T10:00:00Z",
+        "updated_at": "2023-06-24T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 25,
+    "fields": {
+        "main_category": 11,
+        "name": "Snacks",
+        "slug": "snacks",
+        "image": "https://example.com/snacks.jpg",
+        "is_active": true,
+        "created_at": "2023-06-25T10:00:00Z",
+        "updated_at": "2023-06-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 26,
+    "fields": {
+        "main_category": 12,
+        "name": "Writing Supplies",
+        "slug": "writing-supplies",
+        "image": "https://example.com/writing_supplies.jpg",
+        "is_active": true,
+        "created_at": "2023-06-26T10:00:00Z",
+        "updated_at": "2023-06-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 27,
+    "fields": {
+        "main_category": 12,
+        "name": "Paper & Notebooks",
+        "slug": "paper-notebooks",
+        "image": "https://example.com/paper_notebooks.jpg",
+        "is_active": true,
+        "created_at": "2023-06-27T10:00:00Z",
+        "updated_at": "2023-06-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 28,
+    "fields": {
+        "main_category": 12,
+        "name": "Office Equipment",
+        "slug": "office-equipment",
+        "image": "https://example.com/office_equipment.jpg",
+        "is_active": true,
+        "created_at": "2023-06-28T10:00:00Z",
+        "updated_at": "2023-06-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 29,
+    "fields": {
+        "main_category": 3,
+        "name": "Lighting",
+        "slug": "lighting",
+        "image": "https://example.com/lighting.jpg",
+        "is_active": true,
+        "created_at": "2023-06-29T10:00:00Z",
+        "updated_at": "2023-06-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductSubCategory",
+    "pk": 30,
+    "fields": {
+        "main_category": 3,
+        "name": "Storage & Organization",
+        "slug": "storage-organization",
+        "image": "https://example.com/storage_organization.jpg",
+        "is_active": true,
+        "created_at": "2023-06-30T10:00:00Z",
+        "updated_at": "2023-06-30T10:00:00Z"
+    }
+  }
+]

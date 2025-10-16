@@ -1,0 +1,42 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Variants for {{ product.name }}</h3>
+    <div class="d-flex gap-2">
+      <a href="{% url 'products:product_list' %}" class="btn btn-primary"><i class="bi bi-arrow-left"></i>Back</a>
+      <a href="{% url 'products:variant_create' product.id %}" class="btn btn-primary"><i class="bi bi-plus"></i> Add Variant</a>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Variant Name</th>
+        <th>Value</th>
+        <th>Price Diff</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in variants %}
+      <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ v.variant_name }}</td>
+        <td>{{ v.value }}</td>
+        <td>{{ v.price_difference }}</td>
+        <td>
+          <a href="{% url 'products:variant_update' v.id %}" class="btn btn-sm btn-warning">Edit</a>
+          <a href="{% url 'products:variant_delete' v.id %}" class="btn btn-sm btn-danger"
+             onclick="return confirm('Are you sure?')">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="text-center text-muted">No variants yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'master.html' %}
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>{{ form.instance.id|yesno:"Edit Variant,Add Variant" }} for {{ product.name }}</h3>
+    <a href="{% url 'products:variant_list' product.id %}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Back</a>
+  </div>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Variant Name</label>
+      {{ form.variant_name }}
+    </div>
+    <div class="mb-3">
+      <label>Value</label>
+      {{ form.value }}
+    </div>
+    <div class="mb-3">
+      <label>Price Difference</label>
+      {{ form.price_difference }}
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{% url 'products:variant_list' product.id %}" class="btn btn-secondary">Cancel</a>
+  </form>
+</div>
+{% endblock %}

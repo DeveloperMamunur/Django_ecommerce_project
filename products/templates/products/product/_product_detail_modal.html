@@ -1,0 +1,51 @@
+<div class="modal-header">
+  <h5 class="modal-title fw-bold">{{ product.name }}</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-5 text-center">
+      {% if images %}
+        {% with primary_image=images|first %}
+            <img src="{{ primary_image.get_image_url }}" alt="{{ product.name }}" class="img-fluid rounded mb-3">
+        {% endwith %}
+        {% else %}
+            <img src="https://via.placeholder.com/300x300?text=No+Image" class="img-fluid rounded mb-3">
+        {% endif %}
+      {% if images|length > 1 %}
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        {% for img in images %}
+          <img src="{{ img.get_image_url }}" alt="thumb" class="img-thumbnail" style="width: 60px; height: 60px;">
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-7">
+      <p><strong>Category:</strong> {{ product.main_category.name }} / {{ product.sub_category.name|default:"-" }}</p>
+      <p><strong>Brand:</strong> {{ product.brand.name|default:"-" }}</p>
+      <p><strong>Price:</strong> {{ product.price }}</p>
+      <p><strong>Sale Price:</strong> {{ product.sale_price|default:"-" }}</p>
+      <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+      <p><strong>Description:</strong> {{ product.description|default:"-" }}</p>
+    </div>
+  </div>
+
+  {% if variants %}
+    <hr>
+    <h6>Variants</h6>
+    <table class="table table-sm table-bordered">
+      <thead>
+        <tr><th>Name</th><th>Value</th><th>Price Diff</th></tr>
+      </thead>
+      <tbody>
+        {% for v in variants %}
+          <tr>
+            <td>{{ v.variant_name }}</td>
+            <td>{{ v.value }}</td>
+            <td>{{ v.price_difference }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+</div>

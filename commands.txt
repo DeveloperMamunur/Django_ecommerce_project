@@ -1,1 +1,10 @@
+python manage.py loaddata fixtures/users.json
+python manage.py loaddata fixtures/profile.json
+
 python manage.py loaddata fixtures/menuList.json
+
+python manage.py loaddata fixtures/Brand.json
+python manage.py loaddata fixtures/mainCategory.json
+python manage.py loaddata fixtures/subCategory.json
+python manage.py loaddata fixtures/products.json
+python manage.py loaddata fixtures/productImages.json

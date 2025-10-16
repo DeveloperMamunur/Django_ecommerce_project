@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Images for {{ product.name }}</h3>
+    <div>
+        <a href="{% url 'products:product_list' %}" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Back</a>
+        <a href="{% url 'products:product_image_upload' product.id %}" class="btn btn-success">Upload New</a>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for img in images %}
+    <div class="col-md-3 mb-4">
+      <div class="card shadow-sm">
+        <img src="{{ img.get_image_url }}" alt="{{ product.name }}" class="card-img-top" style="height:200px; object-fit:cover;">
+        <div class="card-body text-center">
+          {% if img.is_primary %}
+            <span class="badge bg-success mb-2">Primary</span><br>
+          {% else %}
+            <a href="{% url 'products:set_primary_image' img.id %}" class="btn btn-sm btn-outline-primary">Set Primary</a><br>
+          {% endif %}
+          <a href="{% url 'products:delete_product_image' img.id %}" class="btn btn-sm btn-outline-danger mt-2"
+             onclick="return confirm('Are you sure to delete this image?');">
+             Delete
+          </a>
+        </div>
+      </div>
+    </div>
+    {% empty %}
+      <p class="text-muted text-center">No images uploaded yet.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

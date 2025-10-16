@@ -9,7 +9,7 @@
             "menu_icon": "bi bi-people",
             "menu_type": "main",
             "parent": null,
-            "created_by": 3,
+            "created_by": 1,
             "created_at": "2025-10-10T17:58:40",
             "updated_at": "2025-10-10T17:58:40",
             "updated_by": null,
@@ -28,7 +28,7 @@
             "menu_icon": "bi bi-graph-up-arrow",
             "menu_type": "main",
             "parent": null,
-            "created_by": 3,
+            "created_by": 1,
             "created_at": "2025-10-10T17:58:40",
             "updated_at": "2025-10-10T17:58:40",
             "updated_by": null,
@@ -47,7 +47,7 @@
             "menu_icon": "bi bi-journal-text",
             "menu_type": "main",
             "parent": null,
-            "created_by": 3,
+            "created_by": 1,
             "created_at": "2025-10-10T17:58:40",
             "updated_at": "2025-10-10T17:58:40",
             "updated_by": null,
@@ -66,7 +66,7 @@
             "menu_icon": "bi bi-person-vcard",
             "menu_type": "main",
             "parent": null,
-            "created_by": 3,
+            "created_by": 1,
             "created_at": "2025-10-10T17:58:40",
             "updated_at": "2025-10-10T17:58:40",
             "updated_by": null,
@@ -85,7 +85,539 @@
             "menu_icon": "bi bi-toggle-on",
             "menu_type": "main",
             "parent": null,
-            "created_by": 3,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 6,
+        "fields": {
+            "module_name": "Accounts",
+            "menu_name": "Delete User",
+            "menu_url": "accounts:delete_user",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 7,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Brand List",
+            "menu_url": "products:brand_list",
+            "menu_icon": "bi bi-tags",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 8,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Brand Status",
+            "menu_url": "products:toggle_brand_status",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 9,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Brand Delete",
+            "menu_url": "products:delete_brand",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 10,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Main Category List",
+            "menu_url": "products:product_main_category",
+            "menu_icon": "bi bi-list",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 11,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Main Category Status",
+            "menu_url": "products:toggle_category_status",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 12,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Main Category Delete",
+            "menu_url": "products:delete_category",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 13,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Sub Category List",
+            "menu_url": "products:product_sub_category",
+            "menu_icon": "bi bi-list",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 14,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Sub Category Status",
+            "menu_url": "products:toggle_sub_category_status",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 15,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Sub Category Delete",
+            "menu_url": "products:delete_sub_category",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 16,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product List",
+            "menu_url": "products:product_list",
+            "menu_icon": "bi bi-grid",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 17,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Status",
+            "menu_url": "products:toggle_product_status",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 18,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Delete",
+            "menu_url": "products:delete_product",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 19,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Details",
+            "menu_url": "products:product_details",
+            "menu_icon": "bi bi-file-earmark-text",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 20,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Edit",
+            "menu_url": "products:edit_product",
+            "menu_icon": "bi bi-pencil",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 21,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Featured",
+            "menu_url": "products:toggle_product_feature",
+            "menu_icon": "bi bi-toggle-on",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 22,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Images",
+            "menu_url": "products:product_image_list",
+            "menu_icon": "bi bi-images",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 23,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Image Upload",
+            "menu_url": "products:product_image_upload",
+            "menu_icon": "bi bi-upload",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 24,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Primary Image",
+            "menu_url": "products:set_primary_image",
+            "menu_icon": "bi bi-image",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 25,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Delete Image",
+            "menu_url": "products:delete_product_image",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 26,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Variants",
+            "menu_url": "products:variant_list",
+            "menu_icon": "bi bi-list",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 27,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Variants Create",
+            "menu_url": "products:variant_create",
+            "menu_icon": "bi bi-plus-circle",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 28,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Variants Update",
+            "menu_url": "products:variant_update",
+            "menu_icon": "bi bi-pencil",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 29,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Variants Delete",
+            "menu_url": "products:variant_delete",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 30,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Inventory",
+            "menu_url": "products:inventory_log_list",
+            "menu_icon": "bi bi-list",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 31,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Inventory Create",
+            "menu_url": "products:inventory_log_create",
+            "menu_icon": "bi bi-plus-circle",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 32,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Inventory Update",
+            "menu_url": "products:inventory_log_update",
+            "menu_icon": "bi bi-pencil",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
+            "created_at": "2025-10-10T17:58:40",
+            "updated_at": "2025-10-10T17:58:40",
+            "updated_by": null,
+            "deleted_at": null,
+            "deleted_by": null,
+            "is_active": true
+        }
+    },
+    {
+        "model": "core.MenuList",
+        "pk": 33,
+        "fields": {
+            "module_name": "Products",
+            "menu_name": "Product Inventory Delete",
+            "menu_url": "products:inventory_log_delete",
+            "menu_icon": "bi bi-trash",
+            "menu_type": "main",
+            "parent": null,
+            "created_by": 1,
             "created_at": "2025-10-10T17:58:40",
             "updated_at": "2025-10-10T17:58:40",
             "updated_by": null,

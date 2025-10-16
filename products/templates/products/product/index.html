@@ -1,0 +1,458 @@
+{% extends 'master.html' %}
+{% block content %}
+
+<h1 class="text-center mb-4">Product List</h1>
+
+<div class="container-fluid">
+    <!-- Filter & Add -->
+     <div class="d-flex justify-content-between align-items-center mb-3">
+        <form method="GET" class="d-flex gap-2 mb-3 w-50">
+          <input type="text" name="search" class="form-control" placeholder="Search products..." value="{{ search }}">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal"
+        onclick="resetProductForm()">+ Add New</button>
+     </div>
+    
+
+  <!-- 🎯 Filter -->
+    <form method="GET" class="row g-2 align-items-center mb-3">
+      <div class="col-md-3">
+        <select name="main_category" id="filter_main_category" class="form-select">
+          <option value="">All Main Categories</option>
+          {% for cat in main_categories %}
+            <option value="{{ cat.id }}" {% if selected_main_category == cat.id|stringformat:"s" %}selected{% endif %}>
+              {{ cat.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select name="sub_category" id="filter_sub_category" class="form-select">
+          <option value="">All Sub Categories</option>
+          {% for sub in sub_categories %}
+            <option value="{{ sub.id }}" {% if selected_sub_category == sub.id|stringformat:"s" %}selected{% endif %}>
+              {{ sub.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <select name="brand" class="form-select">
+          <option value="">All Brands</option>
+          {% for brand in brands %}
+            <option value="{{ brand.id }}" {% if selected_brand == brand.id|stringformat:"s" %}selected{% endif %}>
+              {{ brand.name }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-md-3">
+        <div class="d-flex gap-2">
+          <button type="submit" class="btn btn-outline-primary w-50">Filter</button>
+          <a href="{% url 'products:product_list' %}" class="btn btn-outline-secondary w-50">Reset</a>
+        </div>
+      </div>
+    </form>
+
+    <!-- Table -->
+    <div id="productTableContainer">
+    <table class="table table-bordered align-middle">
+        <thead class="">
+            <tr>
+                <th>Name</th>
+                <th>Main Category</th>
+                <th>Sub Category</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in products %}
+            <tr>
+                <td>{{ p.name }}</td>
+                <td>{{ p.main_category.name }}</td>
+                <td>{{ p.sub_category.name|default:"-" }}</td>
+                <td>{{ p.brand.name|default:"-" }}</td>
+                <td>{{ p.price }}</td>
+                <td>{{ p.quantity }}</td>
+                <td>
+                  {% if p.is_featured %}
+                    <span class="badge bg-primary"><i class="bi bi-star-fill"></i> Featured</span>
+                  {% else %}
+                    <span class="badge bg-secondary"><i class="bi bi-star"></i> Featured</span>
+                  {% endif %}
+                  {% if p.is_active %}
+                      <span class="badge bg-success">Active</span>
+                  {% else %}
+                      <span class="badge bg-danger">Inactive</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-outline-primary view-product-btn" data-id="{{ p.id }}">
+                    <i class="bi bi-eye"></i> View
+                  </button>
+                  <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                      data-bs-target="#editProductModal" data-id="{{ p.id }}">
+                      <i class="bi bi-pencil"></i> Edit
+                  </button>
+                  <a href="{% url 'products:delete_product' p.id %}" 
+                      class="btn btn-sm btn-outline-danger" 
+                      onclick="return confirm('Delete this product?')">
+                      <i class="bi bi-trash"></i> Delete
+                  </a>
+                  <a href="{% url 'products:toggle_product_feature' p.id %}" class="btn btn-sm {% if p.is_featured %}btn-outline-danger{% else %}btn-outline-primary{% endif %}">
+                    <i class="bi bi-star{% if not p.is_featured %}-fill{% endif %}"></i> Featured
+                  </a>
+                  
+                  <a href="{% url 'products:toggle_product_status' p.id %}" 
+                      class="btn btn-sm {% if p.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                      {% if p.is_active %}Inactive{% else %}Active{% endif %}
+                  </a>
+                  <a href="{% url 'products:product_image_list' p.id %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-images"></i> Images
+                  </a>
+                  <a href="{% url 'products:variant_list' p.id %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-gear-wide-connected"></i> Variants
+                  </a>
+                  <a href="{% url 'products:inventory_log_list' p.id %}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-cart-dash"></i> Inventory Log
+                  </a>
+                </td>
+            </tr>
+            {% empty %}
+              <tr>
+                <td colspan="8" class="text-center text-muted">No products found.</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% if page_obj.has_other_pages %}
+      <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">Previous</a>
+              </li>
+              {% endif %}
+              {% for num in page_obj.paginator.page_range %}
+                  {% if page_obj.number == num %}
+                  <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                  {% else %}
+                  <li class="page-item">
+                      <a class="page-link" href="?page={{ num }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">{{ num }}</a>
+                  </li>
+                  {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                  <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">Next</a>
+              </li>
+              {% endif %}
+          </ul>
+      </nav>
+    {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block modal %}
+<!-- Create Product Modal -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Create Product</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label>Name</label>
+              <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="col-md-6">
+              <label>Main Category</label>
+              <select name="main_category" id="main_category" class="form-select" required>
+                <option value="">Select</option>
+                {% for cat in main_categories %}
+                  <option value="{{ cat.id }}">{{ cat.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label>Sub Category</label>
+              <select name="sub_category" id="sub_category" class="form-select">
+                <option value="">Select</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label>Brand</label>
+              <select name="brand" class="form-select">
+                <option value="">Select</option>
+                {% for brand in brands %}
+                  <option value="{{ brand.id }}">{{ brand.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label>Price</label>
+              <input type="number" step="0.01" name="price" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label>Sale Price</label>
+              <input type="number" step="0.01" name="sale_price" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label>Quantity</label>
+              <input type="number" name="quantity" class="form-control">
+            </div>
+            <div class="col-md-12">
+              <label>Description</label>
+              <textarea name="description" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="editProductContent">
+      <!-- Loaded via AJAX -->
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="viewProductModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content" id="viewProductContent">
+      <!-- Product details loaded dynamically -->
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  function loadSubcategories(mainSelectId, subSelectId, defaultOptionText = "Select Sub Category") {
+    const mainSelect = document.getElementById(mainSelectId);
+    const subSelect = document.getElementById(subSelectId);
+    if (!mainSelect || !subSelect) return;
+
+    mainSelect.addEventListener('change', function () {
+      const mainCategoryId = this.value;
+      subSelect.innerHTML = `<option value="">Loading...</option>`;
+
+      fetch("{% url 'products:get_subcategories_ajax' %}?main_category_id=" + mainCategoryId)
+        .then(response => response.json())
+        .then(data => {
+          subSelect.innerHTML = `<option value="">${defaultOptionText}</option>`;
+          data.forEach(sub => {
+            const option = document.createElement('option');
+            option.value = sub.id;
+            option.textContent = sub.name;
+            subSelect.appendChild(option);
+          });
+        })
+        .catch(() => {
+          subSelect.innerHTML = `<option value="">Error loading</option>`;
+        });
+    });
+  }
+
+  // Apply for Create Product modal
+  loadSubcategories('main_category', 'sub_category', 'Select Sub Category');
+
+  // Apply for Edit Product modal
+  const editModal = document.getElementById('editProductModal');
+  if (editModal) {
+    editModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const productId = button.getAttribute('data-id');
+
+      fetch(`/dashboard/products/${productId}/edit/`)
+        .then(response => response.text())
+        .then(html => {
+          document.getElementById('editProductContent').innerHTML = html;
+          // Re-initialize subcategory loader for edit modal
+          setTimeout(() => {
+            loadSubcategories('edit_main_category', 'edit_sub_category', 'Select Sub Category');
+          }, 100);
+        });
+    });
+  }
+
+  // Apply for Filter section
+  loadSubcategories('filter_main_category', 'filter_sub_category', 'All Sub Categories');
+
+  // Search and Filter AJAX
+  const searchInput = document.querySelector('input[name="search"]');
+  const filterForm = document.querySelector('form.row.g-2');
+  const tableContainer = document.getElementById('productTableContainer');
+
+  let timeout = null;
+
+  function loadProducts(params) {
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.pushState({}, '', newUrl);
+
+    fetch(`?${params.toString()}`, { 
+      headers: {'X-Requested-With': 'XMLHttpRequest'} 
+    })
+    .then(res => res.json())
+    .then(data => {
+      tableContainer.innerHTML = data.html;
+    })
+    .catch(err => {
+      console.error('Error loading products:', err);
+    });
+  }
+
+  // Search with debounce
+  if (searchInput) {
+    searchInput.addEventListener('input', function () {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        const params = new URLSearchParams(window.location.search);
+        params.set('search', searchInput.value);
+        params.delete('page');
+        loadProducts(params);
+      }, 300);
+    });
+  }
+
+  // AJAX pagination
+  tableContainer.addEventListener('click', function(e) {
+    if (e.target.classList.contains('page-link') || e.target.closest('.page-link')) {
+      const link = e.target.classList.contains('page-link') ? e.target : e.target.closest('.page-link');
+      
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const url = new URL(link.href);
+      const params = url.searchParams;
+      loadProducts(params);
+    }
+  });
+
+  // Handle ONLY filter form submission (NOT modal forms)
+  if (filterForm) {
+    filterForm.addEventListener('submit', function(e) {
+      // Check if this form is inside a modal
+      if (!this.closest('.modal')) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const params = new URLSearchParams(formData);
+        loadProducts(params);
+      }
+    });
+  }
+});
+
+// View Product Modal
+document.addEventListener('click', function (e) {
+  const button = e.target.closest('.view-product-btn');
+  if (!button) return;
+  
+  e.preventDefault();
+  e.stopPropagation();
+
+  const productId = button.dataset.id;
+  if (!productId) {
+    console.error('No product ID found');
+    return;
+  }
+
+  const viewModal = document.getElementById('viewProductModal');
+  const modalContent = viewModal.querySelector('#viewProductContent');
+  
+  if (!viewModal || !modalContent) {
+    console.error('Modal elements not found');
+    return;
+  }
+
+  modalContent.innerHTML = '<div class="p-5 text-center"><div class="spinner-border" role="status"></div><p class="mt-2">Loading...</p></div>';
+  
+  const modal = new bootstrap.Modal(viewModal);
+  modal.show();
+
+  fetch(`/dashboard/products/${productId}/details/`, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'Accept': 'application/json'
+    }
+  })
+  .then(res => {
+    if (!res.ok) throw new Error('Network response was not ok');
+    return res.json();
+  })
+  .then(data => {
+    modalContent.innerHTML = data.html;
+  })
+  .catch(err => {
+    console.error('Error loading product details:', err);
+    modalContent.innerHTML = '<div class="p-3 text-danger">Error loading product details.</div>';
+  });
+});
+
+// Image thumbnail click handler
+document.addEventListener('click', function (e) {
+  if (e.target.classList.contains('img-thumbnail')) {
+    const modalBody = e.target.closest('.modal-body');
+    if (!modalBody) return;
+
+    const mainImg = modalBody.querySelector('.img-fluid.rounded');
+    const allThumbs = modalBody.querySelectorAll('.img-thumbnail');
+
+    allThumbs.forEach(img => img.classList.remove('border-primary'));
+    e.target.classList.add('border-primary');
+
+    if (mainImg) {
+      mainImg.src = e.target.src;
+    }
+  }
+});
+
+// Clean up modals on close
+const viewModal = document.getElementById('viewProductModal');
+if (viewModal) {
+  viewModal.addEventListener('hidden.bs.modal', () => {
+    document.body.classList.remove('modal-open');
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+    document.getElementById('viewProductContent').innerHTML = '';
+  });
+}
+
+const editModal = document.getElementById('editProductModal');
+if (editModal) {
+  editModal.addEventListener('hidden.bs.modal', () => {
+    document.body.classList.remove('modal-open');
+    document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+  });
+}
+
+// Reset create product form
+function resetProductForm() {
+  const form = document.querySelector('#productModal form');
+  if (form) {
+    form.reset();
+  }
+}
+</script>
+
+
+{% endblock %}

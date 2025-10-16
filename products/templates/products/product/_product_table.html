@@ -1,0 +1,101 @@
+<table class="table table-bordered align-middle">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Main Category</th>
+      <th>Sub Category</th>
+      <th>Brand</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+    <tr>
+      <td>{{ p.name }}</td>
+      <td>{{ p.main_category.name }}</td>
+      <td>{{ p.sub_category.name|default:"-" }}</td>
+      <td>{{ p.brand.name|default:"-" }}</td>
+      <td>{{ p.price }}</td>
+      <td>{{ p.quantity }}</td>
+      <td>
+        {% if p.is_featured %}
+          <span class="badge bg-primary"><i class="bi bi-star-fill"></i> Featured</span>
+        {% else %}
+          <span class="badge bg-secondary"><i class="bi bi-star"></i> Featured</span>
+        {% endif %}
+        {% if p.is_active %}
+          <span class="badge bg-success">Active</span>
+        {% else %}
+          <span class="badge bg-danger">Inactive</span>
+        {% endif %}
+      </td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary view-product-btn" data-id="{{ p.id }}" type="button">
+          <i class="bi bi-eye"></i> View
+        </button>
+        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+          data-bs-target="#editProductModal" data-id="{{ p.id }}" type="button">
+          <i class="bi bi-pencil"></i> Edit
+        </button>
+        <a href="{% url 'products:delete_product' p.id %}" 
+          class="btn btn-sm btn-outline-danger" 
+          onclick="return confirm('Delete this product?')">
+          <i class="bi bi-trash"></i> Delete
+        </a>
+        <a href="{% url 'products:toggle_product_feature' p.id %}" 
+          class="btn btn-sm {% if p.is_featured %}btn-outline-danger{% else %}btn-outline-primary{% endif %}">
+          <i class="bi bi-star{% if not p.is_featured %}-fill{% endif %}"></i> Featured
+        </a>
+        <a href="{% url 'products:toggle_product_status' p.id %}" 
+          class="btn btn-sm {% if p.is_active %}btn-danger{% else %}btn-success{% endif %}">
+          {% if p.is_active %}Inactive{% else %}Active{% endif %}
+        </a>
+        <a href="{% url 'products:product_image_list' p.id %}" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-images"></i> Images
+        </a>
+        <a href="{% url 'products:variant_list' p.id %}" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-gear-wide-connected"></i> Variants
+        </a>
+        <a href="{% url 'products:inventory_log_list' p.id %}" class="btn btn-sm btn-outline-primary">
+          <i class="bi bi-cart-dash"></i> Inventory Log
+        </a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="8" class="text-center text-muted">No products found.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% if page_obj.has_other_pages %}
+<nav aria-label="Page navigation">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">Previous</a>
+    </li>
+    {% endif %}
+    
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ num }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">{{ num }}</a>
+      </li>
+      {% endif %}
+    {% endfor %}
+    
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}&search={{ search }}&main_category={{ selected_main_category }}&sub_category={{ selected_sub_category }}&brand={{ selected_brand }}">Next</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}

@@ -21,6 +21,11 @@ class Brand(TimeStampedModel, SoftDeleteModel, AuditModel):
         verbose_name_plural = 'Brands'
         ordering = ['-is_active','name']
 
+    def get_image_url(self):
+        if str(self.image).startswith('http'):
+            return self.image
+        return f'/media/{self.image}'
+
 
 class ProductMainCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
     name = models.CharField(max_length=100, unique=True)
@@ -35,17 +40,22 @@ class ProductMainCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
         ordering = ['-is_active','cat_ordering']
 
     def __str__(self):
-        return self.main_cat_name
+        return self.name
+
+    def get_image_url(self):
+        if str(self.image).startswith('http'):
+            return self.image
+        return f'/media/{self.image}'
 
     def save(self, *args, **kwargs):
-        if not self.cat_slug and self.main_cat_name:
-            base_slug = slugify(self.main_cat_name)
+        if not self.slug and self.name:
+            base_slug = slugify(self.name)
             slug = base_slug
             num = 1
-            while ProductMainCategory.objects.filter(cat_slug=slug).exclude(pk=self.pk).exists():
+            while ProductMainCategory.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{num}"
                 num += 1
-            self.cat_slug = slug
+            self.slug = slug
         super().save(*args, **kwargs)
 
 
@@ -62,18 +72,22 @@ class ProductSubCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
         ordering = ['-is_active','sub_cat_ordering']
 
     def __str__(self):
-        return self.sub_cat_name
+        return self.name
 
     def save(self, *args, **kwargs):
-        if not self.sub_cat_slug and self.sub_cat_name:
-            base_slug = slugify(self.sub_cat_name)
+        if not self.slug and self.name:
+            base_slug = slugify(self.name)
             slug = base_slug
             num = 1
-            while ProductSubCategory.objects.filter(sub_cat_slug=slug).exclude(pk=self.pk).exists():
+            while ProductSubCategory.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{num}"
                 num += 1
-            self.sub_cat_slug = slug
+            self.slug = slug
         super().save(*args, **kwargs)
+    def get_image_url(self):
+        if str(self.image).startswith('http'):
+            return self.image
+        return f'/media/{self.image}'
 
 class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
     name = models.CharField(max_length=100, unique=True)
@@ -102,22 +116,22 @@ class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
         ordering = ['-is_active']
 
     def generate_sku(self):
-        cat = self.main_category.main_cat_name[:3].upper() if self.main_category else "XXX"
-        brand = self.brand.brand_name[:4].upper() if self.brand else "GEN"
+        cat = self.main_category.name[:3].upper() if self.main_category else "XXX"
+        brand = self.brand.name[:4].upper() if self.brand else "GEN"
         return f"{cat}-{brand}-{self.id}"
 
     def __str__(self):
-        return self.product_name
+        return self.name
 
     def save(self, *args, **kwargs):
-        if not self.product_slug and self.product_name:
-            base_slug = slugify(self.product_name)
+        if not self.slug and self.name:
+            base_slug = slugify(self.name)
             slug = base_slug
             num = 1
-            while Product.objects.filter(product_slug=slug).exclude(pk=self.pk).exists():
+            while Product.objects.filter(slug=slug).exclude(pk=self.pk).exists():
                 slug = f"{base_slug}-{num}"
                 num += 1
-            self.product_slug = slug
+            self.slug = slug
         super().save(*args, **kwargs)
 
 
@@ -134,13 +148,18 @@ class ProductImage(TimeStampedModel, SoftDeleteModel, AuditModel):
             self.is_primary = True
         super().save(*args, **kwargs)
 
+    def get_image_url(self):
+        if str(self.image).startswith('http'):
+            return self.image
+        return f'/media/{self.image}'
+
     class Meta:
         db_table = 'product_images'
         verbose_name_plural = 'Product Images'
         ordering = ['-is_active']
 
     def __str__(self):
-        return self.product.product_name
+        return self.product.name
 
 
 class ProductVariant(TimeStampedModel, SoftDeleteModel, AuditModel):

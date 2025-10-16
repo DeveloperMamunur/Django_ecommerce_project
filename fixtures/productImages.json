@@ -1,0 +1,2402 @@
+[
+  {
+    "model": "products.ProductImage",
+    "pk": 1,
+    "fields": {
+      "product": 1,
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-01T10:00:00Z",
+      "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 2,
+    "fields": {
+      "product": 1,
+      "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-01T10:00:00Z",
+      "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 3,
+    "fields": {
+      "product": 1,
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-01T10:00:00Z",
+      "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 4,
+    "fields": {
+      "product": 1,
+      "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-01T10:00:00Z",
+      "updated_at": "2023-06-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 5,
+    "fields": {
+      "product": 2,
+      "image": "https://images.unsplash.com/photo-1592286927505-ed6adb6d4994?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-02T10:00:00Z",
+      "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 6,
+    "fields": {
+      "product": 2,
+      "image": "https://images.unsplash.com/photo-1611472173362-3f53dbd65d80?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-02T10:00:00Z",
+      "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 7,
+    "fields": {
+      "product": 2,
+      "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-02T10:00:00Z",
+      "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 8,
+    "fields": {
+      "product": 2,
+      "image": "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-02T10:00:00Z",
+      "updated_at": "2023-06-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 9,
+    "fields": {
+      "product": 3,
+      "image": "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 10,
+    "fields": {
+      "product": 3,
+      "image": "https://images.unsplash.com/photo-1603921326210-6edd2d60ca68?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 11,
+    "fields": {
+      "product": 3,
+      "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 12,
+    "fields": {
+      "product": 3,
+      "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-03T10:00:00Z",
+      "updated_at": "2023-06-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 13,
+    "fields": {
+      "product": 4,
+      "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-04T10:00:00Z",
+      "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 14,
+    "fields": {
+      "product": 4,
+      "image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-04T10:00:00Z",
+      "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 15,
+    "fields": {
+      "product": 4,
+      "image": "https://images.unsplash.com/photo-1606980702531-66891022c573?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-04T10:00:00Z",
+      "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 16,
+    "fields": {
+      "product": 4,
+      "image": "https://images.unsplash.com/photo-1495121605193-b116b5b9c5fe?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-04T10:00:00Z",
+      "updated_at": "2023-06-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 17,
+    "fields": {
+      "product": 5,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-05T10:00:00Z",
+      "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 18,
+    "fields": {
+      "product": 5,
+      "image": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-05T10:00:00Z",
+      "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 19,
+    "fields": {
+      "product": 5,
+      "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-05T10:00:00Z",
+      "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 20,
+    "fields": {
+      "product": 5,
+      "image": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-05T10:00:00Z",
+      "updated_at": "2023-06-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 21,
+    "fields": {
+      "product": 6,
+      "image": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-06T10:00:00Z",
+      "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 22,
+    "fields": {
+      "product": 6,
+      "image": "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-06T10:00:00Z",
+      "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 23,
+    "fields": {
+      "product": 6,
+      "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-06T10:00:00Z",
+      "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 24,
+    "fields": {
+      "product": 6,
+      "image": "https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-06T10:00:00Z",
+      "updated_at": "2023-06-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 25,
+    "fields": {
+      "product": 7,
+      "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-07T10:00:00Z",
+      "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 26,
+    "fields": {
+      "product": 7,
+      "image": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-07T10:00:00Z",
+      "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 27,
+    "fields": {
+      "product": 7,
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-07T10:00:00Z",
+      "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 28,
+    "fields": {
+      "product": 7,
+      "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-07T10:00:00Z",
+      "updated_at": "2023-06-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 29,
+    "fields": {
+      "product": 8,
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-08T10:00:00Z",
+      "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 30,
+    "fields": {
+      "product": 8,
+      "image": "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-08T10:00:00Z",
+      "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 31,
+    "fields": {
+      "product": 8,
+      "image": "https://images.unsplash.com/photo-1601524909162-ae8725290836?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-08T10:00:00Z",
+      "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 32,
+    "fields": {
+      "product": 8,
+      "image": "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-08T10:00:00Z",
+      "updated_at": "2023-06-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 33,
+    "fields": {
+      "product": 9,
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-09T10:00:00Z",
+      "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 34,
+    "fields": {
+      "product": 9,
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-09T10:00:00Z",
+      "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 35,
+    "fields": {
+      "product": 9,
+      "image": "https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-09T10:00:00Z",
+      "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 36,
+    "fields": {
+      "product": 9,
+      "image": "https://images.unsplash.com/photo-1629131726692-1accd0c53ce0?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-09T10:00:00Z",
+      "updated_at": "2023-06-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 37,
+    "fields": {
+      "product": 10,
+      "image": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-10T10:00:00Z",
+      "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 38,
+    "fields": {
+      "product": 10,
+      "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-10T10:00:00Z",
+      "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 39,
+    "fields": {
+      "product": 10,
+      "image": "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-10T10:00:00Z",
+      "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 40,
+    "fields": {
+      "product": 10,
+      "image": "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-10T10:00:00Z",
+      "updated_at": "2023-06-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 41,
+    "fields": {
+      "product": 11,
+      "image": "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-11T10:00:00Z",
+      "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 42,
+    "fields": {
+      "product": 11,
+      "image": "https://images.unsplash.com/photo-1606980702531-66891022c573?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-11T10:00:00Z",
+      "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 43,
+    "fields": {
+      "product": 11,
+      "image": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-11T10:00:00Z",
+      "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 44,
+    "fields": {
+      "product": 11,
+      "image": "https://images.unsplash.com/photo-1606941369380-c3ae77291272?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-11T10:00:00Z",
+      "updated_at": "2023-06-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 45,
+    "fields": {
+      "product": 12,
+      "image": "https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-12T10:00:00Z",
+      "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 46,
+    "fields": {
+      "product": 12,
+      "image": "https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-12T10:00:00Z",
+      "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 47,
+    "fields": {
+      "product": 12,
+      "image": "https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-12T10:00:00Z",
+      "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 48,
+    "fields": {
+      "product": 12,
+      "image": "https://images.unsplash.com/photo-1613855781341-e7cae89bc0e4?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-12T10:00:00Z",
+      "updated_at": "2023-06-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 49,
+    "fields": {
+      "product": 13,
+      "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-13T10:00:00Z",
+      "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 50,
+    "fields": {
+      "product": 13,
+      "image": "https://images.unsplash.com/photo-1520975867597-0af37a22e31e?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-13T10:00:00Z",
+      "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 51,
+    "fields": {
+      "product": 13,
+      "image": "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-13T10:00:00Z",
+      "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 52,
+    "fields": {
+      "product": 13,
+      "image": "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-13T10:00:00Z",
+      "updated_at": "2023-06-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 53,
+    "fields": {
+      "product": 14,
+      "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-14T10:00:00Z",
+      "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 54,
+    "fields": {
+      "product": 14,
+      "image": "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-14T10:00:00Z",
+      "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 55,
+    "fields": {
+      "product": 14,
+      "image": "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-14T10:00:00Z",
+      "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 56,
+    "fields": {
+      "product": 14,
+      "image": "https://images.unsplash.com/photo-1485230405346-71acb9518d9c?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-14T10:00:00Z",
+      "updated_at": "2023-06-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 57,
+    "fields": {
+      "product": 15,
+      "image": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-15T10:00:00Z",
+      "updated_at": "2023-06-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 58,
+    "fields": {
+      "product": 15,
+      "image": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-15T10:00:00Z",
+      "updated_at": "2023-06-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 59,
+    "fields": {
+      "product": 15,
+      "image": "https://images.unsplash.com/photo-1598032895397-b9fcf0680d85?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-15T10:00:00Z",
+      "updated_at": "2023-06-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 60,
+    "fields": {
+      "product": 15,
+      "image": "https://images.unsplash.com/photo-1552346154-21d32810aba3?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-15T10:00:00Z",
+      "updated_at": "2023-06-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 61,
+    "fields": {
+      "product": 16,
+      "image": "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-16T10:00:00Z",
+      "updated_at": "2023-06-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 62,
+    "fields": {
+      "product": 16,
+      "image": "https://images.unsplash.com/photo-1622445275576-721325763afe?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-16T10:00:00Z",
+      "updated_at": "2023-06-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 63,
+    "fields": {
+      "product": 16,
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-16T10:00:00Z",
+      "updated_at": "2023-06-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 64,
+    "fields": {
+      "product": 16,
+      "image": "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-16T10:00:00Z",
+      "updated_at": "2023-06-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 65,
+    "fields": {
+      "product": 17,
+      "image": "https://images.unsplash.com/photo-1594385208974-2e75f8f8864f?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-17T10:00:00Z",
+      "updated_at": "2023-06-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 66,
+    "fields": {
+      "product": 17,
+      "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-17T10:00:00Z",
+      "updated_at": "2023-06-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 67,
+    "fields": {
+      "product": 17,
+      "image": "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-17T10:00:00Z",
+      "updated_at": "2023-06-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 68,
+    "fields": {
+      "product": 17,
+      "image": "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-17T10:00:00Z",
+      "updated_at": "2023-06-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 69,
+    "fields": {
+      "product": 18,
+      "image": "https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-18T10:00:00Z",
+      "updated_at": "2023-06-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 70,
+    "fields": {
+      "product": 18,
+      "image": "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-18T10:00:00Z",
+      "updated_at": "2023-06-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 71,
+    "fields": {
+      "product": 18,
+      "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-18T10:00:00Z",
+      "updated_at": "2023-06-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 72,
+    "fields": {
+      "product": 18,
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-18T10:00:00Z",
+      "updated_at": "2023-06-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 73,
+    "fields": {
+      "product": 19,
+      "image": "https://images.unsplash.com/photo-1585515320310-259814833e62?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-19T10:00:00Z",
+      "updated_at": "2023-06-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 74,
+    "fields": {
+      "product": 19,
+      "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-19T10:00:00Z",
+      "updated_at": "2023-06-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 75,
+    "fields": {
+      "product": 19,
+      "image": "https://images.unsplash.com/photo-1584269600519-112e9b19e5ff?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-19T10:00:00Z",
+      "updated_at": "2023-06-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 76,
+    "fields": {
+      "product": 19,
+      "image": "https://images.unsplash.com/photo-1556911220-bff31c812dba?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-19T10:00:00Z",
+      "updated_at": "2023-06-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 77,
+    "fields": {
+      "product": 20,
+      "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-20T10:00:00Z",
+      "updated_at": "2023-06-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 78,
+    "fields": {
+      "product": 20,
+      "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-20T10:00:00Z",
+      "updated_at": "2023-06-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 79,
+    "fields": {
+      "product": 20,
+      "image": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-20T10:00:00Z",
+      "updated_at": "2023-06-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 80,
+    "fields": {
+      "product": 20,
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-20T10:00:00Z",
+      "updated_at": "2023-06-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 81,
+    "fields": {
+      "product": 21,
+      "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-21T10:00:00Z",
+      "updated_at": "2023-06-21T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 82,
+    "fields": {
+      "product": 21,
+      "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-21T10:00:00Z",
+      "updated_at": "2023-06-21T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 83,
+    "fields": {
+      "product": 21,
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-21T10:00:00Z",
+      "updated_at": "2023-06-21T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 84,
+    "fields": {
+      "product": 21,
+      "image": "https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-21T10:00:00Z",
+      "updated_at": "2023-06-21T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 85,
+    "fields": {
+      "product": 22,
+      "image": "https://images.unsplash.com/photo-1545127398-14699f92334b?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-22T10:00:00Z",
+      "updated_at": "2023-06-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 86,
+    "fields": {
+      "product": 22,
+      "image": "https://images.unsplash.com/photo-1528148343865-51218c4a13e6?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-22T10:00:00Z",
+      "updated_at": "2023-06-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 87,
+    "fields": {
+      "product": 22,
+      "image": "https://images.unsplash.com/photo-1577174881658-0f30157732c4?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-22T10:00:00Z",
+      "updated_at": "2023-06-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 88,
+    "fields": {
+      "product": 22,
+      "image": "https://images.unsplash.com/photo-1558756520-22cfe5d382ca?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-22T10:00:00Z",
+      "updated_at": "2023-06-22T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 89,
+    "fields": {
+      "product": 23,
+      "image": "https://images.unsplash.com/photo-1543512214-318c7553f230?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-23T10:00:00Z",
+      "updated_at": "2023-06-23T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 90,
+    "fields": {
+      "product": 23,
+      "image": "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-23T10:00:00Z",
+      "updated_at": "2023-06-23T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 91,
+    "fields": {
+      "product": 23,
+      "image": "https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-23T10:00:00Z",
+      "updated_at": "2023-06-23T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 92,
+    "fields": {
+      "product": 23,
+      "image": "https://images.unsplash.com/photo-1519558260268-cde7e03a0152?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-23T10:00:00Z",
+      "updated_at": "2023-06-23T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 93,
+    "fields": {
+      "product": 24,
+      "image": "https://images.unsplash.com/photo-1507646227500-4d389b0012be?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-24T10:00:00Z",
+      "updated_at": "2023-06-24T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 94,
+    "fields": {
+      "product": 24,
+      "image": "https://images.unsplash.com/photo-1535303311164-664fc9ec6532?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-24T10:00:00Z",
+      "updated_at": "2023-06-24T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 95,
+    "fields": {
+      "product": 24,
+      "image": "https://images.unsplash.com/photo-1514464750060-00e6e34c8b8c?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-24T10:00:00Z",
+      "updated_at": "2023-06-24T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 96,
+    "fields": {
+      "product": 24,
+      "image": "https://images.unsplash.com/photo-1583573607873-4eb6f9b8b524?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-24T10:00:00Z",
+      "updated_at": "2023-06-24T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 97,
+    "fields": {
+      "product": 25,
+      "image": "https://images.unsplash.com/photo-1561154464-82e9adf32764?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-25T10:00:00Z",
+      "updated_at": "2023-06-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 98,
+    "fields": {
+      "product": 25,
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-25T10:00:00Z",
+      "updated_at": "2023-06-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 99,
+    "fields": {
+      "product": 25,
+      "image": "https://images.unsplash.com/photo-1585790050230-5dd28404f869?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-25T10:00:00Z",
+      "updated_at": "2023-06-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 100,
+    "fields": {
+      "product": 25,
+      "image": "https://images.unsplash.com/photo-1587033411391-5d9e51cce126?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-25T10:00:00Z",
+      "updated_at": "2023-06-25T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 101,
+    "fields": {
+      "product": 26,
+      "image": "https://images.unsplash.com/photo-1544244015-bc6261304ff8?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-26T10:00:00Z",
+      "updated_at": "2023-06-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 102,
+    "fields": {
+      "product": 26,
+      "image": "https://images.unsplash.com/photo-1585790050230-5dd28404f869?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-26T10:00:00Z",
+      "updated_at": "2023-06-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 103,
+    "fields": {
+      "product": 26,
+      "image": "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-26T10:00:00Z",
+      "updated_at": "2023-06-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 104,
+    "fields": {
+      "product": 26,
+      "image": "https://images.unsplash.com/photo-1546868871-0b8e8c601a95?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-26T10:00:00Z",
+      "updated_at": "2023-06-26T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 105,
+    "fields": {
+      "product": 27,
+      "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-27T10:00:00Z",
+      "updated_at": "2023-06-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 106,
+    "fields": {
+      "product": 27,
+      "image": "https://images.unsplash.com/photo-1611861726073-fd0e969756c4?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-27T10:00:00Z",
+      "updated_at": "2023-06-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 107,
+    "fields": {
+      "product": 27,
+      "image": "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-27T10:00:00Z",
+      "updated_at": "2023-06-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 108,
+    "fields": {
+      "product": 27,
+      "image": "https://images.unsplash.com/photo-1508243771214-6e95d137426b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-27T10:00:00Z",
+      "updated_at": "2023-06-27T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 109,
+    "fields": {
+      "product": 28,
+      "image": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-28T10:00:00Z",
+      "updated_at": "2023-06-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 110,
+    "fields": {
+      "product": 28,
+      "image": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-28T10:00:00Z",
+      "updated_at": "2023-06-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 111,
+    "fields": {
+      "product": 28,
+      "image": "https://images.unsplash.com/photo-1523395243481-163f8f6155ab?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-28T10:00:00Z",
+      "updated_at": "2023-06-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 112,
+    "fields": {
+      "product": 28,
+      "image": "https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-28T10:00:00Z",
+      "updated_at": "2023-06-28T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 113,
+    "fields": {
+      "product": 29,
+      "image": "https://images.unsplash.com/photo-1594385208974-2e75f8f8864f?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-29T10:00:00Z",
+      "updated_at": "2023-06-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 114,
+    "fields": {
+      "product": 29,
+      "image": "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-29T10:00:00Z",
+      "updated_at": "2023-06-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 115,
+    "fields": {
+      "product": 29,
+      "image": "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-29T10:00:00Z",
+      "updated_at": "2023-06-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 116,
+    "fields": {
+      "product": 29,
+      "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-29T10:00:00Z",
+      "updated_at": "2023-06-29T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 117,
+    "fields": {
+      "product": 30,
+      "image": "https://images.unsplash.com/photo-1594620302200-9a762244a156?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-06-30T10:00:00Z",
+      "updated_at": "2023-06-30T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 118,
+    "fields": {
+      "product": 30,
+      "image": "https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-30T10:00:00Z",
+      "updated_at": "2023-06-30T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 119,
+    "fields": {
+      "product": 30,
+      "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-30T10:00:00Z",
+      "updated_at": "2023-06-30T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 120,
+    "fields": {
+      "product": 30,
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-06-30T10:00:00Z",
+      "updated_at": "2023-06-30T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 121,
+    "fields": {
+      "product": 31,
+      "image": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-01T10:00:00Z",
+      "updated_at": "2023-07-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 122,
+    "fields": {
+      "product": 31,
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-01T10:00:00Z",
+      "updated_at": "2023-07-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 123,
+    "fields": {
+      "product": 31,
+      "image": "https://images.unsplash.com/photo-1586920740099-e22a1b0eb331?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-01T10:00:00Z",
+      "updated_at": "2023-07-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 124,
+    "fields": {
+      "product": 31,
+      "image": "https://images.unsplash.com/photo-1598387993281-cecf8b71a8f8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-01T10:00:00Z",
+      "updated_at": "2023-07-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 125,
+    "fields": {
+      "product": 32,
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-02T10:00:00Z",
+      "updated_at": "2023-07-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 126,
+    "fields": {
+      "product": 32,
+      "image": "https://images.unsplash.com/photo-1595225476474-87563907a212?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-02T10:00:00Z",
+      "updated_at": "2023-07-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 127,
+    "fields": {
+      "product": 32,
+      "image": "https://images.unsplash.com/photo-1560762484-813fc97650a0?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-02T10:00:00Z",
+      "updated_at": "2023-07-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 128,
+    "fields": {
+      "product": 32,
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-02T10:00:00Z",
+      "updated_at": "2023-07-02T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 129,
+    "fields": {
+      "product": 33,
+      "image": "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-03T10:00:00Z",
+      "updated_at": "2023-07-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 130,
+    "fields": {
+      "product": 33,
+      "image": "https://images.unsplash.com/photo-1606841837239-c5a1a4a07af7?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-03T10:00:00Z",
+      "updated_at": "2023-07-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 131,
+    "fields": {
+      "product": 33,
+      "image": "https://images.unsplash.com/photo-1572569511254-d8f925fe2cbb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-03T10:00:00Z",
+      "updated_at": "2023-07-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 132,
+    "fields": {
+      "product": 33,
+      "image": "https://images.unsplash.com/photo-1625264228585-f8712c5f5b41?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-03T10:00:00Z",
+      "updated_at": "2023-07-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 133,
+    "fields": {
+      "product": 34,
+      "image": "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-04T10:00:00Z",
+      "updated_at": "2023-07-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 134,
+    "fields": {
+      "product": 34,
+      "image": "https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-04T10:00:00Z",
+      "updated_at": "2023-07-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 135,
+    "fields": {
+      "product": 34,
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-04T10:00:00Z",
+      "updated_at": "2023-07-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 136,
+    "fields": {
+      "product": 34,
+      "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-04T10:00:00Z",
+      "updated_at": "2023-07-04T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 137,
+    "fields": {
+      "product": 35,
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-05T10:00:00Z",
+      "updated_at": "2023-07-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 138,
+    "fields": {
+      "product": 35,
+      "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-05T10:00:00Z",
+      "updated_at": "2023-07-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 139,
+    "fields": {
+      "product": 35,
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-05T10:00:00Z",
+      "updated_at": "2023-07-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 140,
+    "fields": {
+      "product": 35,
+      "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-05T10:00:00Z",
+      "updated_at": "2023-07-05T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 141,
+    "fields": {
+      "product": 36,
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-06T10:00:00Z",
+      "updated_at": "2023-07-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 142,
+    "fields": {
+      "product": 36,
+      "image": "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-06T10:00:00Z",
+      "updated_at": "2023-07-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 143,
+    "fields": {
+      "product": 36,
+      "image": "https://images.unsplash.com/photo-1611078489935-0cb964de46d6?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-06T10:00:00Z",
+      "updated_at": "2023-07-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 144,
+    "fields": {
+      "product": 36,
+      "image": "https://images.unsplash.com/photo-1601524909162-ae8725290836?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-06T10:00:00Z",
+      "updated_at": "2023-07-06T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 145,
+    "fields": {
+      "product": 37,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-07T10:00:00Z",
+      "updated_at": "2023-07-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 146,
+    "fields": {
+      "product": 37,
+      "image": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-07T10:00:00Z",
+      "updated_at": "2023-07-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 147,
+    "fields": {
+      "product": 37,
+      "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-07T10:00:00Z",
+      "updated_at": "2023-07-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 148,
+    "fields": {
+      "product": 37,
+      "image": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-07T10:00:00Z",
+      "updated_at": "2023-07-07T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 149,
+    "fields": {
+      "product": 38,
+      "image": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-08T10:00:00Z",
+      "updated_at": "2023-07-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 150,
+    "fields": {
+      "product": 38,
+      "image": "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-08T10:00:00Z",
+      "updated_at": "2023-07-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 151,
+    "fields": {
+      "product": 38,
+      "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-08T10:00:00Z",
+      "updated_at": "2023-07-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 152,
+    "fields": {
+      "product": 38,
+      "image": "https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-08T10:00:00Z",
+      "updated_at": "2023-07-08T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 153,
+    "fields": {
+      "product": 39,
+      "image": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-09T10:00:00Z",
+      "updated_at": "2023-07-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 154,
+    "fields": {
+      "product": 39,
+      "image": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-09T10:00:00Z",
+      "updated_at": "2023-07-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 155,
+    "fields": {
+      "product": 39,
+      "image": "https://images.unsplash.com/photo-1523395243481-163f8f6155ab?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-09T10:00:00Z",
+      "updated_at": "2023-07-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 156,
+    "fields": {
+      "product": 39,
+      "image": "https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-09T10:00:00Z",
+      "updated_at": "2023-07-09T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 157,
+    "fields": {
+      "product": 40,
+      "image": "https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-10T10:00:00Z",
+      "updated_at": "2023-07-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 158,
+    "fields": {
+      "product": 40,
+      "image": "https://images.unsplash.com/photo-1611861726073-fd0e969756c4?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-10T10:00:00Z",
+      "updated_at": "2023-07-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 159,
+    "fields": {
+      "product": 40,
+      "image": "https://images.unsplash.com/photo-1434494878577-86c23bcb06b9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-10T10:00:00Z",
+      "updated_at": "2023-07-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 160,
+    "fields": {
+      "product": 40,
+      "image": "https://images.unsplash.com/photo-1508243771214-6e95d137426b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-10T10:00:00Z",
+      "updated_at": "2023-07-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 161,
+    "fields": {
+      "product": 41,
+      "image": "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-11T10:00:00Z",
+      "updated_at": "2023-07-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 162,
+    "fields": {
+      "product": 41,
+      "image": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-11T10:00:00Z",
+      "updated_at": "2023-07-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 163,
+    "fields": {
+      "product": 41,
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-11T10:00:00Z",
+      "updated_at": "2023-07-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 164,
+    "fields": {
+      "product": 41,
+      "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-11T10:00:00Z",
+      "updated_at": "2023-07-11T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 165,
+    "fields": {
+      "product": 42,
+      "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-12T10:00:00Z",
+      "updated_at": "2023-07-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 166,
+    "fields": {
+      "product": 42,
+      "image": "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-12T10:00:00Z",
+      "updated_at": "2023-07-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 167,
+    "fields": {
+      "product": 42,
+      "image": "https://images.unsplash.com/photo-1601944177325-f8867652837f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-12T10:00:00Z",
+      "updated_at": "2023-07-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 168,
+    "fields": {
+      "product": 42,
+      "image": "https://images.unsplash.com/photo-1567690187548-f07b1d7bf5a9?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-12T10:00:00Z",
+      "updated_at": "2023-07-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 169,
+    "fields": {
+      "product": 43,
+      "image": "https://images.unsplash.com/photo-1594385208974-2e75f8f8864f?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-13T10:00:00Z",
+      "updated_at": "2023-07-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 170,
+    "fields": {
+      "product": 43,
+      "image": "https://images.unsplash.com/photo-1570222094114-d054a817e56b?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-13T10:00:00Z",
+      "updated_at": "2023-07-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 171,
+    "fields": {
+      "product": 43,
+      "image": "https://images.unsplash.com/photo-1607013251379-e6eecfffe234?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-13T10:00:00Z",
+      "updated_at": "2023-07-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 172,
+    "fields": {
+      "product": 43,
+      "image": "https://images.unsplash.com/photo-1585659722983-3a675dabf23d?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-13T10:00:00Z",
+      "updated_at": "2023-07-13T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 173,
+    "fields": {
+      "product": 44,
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-14T10:00:00Z",
+      "updated_at": "2023-07-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 174,
+    "fields": {
+      "product": 44,
+      "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-14T10:00:00Z",
+      "updated_at": "2023-07-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 175,
+    "fields": {
+      "product": 44,
+      "image": "https://images.unsplash.com/photo-1617806118233-18e1de247200?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-14T10:00:00Z",
+      "updated_at": "2023-07-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 176,
+    "fields": {
+      "product": 44,
+      "image": "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-14T10:00:00Z",
+      "updated_at": "2023-07-14T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 177,
+    "fields": {
+      "product": 45,
+      "image": "https://images.unsplash.com/photo-1579586337278-3befd40fd17a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-15T10:00:00Z",
+      "updated_at": "2023-07-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 178,
+    "fields": {
+      "product": 45,
+      "image": "https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-15T10:00:00Z",
+      "updated_at": "2023-07-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 179,
+    "fields": {
+      "product": 45,
+      "image": "https://images.unsplash.com/photo-1523395243481-163f8f6155ab?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-15T10:00:00Z",
+      "updated_at": "2023-07-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 180,
+    "fields": {
+      "product": 45,
+      "image": "https://images.unsplash.com/photo-1557438159-51eec7a6c9e8?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-15T10:00:00Z",
+      "updated_at": "2023-07-15T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 181,
+    "fields": {
+      "product": 46,
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-16T10:00:00Z",
+      "updated_at": "2023-07-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 182,
+    "fields": {
+      "product": 46,
+      "image": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-16T10:00:00Z",
+      "updated_at": "2023-07-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 183,
+    "fields": {
+      "product": 46,
+      "image": "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-16T10:00:00Z",
+      "updated_at": "2023-07-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 184,
+    "fields": {
+      "product": 46,
+      "image": "https://images.unsplash.com/photo-1587563871167-1ee9c731aefb?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-16T10:00:00Z",
+      "updated_at": "2023-07-16T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 185,
+    "fields": {
+      "product": 47,
+      "image": "https://images.unsplash.com/photo-1608667508764-33cf0726b13a?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-17T10:00:00Z",
+      "updated_at": "2023-07-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 186,
+    "fields": {
+      "product": 47,
+      "image": "https://images.unsplash.com/photo-1605733160314-4fc7dac4bb16?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-17T10:00:00Z",
+      "updated_at": "2023-07-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 187,
+    "fields": {
+      "product": 47,
+      "image": "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-17T10:00:00Z",
+      "updated_at": "2023-07-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 188,
+    "fields": {
+      "product": 47,
+      "image": "https://images.unsplash.com/photo-1614252369475-531eba835eb1?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-17T10:00:00Z",
+      "updated_at": "2023-07-17T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 189,
+    "fields": {
+      "product": 48,
+      "image": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-18T10:00:00Z",
+      "updated_at": "2023-07-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 190,
+    "fields": {
+      "product": 48,
+      "image": "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-18T10:00:00Z",
+      "updated_at": "2023-07-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 191,
+    "fields": {
+      "product": 48,
+      "image": "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-18T10:00:00Z",
+      "updated_at": "2023-07-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 192,
+    "fields": {
+      "product": 48,
+      "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-18T10:00:00Z",
+      "updated_at": "2023-07-18T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 193,
+    "fields": {
+      "product": 49,
+      "image": "https://images.unsplash.com/photo-1621259182978-fbf93132d53d?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-19T10:00:00Z",
+      "updated_at": "2023-07-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 194,
+    "fields": {
+      "product": 49,
+      "image": "https://images.unsplash.com/photo-1622297845775-5ff3fef71d13?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-19T10:00:00Z",
+      "updated_at": "2023-07-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 195,
+    "fields": {
+      "product": 49,
+      "image": "https://images.unsplash.com/photo-1605901309584-818e25960a8f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-19T10:00:00Z",
+      "updated_at": "2023-07-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 196,
+    "fields": {
+      "product": 49,
+      "image": "https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-19T10:00:00Z",
+      "updated_at": "2023-07-19T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 197,
+    "fields": {
+      "product": 50,
+      "image": "https://images.unsplash.com/photo-1578303512597-81e6cc155b3e?w=500&q=80",
+      "is_primary": true,
+      "is_active": true,
+      "created_at": "2023-07-20T10:00:00Z",
+      "updated_at": "2023-07-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 198,
+    "fields": {
+      "product": 50,
+      "image": "https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-20T10:00:00Z",
+      "updated_at": "2023-07-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 199,
+    "fields": {
+      "product": 50,
+      "image": "https://images.unsplash.com/photo-1585504198199-20277593b94f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-20T10:00:00Z",
+      "updated_at": "2023-07-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "products.ProductImage",
+    "pk": 200,
+    "fields": {
+      "product": 50,
+      "image": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500&q=80",
+      "is_primary": false,
+      "is_active": true,
+      "created_at": "2023-07-20T10:00:00Z",
+      "updated_at": "2023-07-20T10:00:00Z"
+    }
+  }
+]

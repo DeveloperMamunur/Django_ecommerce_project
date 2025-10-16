@@ -22,6 +22,11 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Profile'
         verbose_name_plural = 'Profiles'
+    
+    def get_image_url(self):
+        if str(self.profile_pic).startswith('http'):
+            return self.profile_pic
+        return f'/media/{self.profile_pic}'
 
 class UserPermission(TimeStampedModel, SoftDeleteModel, AuditModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='permissions')
