@@ -15,10 +15,12 @@
                 </form>
             </div>
             <div>
+                {% if can_create_products_brand_list %}
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#brandModal"
                     onclick="resetBrandForm()">
                     + Add New
                 </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -54,16 +56,22 @@
                     {% endif %}
                 </td>
                 <td>
+                    {% if can_update_products_brand_list %}
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#brandModal"
                         onclick="editBrand('{{ brand.id }}', '{{ brand.name }}', '{{ brand.description|escapejs }}', '{{ brand.image.url }}')">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
+                    {% endif %}
+                    {% if can_update_products_toggle_brand_status %}
                     <a href="{% url 'products:toggle_brand_status' brand.id %}" class="btn btn-sm {% if brand.is_active %}btn-danger{% else %}btn-success{% endif %}">
                         {% if brand.is_active %}Inactive{% else %}Active{% endif %}
                     </a>
+                    {% endif %}
+                    {% if can_delete_products_delete_brand %}
                     <a href="{% url 'products:delete_brand' brand.id %}" class="btn btn-sm {% if brand.is_active %}btn-danger{% else %}btn-success{% endif %}">
                        <i class="bi bi-trash"></i> Delete
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}

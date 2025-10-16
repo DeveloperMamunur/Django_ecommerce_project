@@ -92,35 +92,50 @@
                   {% endif %}
                 </td>
                 <td>
+                  {% if can_view_products_product_details %}
                   <button class="btn btn-sm btn-outline-primary view-product-btn" data-id="{{ p.id }}">
                     <i class="bi bi-eye"></i> View
                   </button>
+                  {% endif %}
+                  {% if can_update_products_edit_product %}
                   <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
                       data-bs-target="#editProductModal" data-id="{{ p.id }}">
                       <i class="bi bi-pencil"></i> Edit
                   </button>
+                  {% endif %}
+                  {% if can_delete_products_delete_product %}
                   <a href="{% url 'products:delete_product' p.id %}" 
                       class="btn btn-sm btn-outline-danger" 
                       onclick="return confirm('Delete this product?')">
                       <i class="bi bi-trash"></i> Delete
                   </a>
+                  {% endif %}
+                  {% if can_update_products_toggle_product_feature %}
                   <a href="{% url 'products:toggle_product_feature' p.id %}" class="btn btn-sm {% if p.is_featured %}btn-outline-danger{% else %}btn-outline-primary{% endif %}">
                     <i class="bi bi-star{% if not p.is_featured %}-fill{% endif %}"></i> Featured
                   </a>
-                  
+                  {% endif %}
+                  {% if can_update_products_toggle_product_status %}
                   <a href="{% url 'products:toggle_product_status' p.id %}" 
                       class="btn btn-sm {% if p.is_active %}btn-danger{% else %}btn-success{% endif %}">
                       {% if p.is_active %}Inactive{% else %}Active{% endif %}
                   </a>
+                  {% endif %}
+                  {% if can_view_products_product_image_list %}
                   <a href="{% url 'products:product_image_list' p.id %}" class="btn btn-sm btn-outline-primary">
                     <i class="bi bi-images"></i> Images
                   </a>
+                  {% endif %}
+                  {% if can_view_products_variant_list %}
                   <a href="{% url 'products:variant_list' p.id %}" class="btn btn-sm btn-outline-primary">
                     <i class="bi bi-gear-wide-connected"></i> Variants
                   </a>
+                  {% endif %}
+                  {% if can_view_products_inventory_log_list %}
                   <a href="{% url 'products:inventory_log_list' p.id %}" class="btn btn-sm btn-outline-primary">
                     <i class="bi bi-cart-dash"></i> Inventory Log
                   </a>
+                  {% endif %}
                 </td>
             </tr>
             {% empty %}

@@ -100,7 +100,9 @@
                         <span class="fs-6 badge {% if user.is_active %}bg-success{% else %}bg-danger{% endif %}">{% if user.is_active %}Active{% else %}Inactive{% endif %}</span>
                     </td>
                     <td>
-                        <a href="{% url 'accounts:toggle_user_status' user.id %}" class="btn {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">{% if user.is_active %}Inactive{% else %}Active{% endif %}</a>
+                        {% if can_update_accounts_toggle_user_status %}
+                            <a href="{% url 'accounts:toggle_user_status' user.id %}" class="btn {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">{% if user.is_active %}Inactive{% else %}Active{% endif %}</a>
+                        {% endif %}
                     </td>
                 </tr>
 

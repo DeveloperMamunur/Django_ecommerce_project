@@ -29,26 +29,36 @@
                 <i class="bi bi-house-door me-2"></i>
                 <span class="nav-text">Overview</span>
             </a>
-            <a href="{% url 'accounts:all_user_list' %}" class="nav-link {% if request.resolver_match.url_name == 'all_user_list' and request.resolver_match.namespace == 'accounts' %}active{% endif %}">
-                <i class="bi bi-people me-2"></i>
-                <span class="nav-text">Users</span>
-            </a>
-            <a href="{% url 'products:brand_list' %}" class="nav-link {% if request.resolver_match.url_name == 'brand_list' and request.resolver_match.namespace == 'products' %}active{% endif %}">
-                <i class="bi bi-grid me-2"></i>
-                <span class="nav-text">Brand</span>
-            </a>
-            <a href="{% url 'products:product_main_category' %}" class="nav-link {% if request.resolver_match.url_name == 'product_main_category' and request.resolver_match.namespace == 'products' %}active{% endif %}">
-                <i class="bi bi-grid me-2"></i>
-                <span class="nav-text">Category</span>
-            </a>
-            <a href="{% url 'products:product_sub_category' %}" class="nav-link {% if request.resolver_match.url_name == 'product_sub_category' and request.resolver_match.namespace == 'products' %}active{% endif %}">
-                <i class="bi bi-grid me-2"></i>
-                <span class="nav-text">Sub Category</span>
-            </a>
-            <a href="{% url 'products:product_list' %}" class="nav-link {% if request.resolver_match.url_name == 'product_list' and request.resolver_match.namespace == 'products' %}active{% endif %}">
-                <i class="bi bi-grid me-2"></i>
-                <span class="nav-text">Product</span>
-            </a>
+            {% if can_view_accounts_all_user_list %}
+                <a href="{% url 'accounts:all_user_list' %}" class="nav-link {% if request.resolver_match.url_name == 'all_user_list' and request.resolver_match.namespace == 'accounts' %}active{% endif %}">
+                    <i class="bi bi-people me-2"></i>
+                    <span class="nav-text">Users</span>
+                </a>
+            {% endif %}
+            {% if can_view_products_brand_list %}
+                <a href="{% url 'products:brand_list' %}" class="nav-link {% if request.resolver_match.url_name == 'brand_list' and request.resolver_match.namespace == 'products' %}active{% endif %}">
+                    <i class="bi bi-grid me-2"></i>
+                    <span class="nav-text">Brand</span>
+                </a>
+            {% endif %}
+            {% if can_view_products_product_main_category %}
+                <a href="{% url 'products:product_main_category' %}" class="nav-link {% if request.resolver_match.url_name == 'product_main_category' and request.resolver_match.namespace == 'products' %}active{% endif %}">
+                    <i class="bi bi-grid me-2"></i>
+                    <span class="nav-text">Category</span>
+                </a>
+            {% endif %}
+            {% if can_view_products_product_sub_category %}
+                <a href="{% url 'products:product_sub_category' %}" class="nav-link {% if request.resolver_match.url_name == 'product_sub_category' and request.resolver_match.namespace == 'products' %}active{% endif %}">
+                    <i class="bi bi-grid me-2"></i>
+                    <span class="nav-text">Sub Category</span>
+                </a>
+            {% endif %}
+            {% if can_view_products_product_list %}
+                <a href="{% url 'products:product_list' %}" class="nav-link {% if request.resolver_match.url_name == 'product_list' and request.resolver_match.namespace == 'products' %}active{% endif %}">
+                    <i class="bi bi-grid me-2"></i>
+                    <span class="nav-text">Product</span>
+                </a>
+            {% endif %}
 
         </nav>
         
@@ -64,10 +74,10 @@
                 <div class="user-info">
                     <div class="user-name">{{ user.username }}</div>
                     <div class="user-role text-muted">
-                        {% if is_superuser %}
+                        {% if user.is_superuser %}
                             Super Admin
-                        {% elif is_staff %}
-                            Staff
+                        {% elif user.is_staff %}
+                            Employee
                         {% else %}
                             Customer
                         {% endif %}

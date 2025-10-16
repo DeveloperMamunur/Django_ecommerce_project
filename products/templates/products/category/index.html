@@ -15,10 +15,12 @@
                 </form>
             </div>
             <div>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal"
-                    onclick="resetCategoryForm()">
-                    + Add New
-                </button>
+                {% if can_create_products_product_main_category %}
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal"
+                        onclick="resetCategoryForm()">
+                        + Add New
+                    </button>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -54,16 +56,22 @@
                     {% endif %}
                 </td>
                 <td>
+                    {% if can_update_products_product_main_category %}
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#categoryModal"
                         onclick="editCategory('{{ category.id }}', '{{ category.name }}', '{{ category.description|escapejs }}', '{{ category.image.url }}')">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
+                    {% endif %}
+                    {% if can_update_products_toggle_category_status %}
                     <a href="{% url 'products:toggle_category_status' category.id %}" class="btn btn-sm {% if category.is_active %}btn-danger{% else %}btn-success{% endif %}">
                         {% if category.is_active %}Inactive{% else %}Active{% endif %}
                     </a>
+                    {% endif %}
+                    {% if can_delete_products_delete_category %}
                     <a href="{% url 'products:delete_category' category.id %}" class="btn btn-sm {% if category.is_active %}btn-danger{% else %}btn-success{% endif %}">
                        <i class="bi bi-trash"></i> Delete
                     </a>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
