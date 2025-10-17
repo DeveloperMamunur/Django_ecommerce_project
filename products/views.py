@@ -34,6 +34,7 @@ def brand_list_view(request):
             if image:
                 brand.image = image
             brand.save()
+            messages.success(request, 'Brand updated successfully.')
         else:
             if name and image:
                 Brand.objects.create(
@@ -41,6 +42,7 @@ def brand_list_view(request):
                     description=description,
                     image=image
                 )
+                messages.success(request, 'Brand created successfully.')
 
         return redirect('products:brand_list')
 
@@ -56,6 +58,7 @@ def toggle_brand_status(request, brand_id):
     brand = get_object_or_404(Brand, id=brand_id)
     brand.is_active = not brand.is_active
     brand.save()
+    messages.success(request, f"Brand '{brand.name}' status updated.")
     return redirect('products:brand_list')
 
 @login_required(login_url='accounts:login')
@@ -64,6 +67,7 @@ def delete_brand(request, brand_id):
         return render(request, '403.html')
     brand = get_object_or_404(Brand, id=brand_id)
     brand.delete()
+    messages.success(request, f"Brand '{brand.name}' deleted successfully.")
     return redirect('products:brand_list')
 
 @login_required(login_url='accounts:login')
@@ -90,6 +94,7 @@ def product_main_category_view(request):
             if image:
                 category.image = image
             category.save()
+            messages.success(request, 'Category updated successfully.')
         else:
             if name and image:
                 ProductMainCategory.objects.create(
@@ -97,6 +102,7 @@ def product_main_category_view(request):
                     description=description,
                     image=image
                 )
+                messages.success(request, 'Category created successfully.')
 
         return redirect('products:product_main_category')
 
@@ -112,6 +118,7 @@ def toggle_category_status(request, category_id):
     category = get_object_or_404(ProductMainCategory, id=category_id)
     category.is_active = not category.is_active
     category.save()
+    messages.success(request, f"Category '{category.name}' status updated.")
     return redirect('products:product_main_category')
 
 @login_required(login_url='accounts:login')
@@ -120,6 +127,7 @@ def delete_category(request, category_id):
         return render(request, '403.html')
     category = get_object_or_404(ProductMainCategory, id=category_id)
     category.delete()
+    messages.success(request, f"Category '{category.name}' deleted successfully.")
     return redirect('products:product_main_category')
 
 @login_required(login_url='accounts:login')
@@ -152,6 +160,7 @@ def product_sub_category_view(request):
             if image:
                 subcategory.image = image
             subcategory.save()
+            messages.success(request, 'Subcategory updated successfully.')
         else:
             if main_category and name:
                 ProductSubCategory.objects.create(
@@ -159,6 +168,7 @@ def product_sub_category_view(request):
                     name=name,
                     image=image
                 )
+                messages.success(request, 'Subcategory created successfully.')
 
         return redirect('products:product_sub_category')
 
@@ -175,14 +185,16 @@ def toggle_sub_category_status(request, sub_category_id):
     subcategory = get_object_or_404(ProductSubCategory, id=sub_category_id)
     subcategory.is_active = not subcategory.is_active
     subcategory.save()
+    messages.success(request, f"Subcategory '{subcategory.name}' status updated.")
     return redirect('products:product_sub_category')
 
 @login_required(login_url='accounts:login')
 def delete_sub_category(request, sub_category_id):
     if not CheckUserPermission(request, 'can_delete', 'products:delete_sub_category'):
         return render(request, '403.html')
-    sub_category = get_object_or_404(ProductMainCategory, id=sub_category_id)
+    sub_category = get_object_or_404(ProductSubCategory, id=sub_category_id)
     sub_category.delete()
+    messages.success(request, f"Subcategory '{sub_category.name}' deleted successfully.")
     return redirect('products:product_sub_category')
 
 

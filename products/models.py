@@ -22,9 +22,15 @@ class Brand(TimeStampedModel, SoftDeleteModel, AuditModel):
         ordering = ['-is_active','name']
 
     def get_image_url(self):
-        if str(self.image).startswith('http'):
-            return self.image
-        return f'/media/{self.image}'
+        if self.image:
+            image_path = str(self.image)
+            if image_path.startswith("http://") or image_path.startswith("https://"):
+                return image_path
+            try:
+                return self.image.url
+            except ValueError:
+                pass
+        return '/static/defaults/default-image.jpg'
 
 
 class ProductMainCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
@@ -43,9 +49,15 @@ class ProductMainCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
         return self.name
 
     def get_image_url(self):
-        if str(self.image).startswith('http'):
-            return self.image
-        return f'/media/{self.image}'
+        if self.image:
+            image_path = str(self.image)
+            if image_path.startswith("http://") or image_path.startswith("https://"):
+                return image_path
+            try:
+                return self.image.url
+            except ValueError:
+                pass
+        return '/static/defaults/default-image.jpg'
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -85,9 +97,15 @@ class ProductSubCategory(TimeStampedModel, SoftDeleteModel, AuditModel):
             self.slug = slug
         super().save(*args, **kwargs)
     def get_image_url(self):
-        if str(self.image).startswith('http'):
-            return self.image
-        return f'/media/{self.image}'
+        if self.image:
+            image_path = str(self.image)
+            if image_path.startswith("http://") or image_path.startswith("https://"):
+                return image_path
+            try:
+                return self.image.url
+            except ValueError:
+                pass
+        return '/static/defaults/default-image.jpg'
 
 class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
     name = models.CharField(max_length=100, unique=True)
@@ -120,6 +138,12 @@ class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
         brand = self.brand.name[:4].upper() if self.brand else "GEN"
         return f"{cat}-{brand}-{self.id}"
 
+    def get_primary_image(self):
+        primary = self.product_images.filter(is_primary=True).first()
+        if primary:
+            return primary.get_image_url()
+        return '/static/defaults/default-image.jpg'
+
     def __str__(self):
         return self.name
 
@@ -149,9 +173,15 @@ class ProductImage(TimeStampedModel, SoftDeleteModel, AuditModel):
         super().save(*args, **kwargs)
 
     def get_image_url(self):
-        if str(self.image).startswith('http'):
-            return self.image
-        return f'/media/{self.image}'
+        if self.image:
+            image_path = str(self.image)
+            if image_path.startswith("http://") or image_path.startswith("https://"):
+                return image_path
+            try:
+                return self.image.url
+            except ValueError:
+                pass
+        return '/static/defaults/default-image.jpg'
 
     class Meta:
         db_table = 'product_images'

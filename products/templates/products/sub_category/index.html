@@ -55,7 +55,7 @@
                 <td>
                     {% if can_update_products_product_sub_category %}
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#subcategoryModal"
-                        onclick="editSubCategory('{{ sub.id }}', '{{ sub.main_category.id }}', '{{ sub.name }}', '{{ sub.description|escapejs }}', '{{ sub.image.url|default:'' }}')">
+                        onclick="editSubCategory('{{ sub.id }}', '{{ sub.main_category.id }}', '{{ sub.name }}', '{{ sub.description|escapejs }}', '{{ sub.get_image_url|default:'' }}')">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
                     {% endif %}

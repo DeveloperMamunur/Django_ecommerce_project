@@ -58,7 +58,7 @@
                 <td>
                     {% if can_update_products_brand_list %}
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#brandModal"
-                        onclick="editBrand('{{ brand.id }}', '{{ brand.name }}', '{{ brand.description|escapejs }}', '{{ brand.image.url }}')">
+                        onclick="editBrand('{{ brand.id }}', '{{ brand.name|escapejs }}', '{{ brand.description|escapejs }}', '{{ brand.get_image_url|default:''|escapejs }}')">
                         <i class="bi bi-pencil-square"></i> Edit
                     </button>
                     {% endif %}
