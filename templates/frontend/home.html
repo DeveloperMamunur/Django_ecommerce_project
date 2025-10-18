@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+<!-- Hero Section -->
+<section class="hero text-light py-5 text-center">
+  <div class="container position-relative">
+    <h1 class="fw-bold display-4">Discover Premium Products</h1>
+    <p class="lead mb-4 text-secondary">Curated collection of the finest items for your lifestyle</p>
+    <a href="{% url 'product_list' %}" class="btn btn-light btn-lg">Shop Now</a>
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="py-5 bg-dark text-light">
+  <div class="container">
+    <h2 class="text-center fw-bold mb-5">Shop by Category</h2>
+    <div class="row g-4 justify-content-center">
+      {% for cat in categories %}
+      <div class="col-md-3 col-sm-6">
+        <a href="{% url 'product_list' %}?category={{ cat.id }}" class="text-decoration-none text-light">
+          <div class="card category-card border-0 overflow-hidden hover-glow">
+            <img src="{{ cat.get_image_url }}" alt="{{ cat.name }}" class="w-100" style="height: 180px; object-fit: cover;">
+            <div class="card-body text-center bg-dark bg-opacity-75 position-absolute bottom-0 w-100">
+              <h5 class="fw-semibold cat_title">{{ cat.name }}</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No categories found.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- New Arrivals -->
+{% include 'frontend/partials/_product_section.html' with title="New Arrivals" subtitle="Fresh picks just added" products=new_arrivals %}
+
+<!-- Top Selling -->
+{% include 'frontend/partials/_product_section.html' with title="Top Selling" subtitle="Customer favorites flying off shelves" products=top_selling %}
+
+<!-- Featured Products -->
+{% include 'frontend/partials/_product_section.html' with title="Featured Products" subtitle="Handpicked for you" products=featured_products %}
+
+<!-- Products by Category -->
+{% for cat in categories %}
+  {% if cat.top_products %}
+    {% include 'frontend/partials/_product_section.html' with title=cat.name subtitle="" products=cat.top_products %}
+  {% endif %}
+{% endfor %}
+
+<!-- All Products -->
+{% include 'frontend/partials/_product_section.html' with title="All Products" subtitle="" products=products %}
+
+<!-- Pagination -->
+<div class="d-flex justify-content-center mt-4">
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-light btn-sm mx-1">Previous</a>
+  {% endif %}
+  <span class="align-self-center text-secondary">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}" class="btn btn-outline-light btn-sm mx-1">Next</a>
+  {% endif %}
+</div>
+
+{% endblock contents %}

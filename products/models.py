@@ -1,5 +1,10 @@
-from django.db import models
+from datetime import timedelta
+from django.utils import timezone
 from django.utils.text import slugify
+from django.conf import settings
+from .utils import get_client_ip 
+from django.db.models import F
+from django.db import models
 from django.contrib.auth import get_user_model
 from core.models import TimeStampedModel, SoftDeleteModel, AuditModel
 import random
@@ -14,7 +19,7 @@ class Brand(TimeStampedModel, SoftDeleteModel, AuditModel):
     description = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return self.brand_name
+        return self.name
 
     class Meta:
         db_table = 'brands'
@@ -130,6 +135,7 @@ class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
 
     class Meta:
         db_table = 'products'
+        indexes = [models.Index(fields=['-total_views'])]
         verbose_name_plural = 'Products'
         ordering = ['-is_active']
 
@@ -144,8 +150,64 @@ class Product(TimeStampedModel, SoftDeleteModel, AuditModel):
             return primary.get_image_url()
         return '/static/defaults/default-image.jpg'
 
+    def add_view(self, request):
+        session_key = request.session.session_key
+        if not session_key:
+            request.session.create()
+            session_key = request.session.session_key
+
+        if not ProductView.objects.filter(product=self, session_key=session_key).exists():
+            ProductView.objects.create(
+                product=self,
+                user=request.user if request.user.is_authenticated else None,
+                session_key=session_key,
+                ip_address=get_client_ip(request),
+                user_agent=request.META.get('HTTP_USER_AGENT', '')[:255],
+            )
+            Product.objects.filter(pk=self.pk).update(total_views=F('total_views') + 1)
+            return True  # ✅ indicates new view
+        return False
+
+
+    def in_stock(self):
+        return self.quantity > 0
+
+    def on_sale(self):
+        return self.sale_price is not None
+
+    @property
+    def rating_int(self):
+        return int(self.average_rating or 0)
+
+    @property
+    def has_half_star(self):
+        return (self.average_rating or 0) % 1 >= 0.5
+
     def __str__(self):
         return self.name
+
+    @property
+    def is_new_arrival(self):
+        if not self.created_at:
+            return False
+        return (timezone.now() - self.created_at) <= timedelta(days=30)
+
+    @property
+    def is_best_seller(self):
+        return self.total_views >= 100 or self.is_featured
+
+    @property
+    def display_badge(self):
+        if self.is_featured:
+            return ("⭐ Featured", "bg-primary")
+        elif self.is_best_seller:
+            return ("🏆 Best Seller", "bg-warning text-dark")
+        elif self.discount_percentage and self.discount_percentage > 0:
+            return (f"{self.discount_percentage}% OFF", "bg-danger")
+        elif self.is_new_arrival:
+            return ("🆕 New Arrival", "bg-success")
+
+        return (None, None)
 
     def save(self, *args, **kwargs):
         if not self.slug and self.name:
@@ -230,5 +292,30 @@ class Wishlist(TimeStampedModel):
     def __str__(self):
         return f"{self.user} - {self.product}"
 
+class ProductView(models.Model):
+    product = models.ForeignKey('Product',on_delete=models.CASCADE, related_name='views', db_index=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='product_views')
+    session_key = models.CharField(max_length=40, blank=True, null=True, help_text="Anonymous session identifier")
+    ip_address = models.GenericIPAddressField( blank=True, null=True,  help_text="Optional: track visitor IP")
+    user_agent = models.CharField(max_length=255, blank=True,null=True,help_text="Browser or device info")
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        db_table = 'product_views'
+        verbose_name_plural = 'Product Views'
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['product', 'session_key']),
+            models.Index(fields=['product', 'created_at']),
+        ]
+    
+    @classmethod
+    def cleanup_old_views(cls, days=180):
+        cutoff = timezone.now() - timedelta(days=days)
+        cls.objects.filter(created_at__lt=cutoff).delete()
+        
+
+    def __str__(self):
+        viewer = self.user.username if self.user else f"Session {self.session_key}"
+        return f"{self.product.name} viewed by {viewer}"
 

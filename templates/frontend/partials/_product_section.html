@@ -1,0 +1,19 @@
+<section class="py-5 bg-dark text-light">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold">{{ title }}</h2>
+      {% if subtitle %}
+      <p class="text-secondary">{{ subtitle }}</p>
+      {% endif %}
+    </div>
+    <div class="row g-3">
+      {% for product, badge_tuple in products %}
+      <div class="col-md-3 col-sm-6">
+        {% include 'frontend/partials/_product_card.html' with product=product badge=badge_tuple.0 badge_class=badge_tuple.1 %}
+      </div>
+      {% empty %}
+      <p class="text-center text-muted">No products available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

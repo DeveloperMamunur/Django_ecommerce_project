@@ -1,0 +1,324 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'frontend/css/product.css' %}">
+{% endblock styles %}
+
+{% block contents %}
+
+<!-- Breadcrumb -->
+<section class="py-3 bg-light">
+  <div class="container">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+      <li class="breadcrumb-item active">Products</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Products Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 mb-4">
+        <div class="filter-sidebar">
+
+          <!-- 🔍 Search -->
+          <form method="get" action="{% url 'product_list' %}" id="filterForm">
+            <div class="filter-section">
+              <h5 class="filter-title">Search</h5>
+              <div class="search-box">
+                <input type="text" name="search" class="form-control" placeholder="Search..." value="{{ request.GET.search }}" id="searchInput">
+                <button type="submit" class="search-btn"><i class="fas fa-search"></i></button>
+              </div>
+            </div>
+
+            <!-- Categories Section with Show More -->
+            <div class="filter-section">
+              <h5 class="filter-title">Categories</h5>
+              <div id="categoryList">
+                {% for category in categories %}
+                <div class="form-check category-item {% if forloop.counter > 3 %}d-none{% endif %}" data-category-id="{{ category.id }}">
+                  <input class="form-check-input filter-checkbox" type="checkbox" name="category" value="{{ category.id }}" id="cat{{ category.id }}">
+                  <label class="form-check-label" for="cat{{ category.id }}">
+                    {{ category.name }} ({{ category.product_count }})
+                  </label>
+                </div>
+                {% endfor %}
+              </div>
+              
+              {% if categories|length > 3 %}
+              <button type="button" class="btn btn-link p-0 mt-2 text-decoration-none" id="toggleCategoriesBtn">
+                <span id="toggleText">+ Show More</span>
+              </button>
+              {% endif %}
+            </div>
+
+            <!-- Ratings -->
+            <div class="filter-section">
+              <h5 class="filter-title">Rating</h5>
+              {% for rating in "54321" %}
+              <div class="form-check">
+                <input class="form-check-input filter-checkbox" type="checkbox" name="rating" value="{{ rating }}" id="rating{{ rating }}">
+                <label class="form-check-label" for="rating{{ rating }}">
+                  {% for i in "12345" %}
+                    {% if forloop.counter <= rating|add:0 %}
+                      <i class="fas fa-star"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                  &nbsp; & Up
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Availability -->
+            <div class="filter-section">
+              <h5 class="filter-title">Availability</h5>
+              <div class="form-check">
+                <input class="form-check-input filter-checkbox" type="checkbox" name="stock" value="in-stock" id="instock">
+                <label class="form-check-label" for="instock">In Stock</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input filter-checkbox" type="checkbox" name="sale" value="on-sale" id="onsale">
+                <label class="form-check-label" for="onsale">On Sale</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input filter-checkbox" type="checkbox" name="new" value="new" id="newarrival">
+                <label class="form-check-label" for="newarrival">New Arrival</label>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary w-100 mt-2" onclick="resetFilters()">Reset Filters</button>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="col-lg-9">
+        <div class="row g-4">
+          {% for product in products %}
+          <div class="col-md-4 col-sm-6">
+            {% include 'frontend/partials/_product_card.html' with product=product %}
+          </div>
+          {% comment %} <div class="col-md-4">
+            <div class="card product-card">
+              <a href="{% url 'product_detail' product.slug %}" class="text-decoration-none">
+                <div class="product-img-wrapper">
+                  {% if product.is_new %}
+                    <span class="badge bg-success position-absolute m-2">New</span>
+                  {% elif product.on_sale %}
+                    <span class="badge bg-danger position-absolute m-2">-{{ product.discount_percentage }}%</span>
+                  {% endif %}
+                  <img src="{{ product.get_primary_image }}" alt="{{ product.name }}" class="img-fluid">
+                </div>
+
+                <div class="card-body">
+                  <h6 class="text-muted">{{ product.main_category.name }}</h6>
+                  <h5 class="fw-bold">{{ product.name }}</h5>
+
+                  <!-- ⭐ Rating -->
+                  <div class="text-warning mb-2">
+                    {% for i in "12345" %}
+                      {% if forloop.counter <= product.rating_int %}
+                        <i class="fas fa-star"></i>
+                      {% elif forloop.counter == product.rating_int|add:'1' and product.has_half_star %}
+                        <i class="fas fa-star-half-alt"></i>
+                      {% else %}
+                        <i class="far fa-star"></i>
+                      {% endif %}
+                    {% endfor %}
+                    <span class="text-muted ms-2">({{ product.review_count }})</span>
+                  </div>
+
+                  <!-- 💰 Price -->
+                  <div>
+                    {% if product.on_sale %}
+                      <span class="text-decoration-line-through product-price-original text-muted">${{ product.price }}</span>
+                      <span class="fw-bold text-danger">${{ product.sale_price }}</span>
+                    {% else %}
+                      <span class="fw-bold product-price-original">${{ product.price }}</span>
+                    {% endif %}
+                  </div>
+
+                  <!-- Stock -->
+                  {% if product.in_stock %}
+                    <span class="badge bg-success mt-2">In Stock</span>
+                  {% else %}
+                    <span class="badge bg-secondary mt-2">Out of Stock</span>
+                  {% endif %}
+                </div>
+              </a>
+
+              <div class="card-footer bg-transparent border-0">
+                <button class="btn btn-outline-primary w-100" onclick="addToCart({{ product.id }})">
+                  <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                </button>
+              </div>
+            </div>
+          </div> {% endcomment %}
+          {% empty %}
+          <div class="col-12 text-center py-5">
+            <i class="fas fa-box-open fa-2x text-muted"></i>
+            <h4 class="mt-3">No Products Found</h4>
+            <p>Try adjusting your filters or search terms.</p>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if products.has_other_pages %}
+        <nav class="mt-5">
+          <ul class="pagination justify-content-center">
+            {% if products.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ products.previous_page_number }}"><i class="fas fa-chevron-left"></i></a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link"><i class="fas fa-chevron-left"></i></span></li>
+            {% endif %}
+            {% for num in products.paginator.page_range %}
+              {% if num == products.number %}
+                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+              {% elif num > products.number|add:'-3' and num < products.number|add:'3' %}
+                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if products.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ products.next_page_number }}"><i class="fas fa-chevron-right"></i></a></li>
+            {% else %}
+              <li class="page-item disabled"><span class="page-link"><i class="fas fa-chevron-right"></i></span></li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
+  const filterForm = document.getElementById('filterForm');
+  
+  // First, restore checked states from URL
+  const selectedCategories = {{ selected_categories|safe }};
+  const selectedRatings = {{ selected_ratings|safe }};
+  
+  // Restore selected categories and show them
+  selectedCategories.forEach(catId => {
+    const checkbox = document.getElementById('cat' + catId);
+    if (checkbox) {
+      checkbox.checked = true;
+      // Make sure checked categories are visible
+      const categoryItem = checkbox.closest('.category-item');
+      if (categoryItem) {
+        categoryItem.classList.remove('d-none');
+      }
+    }
+  });
+
+  // Restore selected ratings
+  selectedRatings.forEach(rating => {
+    const checkbox = document.getElementById('rating' + rating);
+    if (checkbox) checkbox.checked = true;
+  });
+
+  // Restore availability filters
+  if ('{{ request.GET.stock }}' === 'in-stock') {
+    document.getElementById('instock').checked = true;
+  }
+  if ('{{ request.GET.sale }}' === 'on-sale') {
+    document.getElementById('onsale').checked = true;
+  }
+  if ('{{ request.GET.new }}' === 'new') {
+    document.getElementById('newarrival').checked = true;
+  }
+
+  // Update toggle button text based on current state
+  const allCategories = document.querySelectorAll('.category-item');
+  const hiddenCategories = document.querySelectorAll('.category-item.d-none');
+  const toggleText = document.getElementById('toggleText');
+  
+  if (toggleText) {
+    if (hiddenCategories.length === 0 && allCategories.length > 3) {
+      toggleText.textContent = '- Show Less';
+    }
+  }
+
+  // Apply filters when any checkbox changes
+  filterCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      filterForm.submit();
+    });
+  });
+
+  // Category Toggle Function
+  const toggleBtn = document.getElementById('toggleCategoriesBtn');
+  
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hiddenCats = document.querySelectorAll('.category-item.d-none');
+      const toggleTxt = document.getElementById('toggleText');
+      
+      if (hiddenCats.length > 0) {
+        // Show all categories
+        hiddenCats.forEach(cat => cat.classList.remove('d-none'));
+        toggleTxt.textContent = '- Show Less';
+      } else {
+        // Hide unchecked categories after first 3
+        const allCats = document.querySelectorAll('.category-item');
+        let visibleCount = 0;
+        
+        allCats.forEach((cat) => {
+          const checkbox = cat.querySelector('input[type="checkbox"]');
+          // Keep first 3 visible OR any checked category
+          if (visibleCount < 3 || checkbox.checked) {
+            cat.classList.remove('d-none');
+            if (visibleCount < 3) visibleCount++;
+          } else {
+            cat.classList.add('d-none');
+          }
+        });
+        toggleTxt.textContent = '+ Show More';
+      }
+    });
+  }
+
+  // Optional: Real-time search with debounce
+  const searchInput = document.getElementById('searchInput');
+  let searchTimeout;
+  
+  searchInput.addEventListener('input', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+      filterForm.submit();
+    }, 700);
+  });
+});
+
+function resetFilters() {
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+  document.getElementById('searchInput').value = '';
+  window.location = "{% url 'product_list' %}";
+}
+
+function addToCart(id) { 
+  console.log("Add to cart:", id); 
+}
+</script>
+
+{% endblock contents %}

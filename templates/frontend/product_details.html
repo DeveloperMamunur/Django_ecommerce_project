@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'frontend/css/product-detail.css' %}">
+{% endblock styles %}
+
+{% block contents %}
+<!-- Breadcrumb -->
+<section class="py-3 bg-light">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Products</a></li>
+        <li class="breadcrumb-item">
+          <a href="{% url 'product_list' %}?main_category={{ product.main_category.id }}">
+            {{ product.main_category.name }}
+          </a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<!-- Product Details -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-5">
+      
+      <!-- Product Images -->
+      <div class="col-lg-6">
+        <div class="product-images-container">
+
+          <!-- Main Image -->
+          <div class="main-image-wrapper mb-3">
+            <div class="product-badge-detail {% if product.is_new %}badge-new{% elif product.on_sale %}badge-sale{% endif %}">
+              {% if product.is_new %}
+                New
+              {% elif product.on_sale %}
+                Sale -{{ product.discount_percentage }}%
+              {% endif %}
+            </div>
+            <img id="mainImage" src="{{ product.get_primary_image }}" alt="{{ product.name }}" class="img-fluid main-product-image">
+            <button class="btn-wishlist" onclick="toggleWishlist({{ product.id }})">
+              <i class="far fa-heart"></i>
+            </button>
+          </div>
+
+          <!-- Thumbnails -->
+          <div class="thumbnails-wrapper">
+            <div class="row g-2">
+              {% for image in product.product_images.all %}
+                <div class="col-3">
+                  <img src="{{ image.get_image_url }}" 
+                      class="img-fluid thumbnail-image {% if image.is_primary %}active{% endif %}"
+                      onclick="changeMainImage(this)">
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="col-lg-6">
+        <div class="product-info-detail">
+          
+          <h1 class="product-title-detail">{{ product.name }}</h1>
+
+          <!-- Rating -->
+          <div class="product-rating-detail mb-3">
+            <div class="stars">
+              {% for i in "12345" %}
+                {% if forloop.counter <= product.average_rating %}
+                  <i class="fas fa-star"></i>
+                {% else %}
+                  <i class="far fa-star"></i>
+                {% endif %}
+              {% endfor %}
+            </div>
+            <span class="rating-text">{{ product.average_rating }} ({{ product.review_count }} reviews)</span>
+            <span class="separator">|</span>
+            <span class="stock-status {% if product.in_stock %}in-stock{% else %}out-stock{% endif %}">
+              {% if product.in_stock %}
+                <i class="fas fa-check-circle"></i> In Stock
+              {% else %}
+                <i class="fas fa-times-circle"></i> Out of Stock
+              {% endif %}
+            </span>
+          </div>
+
+          <!-- Price -->
+          <div class="product-price-detail mb-4">
+            {% if product.on_sale %}
+              <span class="original-price">${{ product.price }}</span>
+              <span class="sale-price">${{ product.sale_price }}</span>
+              <span class="discount-badge">Save {{ product.discount_percentage }}%</span>
+            {% else %}
+              <span class="current-price">${{ product.price }}</span>
+            {% endif %}
+          </div>
+
+          <!-- Description -->
+          <div class="product-description mb-4">
+            <p>{{ product.description }}</p>
+          </div>
+
+          <!-- Features -->
+          {% if product.features %}
+          <div class="product-features mb-4">
+            <h6 class="fw-bold mb-3">Key Features:</h6>
+            <ul class="features-list">
+              {% for feature in product.features_list %}
+                <li><i class="fas fa-check-circle text-success me-2"></i>{{ feature }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          <!-- Colors -->
+          {% if product.available_colors %}
+          <div class="product-options mb-4">
+            <h6 class="fw-bold mb-3">Color:</h6>
+            <div class="color-options">
+              {% for color in product.available_colors %}
+                <button class="color-option {% if forloop.first %}active{% endif %}" style="background-color: {{ color }};" title="{{ color }}"></button>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Sizes -->
+          {% if product.available_sizes %}
+          <div class="product-options mb-4">
+            <h6 class="fw-bold mb-3">Size:</h6>
+            <div class="size-options">
+              {% for size in product.available_sizes %}
+                <button class="size-option {% if forloop.first %}active{% endif %}">{{ size }}</button>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+
+          <!-- Quantity -->
+          <div class="product-options mb-4">
+            <h6 class="fw-bold mb-3">Quantity:</h6>
+            <div class="quantity-selector">
+              <button class="qty-btn" onclick="decreaseQuantity()">-</button>
+              <input type="number" id="quantity" value="1" min="1" max="{{ product.stock_quantity }}" readonly>
+              <button class="qty-btn" onclick="increaseQuantity()">+</button>
+            </div>
+            <span class="stock-info text-muted ms-3">{{ product.stock_quantity }} items available</span>
+          </div>
+
+          <!-- Buttons -->
+          <div class="product-actions mb-4">
+            <button class="btn btn-add-to-cart" onclick="addToCart({{ product.id }})">
+              <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+            </button>
+            <button class="btn btn-buy-now" onclick="buyNow({{ product.id }})">
+              <i class="fas fa-bolt me-2"></i>Buy Now
+            </button>
+          </div>
+
+          <!-- Extra Info -->
+          <div class="product-additional-info">
+            <div class="info-item"><i class="fas fa-truck text-primary"></i><div><strong>Free Shipping</strong><p class="small text-muted mb-0">On orders over $50</p></div></div>
+            <div class="info-item"><i class="fas fa-undo-alt text-primary"></i><div><strong>30 Days Return</strong><p class="small text-muted mb-0">Money back guarantee</p></div></div>
+            <div class="info-item"><i class="fas fa-shield-alt text-primary"></i><div><strong>Secure Payment</strong><p class="small text-muted mb-0">100% secure transaction</p></div></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Related Products -->
+<section class="py-5">
+  <div class="container">
+    <h3 class="text-center mb-5 fw-bold">Related Products</h3>
+    <div class="row g-4">
+      {% for related_product in related_products %}
+      <div class="col-md-3">
+        <div class="card product-card">
+          <a href="{% url 'product_detail' related_product.slug %}" class="text-decoration-none">
+            <div class="product-img-wrapper">
+              <img src="{{ related_product.get_primary_image }}" alt="{{ related_product.name }}">
+            </div>
+            <div class="product-info">
+              <h5 class="product-title">{{ related_product.name }}</h5>
+              <div class="product-rating mb-2">
+                {% for i in "12345" %}
+                  {% if forloop.counter <= related_product.average_rating %}
+                    <i class="fas fa-star"></i>
+                  {% else %}
+                    <i class="far fa-star"></i>
+                  {% endif %}
+                {% endfor %}
+                <span class="text-muted ms-2">({{ related_product.review_count }})</span>
+              </div>
+              <div class="product-price mb-3">${{ related_product.price }}</div>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<script>
+  function changeMainImage(thumb) {
+    const mainImg = document.getElementById("mainImage");
+    mainImg.src = thumb.src;
+    document.querySelectorAll(".thumbnail-image").forEach(img => img.classList.remove("active"));
+    thumb.classList.add("active");
+  }
+  function increaseQuantity() {
+    const input = document.getElementById("quantity");
+    const max = parseInt(input.max);
+    if (parseInt(input.value) < max) input.value = parseInt(input.value) + 1;
+  }
+  function decreaseQuantity() {
+    const input = document.getElementById("quantity");
+    if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+  }
+  function toggleWishlist(id) {
+    const btn = document.querySelector(".btn-wishlist i");
+    btn.classList.toggle("far");
+    btn.classList.toggle("fas");
+  }
+  function addToCart(id) {
+    const qty = document.getElementById("quantity").value;
+    console.log(`Add product ${id} x${qty} to cart`);
+  }
+  function buyNow(id) {
+    const qty = document.getElementById("quantity").value;
+    console.log(`Buy product ${id} x${qty}`);
+  }
+</script>
+{% endblock contents %}

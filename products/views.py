@@ -205,7 +205,7 @@ def product_list_view(request):
     
     # Handle Product Creation
     if request.method == 'POST':
-        if not CheckUserPermission(request, 'can_add', 'products:product_list'):
+        if not CheckUserPermission(request, 'can_create', 'products:product_list'):
             messages.error(request, 'Permission denied')
             return redirect('products:product_list')
         
@@ -234,7 +234,7 @@ def product_list_view(request):
     sub_category_id = request.GET.get('sub_category')
     brand_id = request.GET.get('brand')
 
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-created_at')
 
     if search:
         products = products.filter(
