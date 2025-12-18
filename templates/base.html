@@ -165,30 +165,7 @@
         });
         
         
-        // Cart functionality
-        let cartItems = [
-            {
-                id: 1,
-                name: 'Premium Wireless Headphones',
-                price: 299.99,
-                quantity: 1,
-                image: ''
-            },
-            {
-                id: 2,
-                name: 'Designer Sunglasses',
-                price: 159.99,
-                quantity: 1,
-                image: ''
-            },
-            {
-                id: 3,
-                name: 'Smart Watch Pro',
-                price: 289.99,
-                quantity: 1,
-                image: ''
-            }
-        ];
+        let cartItems = [];
         
         function toggleCart() {
             const cartSidebar = document.getElementById('cartSidebar');
@@ -197,7 +174,7 @@
             cartSidebar.classList.toggle('active');
             cartOverlay.classList.toggle('active');
         }
-        
+
         function updateCart() {
             const container = document.getElementById('cartItemsContainer');
             const cartCount = document.getElementById('cartCount');
@@ -227,16 +204,20 @@
             
             container.innerHTML = cartItems.map(item => `
                 <div class="cart-item">
-                    <div class="cart-item-img"></div>
+                    <div class="cart-item-img">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
                     <div class="cart-item-details">
                         <div class="cart-item-title">${item.name}</div>
                         <div class="cart-item-price">${item.price.toFixed(2)}</div>
                         <div class="cart-quantity">
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">
+                            <button class="quantity-btn"
+                                onclick="updateQuantity(event, ${item.id}, -1)"
+                                ${item.quantity === 1 ? 'disabled' : ''}>
                                 <i class="fas fa-minus"></i>
                             </button>
                             <span>${item.quantity}</span>
-                            <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">
+                            <button class="quantity-btn" onclick="updateQuantity(event, ${item.id}, 1)">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -248,62 +229,118 @@
             `).join('');
         }
         
-        function updateQuantity(itemId, change) {
+        function updateQuantity(event, itemId, change) { 
+            event.preventDefault();
+            
             const item = cartItems.find(i => i.id === itemId);
-            if (item) {
-                item.quantity += change;
-                if (item.quantity <= 0) {
-                    removeItem(itemId);
-                } else {
+            if (!item) return;
+
+            const newQty = item.quantity + change;
+            if (newQty < 1) return;
+
+            // Update backend
+            fetch("{% url 'update_cart_quantity' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `product_id=${itemId}&quantity=${newQty}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // Update local state and UI
+                    item.quantity = newQty;
                     updateCart();
                 }
-            }
+            });
         }
         
         function removeItem(itemId) {
-            cartItems = cartItems.filter(i => i.id !== itemId);
-            updateCart();
+            fetch("{% url 'remove_from_cart' %}", {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: `product_id=${itemId}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    cartItems = Object.values(data.cart).map(item => ({
+                        id: item.product_id,
+                        name: item.name,
+                        price: parseFloat(item.price),
+                        quantity: item.quantity,
+                        image: item.image
+                    }));
+                    updateCart();
+                }
+            });
         }
-        
-        // Initialize cart
+            
+            // Initialize cart
         updateCart();
         
         // Add to cart functionality for product cards
-        document.querySelectorAll('.btn-add-cart').forEach((btn, index) => {
-            btn.addEventListener('click', function() {
-                const productTitles = [
-                    'Premium Wireless Headphones',
-                    'Designer Sunglasses',
-                    'Smart Watch Pro',
-                    'Leather Backpack'
-                ];
-                const productPrices = [299.99, 159.99, 399.99, 89.99];
-                
-                const existingItem = cartItems.find(item => item.name === productTitles[index]);
-                
-                if (existingItem) {
-                    existingItem.quantity++;
-                } else {
-                    cartItems.push({
-                        id: Date.now(),
-                        name: productTitles[index],
-                        price: productPrices[index],
-                        quantity: 1,
-                        image: ''
-                    });
-                }
-                
-                updateCart();
-                
-                // Show feedback
-                this.textContent = 'Added!';
-                this.style.background = '#10b981';
-                setTimeout(() => {
-                    this.textContent = 'Add to Cart';
-                    this.style.background = '';
-                }, 1000);
+        document.addEventListener('DOMContentLoaded', function () {
+
+            document.querySelectorAll('.btn-add-cart').forEach(btn => {
+                btn.addEventListener('click', function () {
+
+                const productId = this.dataset.productId;
+
+                fetch("{% url 'add_to_cart' %}", {
+                    method: "POST",
+                    headers: {
+                    "X-CSRFToken": "{{ csrf_token }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `product_id=${productId}`
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                    cartItems = Object.values(data.cart).map(item => ({
+                        id: item.product_id,
+                        name: item.name,
+                        price: parseFloat(item.price),
+                        quantity: item.quantity,
+                        image: item.image 
+                    }));
+
+                    updateCart();
+
+                    // UI feedback
+                    btn.innerHTML = "✔ Added";
+                    btn.disabled = true;
+
+                    setTimeout(() => {
+                        btn.innerHTML = '<i class="fas fa-shopping-cart me-2"></i>Add to Cart';
+                        btn.disabled = false;
+                    }, 1000);
+                    }
+                });
+
+                });
             });
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("{% url 'get_cart' %}")
+                .then(res => res.json())
+                .then(data => {
+                    cartItems = Object.values(data.cart).map(item => ({
+                        id: item.product_id,
+                        name: item.name,
+                        price: parseFloat(item.price),
+                        quantity: item.quantity,
+                        image: item.image
+                    }));
+                    updateCart();
+                });
+            });
     </script>
 </body>
 </html>

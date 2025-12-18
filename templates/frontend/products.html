@@ -201,9 +201,7 @@
 </section>
 
 <script>
-document.addEventListener('DOMContentLoaded', function(e) {
-  e.preventDefault();
-  e.stopPropagation();
+document.addEventListener('DOMContentLoaded', function() {
 
   const filterCheckboxes = document.querySelectorAll('.filter-checkbox');
   const filterForm = document.getElementById('filterForm');
@@ -316,9 +314,6 @@ function resetFilters() {
   window.location = "{% url 'product_list' %}";
 }
 
-function addToCart(id) { 
-  console.log("Add to cart:", id); 
-}
 </script>
 
 {% endblock contents %}

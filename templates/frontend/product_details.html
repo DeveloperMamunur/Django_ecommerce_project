@@ -156,7 +156,7 @@
 
           <!-- Buttons -->
           <div class="product-actions mb-4">
-            <button class="btn btn-add-to-cart" onclick="addToCart({{ product.id }})">
+            <button class="btn btn-add-to-cart btn-add-cart" data-product-id="{{ product.id }}">
               <i class="fas fa-shopping-cart me-2"></i>Add to Cart
             </button>
             <button class="btn btn-buy-now" onclick="buyNow({{ product.id }})">

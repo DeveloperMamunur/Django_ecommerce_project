@@ -9,8 +9,8 @@ from products.models import Product, ProductImage
 User = get_user_model()
 
 class Cart(TimeStampedModel, SoftDeleteModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='carts', null=True, blank=True)
+    session_key = models.CharField(max_length=40, null=True, blank=True)
     quantity = models.PositiveIntegerField(default=1)
     created_by = models.CharField(null=True, blank=True)
     updated_by = models.CharField(null=True, blank=True)
@@ -19,21 +19,29 @@ class Cart(TimeStampedModel, SoftDeleteModel):
         db_table = 'cart'
 
     def __str__(self):
-        return str(self.product)
+        if self.user:
+            return f"Cart of {self.user}"
+        return f"Cart {self.id} (Guest)"
 
 
 class CartItem(TimeStampedModel, SoftDeleteModel):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
     quantity = models.PositiveIntegerField(default=1)
+    price = models.FloatField(default=0.0)
     created_by = models.CharField(null=True, blank=True)
     updated_by = models.CharField(null=True, blank=True)
 
     class Meta:
         db_table = 'cart_items'
+        unique_together = ('cart', 'product')
 
     def __str__(self):
-        return str(self.product)
+        return f"{self.product.name} ({self.quantity})"
+
+    @property
+    def subtotal(self):
+        return self.price * self.quantity
 
 class Coupon(TimeStampedModel, SoftDeleteModel):
     code = models.CharField(max_length=50, unique=True)

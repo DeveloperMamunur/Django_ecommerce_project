@@ -27,6 +27,7 @@ urlpatterns = [
     path('products/<slug:slug>/', views.product_detail, name='product_detail'),
     path('', include('accounts.urls')),
     path('dashboard/', include('products.urls')),
+    path('', include('orders.urls')),
 ]
 
 if settings.DEBUG:

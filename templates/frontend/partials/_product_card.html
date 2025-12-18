@@ -44,8 +44,10 @@
         {% endif %}
       </div>
       </div>
-      <button class="btn btn-outline-light btn-sm w-100">
-        <i class="fas fa-shopping-cart me-2"></i> Add to Cart
+      <button
+        class="btn btn-outline-primary w-100 btn-add-cart"
+        data-product-id="{{ product.id }}">
+        <i class="fas fa-shopping-cart me-2"></i>Add to Cart
       </button>
     </div>
   </div>
