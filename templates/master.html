@@ -59,6 +59,10 @@
                     <span class="nav-text">Product</span>
                 </a>
             {% endif %}
+            <a href="{% url 'coupon_list' %}" class="nav-link {% if request.resolver_match.url_name == 'coupon_list' %}active{% endif %}">
+                <i class="bi bi-grid me-2"></i>
+                <span class="nav-text">Coupons</span>
+            </a>
 
         </nav>
         

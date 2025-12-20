@@ -72,13 +72,15 @@
                 <span>Total:</span>
                 <span id="cartTotal">$749.97</span>
             </div>
-            <button class="checkout-btn">Proceed to Checkout</button>
+            <button class="checkout-btn" onclick="window.location.href='{% url 'checkout' %}'">
+                Proceed to Checkout
+            </button>
         </div>
     </div>
 
-
-    {% block contents %}{% endblock contents %}
-
+    <div class="main-content">
+        {% block contents %}{% endblock contents %}
+    </div>
     <!-- Newsletter -->
 
     <!-- Footer -->
