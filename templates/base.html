@@ -68,14 +68,17 @@
         </div>
         
         <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total:</span>
-                <span id="cartTotal">$749.97</span>
+            <div class="cart-totals">
+                <div class="d-flex justify-content-between fw-bold fs-3">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
             </div>
-            <button class="checkout-btn" onclick="window.location.href='{% url 'checkout' %}'">
+            <button class="checkout-btn" id="checkoutBtn" onclick="checkout()">
                 Proceed to Checkout
             </button>
         </div>
+
     </div>
 
     <div class="main-content">
@@ -181,8 +184,8 @@
             const container = document.getElementById('cartItemsContainer');
             const cartCount = document.getElementById('cartCount');
             const cartItemCount = document.getElementById('cartItemCount');
-            const cartTotal = document.getElementById('cartTotal');
-            
+            const cartTotalEl = document.getElementById('cartTotal');
+
             if (cartItems.length === 0) {
                 container.innerHTML = `
                     <div class="empty-cart">
@@ -193,17 +196,19 @@
                 `;
                 cartCount.textContent = '0';
                 cartItemCount.textContent = '0';
-                cartTotal.textContent = '$0.00';
+                cartTotalEl.textContent = '$0.00';
                 return;
             }
-            
+
+            const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-            const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            
+            let discount = parseFloat(sessionStorage.getItem('coupon_discount') || 0);
+            let Total = subtotal - discount;
+
             cartCount.textContent = totalItems;
             cartItemCount.textContent = totalItems;
-            cartTotal.textContent = `${total.toFixed(2)}`;
-            
+            cartTotalEl.textContent = `$${Total.toFixed(2)}`;
+
             container.innerHTML = cartItems.map(item => `
                 <div class="cart-item">
                     <div class="cart-item-img">
@@ -282,10 +287,9 @@
                 }
             });
         }
-            
-            // Initialize cart
+
         updateCart();
-        
+
         // Add to cart functionality for product cards
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -331,18 +335,22 @@
         });
         document.addEventListener("DOMContentLoaded", function () {
             fetch("{% url 'get_cart' %}")
-                .then(res => res.json())
-                .then(data => {
-                    cartItems = Object.values(data.cart).map(item => ({
-                        id: item.product_id,
-                        name: item.name,
-                        price: parseFloat(item.price),
-                        quantity: item.quantity,
-                        image: item.image
-                    }));
-                    updateCart();
-                });
+            .then(res => res.json())
+            .then(data => {
+                cartItems = Object.values(data.cart).map(item => ({
+                    id: item.product_id,
+                    name: item.name,
+                    price: parseFloat(item.price),
+                    quantity: item.quantity,
+                    image: item.image
+                }));
+                updateCart();
             });
+        });
+
+        function checkout() {
+            window.location.href = "{% url 'checkout' %}";
+        }
     </script>
 </body>
 </html>

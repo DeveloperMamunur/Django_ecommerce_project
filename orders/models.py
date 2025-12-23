@@ -11,7 +11,6 @@ User = get_user_model()
 class Cart(TimeStampedModel, SoftDeleteModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='carts', null=True, blank=True)
     session_key = models.CharField(max_length=40, null=True, blank=True)
-    quantity = models.PositiveIntegerField(default=1)
     created_by = models.CharField(null=True, blank=True)
     updated_by = models.CharField(null=True, blank=True)
 
@@ -28,7 +27,7 @@ class CartItem(TimeStampedModel, SoftDeleteModel):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cart_items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='cart_items')
     quantity = models.PositiveIntegerField(default=1)
-    price = models.FloatField(default=0.0)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     created_by = models.CharField(null=True, blank=True)
     updated_by = models.CharField(null=True, blank=True)
 
@@ -145,3 +144,31 @@ class OrderDetail(TimeStampedModel, SoftDeleteModel):
 
     def __str__(self):
         return f"{self.order.order_number} ({self.product} - {self.quantity})"
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.unit_price * self.quantity
+        super().save(*args, **kwargs)
+
+
+class OnlinePaymentRequest(TimeStampedModel):
+    order = models.ForeignKey(Order, related_name='order_payment_requests', on_delete=models.CASCADE)
+    transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    payment_status_list = [('Pending', 'Pending'), ('Paid', 'Paid'), ('Cancelled', 'Cancelled'), ('Failed', 'Failed')]
+    payment_status = models.CharField(max_length=15, choices=payment_status_list, blank=True, null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payment_request_created_by')
+
+    class Meta:
+        db_table = "online_payment_request"
+
+class OrderPayment(TimeStampedModel, SoftDeleteModel):
+    order = models.ForeignKey(Order, related_name='order_payments', on_delete=models.CASCADE)
+    payment_method = models.CharField(max_length=50, blank=True, null=True)
+    amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    transaction_id = models.CharField(max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.order.order_number)+" ("+str(self.payment_method)+" - "+str(self.amount)+")"
+
+    class Meta:
+        db_table = 'order_payments'

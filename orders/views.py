@@ -1,4 +1,4 @@
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -46,11 +46,13 @@ def coupon_list(request):
             coupon.save()
     return render(request, 'coupons/coupon_list.html', {'coupons': coupons})
 
+@login_required
 def delete_coupon(request, coupon_id):
     coupon = get_object_or_404(Coupon, id=coupon_id)
     coupon.delete()
     return redirect('coupon_list')
 
+@login_required
 def toggle_coupon_status(request, coupon_id):
     coupon = get_object_or_404(Coupon, id=coupon_id)
     coupon.is_active = not coupon.is_active
@@ -69,24 +71,34 @@ def get_user_cart(request):
         cart, _ = Cart.objects.get_or_create(session_key=session_key, user=None)
     return cart
 
+def get_cart_items(cart):
+    return cart.cart_items.filter(is_active=True)
 
 def add_to_cart(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
         product = get_object_or_404(Product, id=product_id)
         cart = get_user_cart(request)
+        order = Order.objects.filter(customer=request.user, status='pending', is_active=True).first()
 
-        cart_item, created = CartItem.objects.get_or_create(
-            cart=cart,
-            product=product,
-            defaults={
-                "quantity": 1,
-                "price": float(product.sale_price if product.on_sale else product.price)
-            }
-        )
-        if not created:
-            cart_item.quantity += 1
-            cart_item.save()
+        with transaction.atomic():
+            try:
+                cart_item, created = CartItem.all_objects.update_or_create(
+                    cart=cart,
+                    product=product,
+                    defaults={
+                        'is_active': True,
+                        'price': float(product.sale_price if product.on_sale else product.price),
+                        'quantity': 1
+                    }
+                )
+                if not created:
+                    cart_item.quantity += 1
+                    cart_item.save()
+            except IntegrityError:
+                cart_item = CartItem.objects.get(cart=cart, product=product)
+                cart_item.quantity += 1
+                cart_item.save()
 
         return JsonResponse({"success": True, "cart": serialize_cart(cart)})
 
@@ -115,7 +127,8 @@ def get_cart(request):
 
 
 def serialize_cart(cart):
-    cart_items = cart.cart_items.all()
+    cart_items = cart.cart_items.filter(is_active=True)
+
     return [
         {
             "product_id": item.product.id,
@@ -145,21 +158,113 @@ def update_cart_quantity(request):
     return JsonResponse({"success": True})
 
 @login_required
+@transaction.atomic
 def checkout(request):
-    cart = request.session.get('cart', {})
-    total = sum(float(i['price']) * i['quantity'] for i in cart.values())
+    cart = get_user_cart(request)
+    cart_items = cart.cart_items.filter(is_active=True)
+
+    if not cart_items.exists():
+        return redirect('cart')
+
+    order_amount = sum(
+        Decimal(item.price) * item.quantity
+        for item in cart_items
+    )
+
+    coupon_discount = Decimal('0.00')
+    applied_coupon = None
+    coupon_id = request.session.get('coupon')
+
+    if coupon_id:
+        try:
+            coupon = Coupon.objects.get(
+                id=coupon_id,
+                is_active=True,
+                valid_from__lte=timezone.now(),
+                valid_to__gte=timezone.now()
+            )
+            applied_coupon = coupon
+
+            if coupon.discount_type == 'percent':
+                coupon_discount = (order_amount * coupon.discount_value) / 100
+            else:
+                coupon_discount = Decimal(coupon.discount_value)
+
+            coupon_discount = min(coupon_discount, order_amount)
+
+        except Coupon.DoesNotExist:
+            request.session.pop('coupon', None)
+
+
+    vat_amount = Decimal('0.00') 
+    tax_amount = Decimal('0.00')
+    shipping_charge = Decimal('50.00')
+
+    grand_total = (
+        order_amount
+        + vat_amount
+        + tax_amount
+        + shipping_charge
+        - coupon_discount
+    )
+
+    order, created = Order.objects.get_or_create(
+        customer=request.user,
+        status='pending',
+        defaults={
+            'order_amount': order_amount,
+            'coupon_discount': coupon_discount,
+            'vat_amount': vat_amount,
+            'tax_amount': tax_amount,
+            'shipping_charge': shipping_charge,
+            'grand_total': grand_total,
+            'paid_amount': Decimal('0.00'),
+            'due_amount': grand_total
+        }
+    )
+
+    if not created:
+        order.order_amount = order_amount
+        order.coupon_discount = coupon_discount
+        order.vat_amount = vat_amount
+        order.tax_amount = tax_amount
+        order.shipping_charge = shipping_charge
+        order.grand_total = grand_total
+        order.due_amount = grand_total - order.paid_amount
+        order.save()
+
+    order.order_details.all().delete()
+
+    for item in cart_items:
+        OrderDetail.objects.create(
+            order=order,
+            product=item.product,
+            unit_price=item.price,
+            quantity=item.quantity,
+            total_price=item.price * item.quantity
+        )
+
+    if request.method == 'POST':
+        return redirect('payment')
 
     return render(request, 'frontend/checkout.html', {
-        'cart_total': total
-    })
+        'order': order,
+        'cart_items': cart_items,
+        'cart_total': order_amount,
+        'order_amount': order_amount,
+        'coupon_discount': coupon_discount,
+        'vat_amount': vat_amount,
+        'tax_amount': tax_amount,
+        'shipping_charge': shipping_charge,
+        'grand_total': grand_total,
+        'applied_coupon': applied_coupon,
+})
 
-
-@require_POST
 def apply_coupon(request):
     code = request.POST.get('code')
 
     try:
-        coupon = Coupon.objects.get(code=code)
+        coupon = Coupon.objects.get(code=code, is_active=True)
         now = timezone.now()
 
         if not (coupon.valid_from <= now <= coupon.valid_to):
@@ -168,103 +273,74 @@ def apply_coupon(request):
         if coupon.used_count >= coupon.usage_limit:
             return JsonResponse({'success': False, 'message': 'Coupon limit reached'})
 
-        cart = request.session.get('cart', {})
-        subtotal = sum(
-            Decimal(str(i['price'])) * i['quantity']
-            for i in cart.values()
-        )
+        cart = get_user_cart(request)
+        cart_items = get_cart_items(cart)
+
+        if not cart_items.exists():
+            return JsonResponse({'success': False, 'message': 'Cart is empty'})
+
+        subtotal = sum(Decimal(item.price) * item.quantity for item in cart_items)
 
         if coupon.discount_type == 'percent':
-            discount = (subtotal * coupon.discount_value) / Decimal('100')
+            discount = subtotal * coupon.discount_value / Decimal('100')
         else:
             discount = coupon.discount_value
 
         discount = min(discount, subtotal)
 
+        order = Order.objects.filter(customer=request.user, status='pending', is_active=True).first()
+        if order:
+            order.coupon_discount = discount
+            order.grand_total = order.order_amount + order.shipping_charge - discount
+            order.save(update_fields=['coupon_discount', 'grand_total'])
+
         request.session['coupon'] = coupon.id
 
         return JsonResponse({
             'success': True,
-            'discount': float(discount)  # JSON needs float
+            'discount': float(discount),
+            'grand_total': float(order.grand_total) if order else float(subtotal - discount)
         })
 
     except Coupon.DoesNotExist:
         return JsonResponse({'success': False, 'message': 'Invalid coupon'})
 
 
-@require_POST
+def remove_coupon(request):
+    request.session['coupon'] = None
+    Order.objects.filter(customer=request.user, status='pending', is_active=True).update(coupon_discount=0)
+    return JsonResponse({'success': True})
+
+
 @login_required
-@transaction.atomic
 def place_order(request):
-    cart = request.session.get('cart', {})
-    if not cart:
-        return JsonResponse({'success': False, 'message': 'Cart is empty'})
+    if request.method == "POST":
+        order = Order.objects.filter(customer=request.user, status='pending', is_active=True).first()
+        if not order:
+            return JsonResponse({"success": False, "message": "Order not found"})
 
-    # Shipping
-    shipping = ShippingAddress.objects.create(
-        full_name=request.POST.get('full_name'),
-        email=request.POST.get('email'),
-        phone=request.POST.get('phone'),
-        address=request.POST.get('address'),
-        city=request.POST.get('city'),
-        state=request.POST.get('state'),
-        country=request.POST.get('country', 'Bangladesh'),
-        zip_code=request.POST.get('zip'),
-    )
-
-    subtotal = sum(
-        Decimal(str(item['price'])) * item['quantity']
-        for item in cart.values()
-    )
-
-    shipping_charge = Decimal('50')
-    discount = Decimal('0')
-    coupon = None
-
-    coupon_id = request.session.get('coupon')
-    if coupon_id:
-        coupon = Coupon.objects.select_for_update().get(id=coupon_id)
-
-        if coupon.discount_type == 'percent':
-            discount = (subtotal * coupon.discount_value) / Decimal('100')
-        else:
-            discount = coupon.discount_value
-
-        discount = min(discount, subtotal)
-
-    grand_total = subtotal - discount + shipping_charge
-
-    order = Order.objects.create(
-        customer=request.user,
-        shipping_address=shipping,
-        order_amount=subtotal,
-        shipping_charge=shipping_charge,
-        coupon_discount=discount,
-        grand_total=grand_total,
-        paid_amount=Decimal('0'),
-        due_amount=grand_total,
-        payment_method='COD',
-        payment_status='PENDING',
-    )
-
-    for item in cart.values():
-        OrderDetail.objects.create(
-            order=order,
-            product_id=item['product_id'],
-            unit_price=Decimal(str(item['price'])),
-            quantity=item['quantity'],
-            total_price=Decimal(str(item['price'])) * item['quantity']
+        # Save shipping address
+        shipping = ShippingAddress.objects.create(
+            full_name=request.POST['full_name'],
+            email=request.POST['email'],
+            phone=request.POST['phone'],
+            address=request.POST['address'],
+            city=request.POST['city'],
+            state=request.POST['state'],
+            country=request.POST['country'],
+            zip_code=request.POST['zip']
         )
 
-    # COD → mark as unpaid but confirmed
-    if coupon:
-        coupon.used_count += 1
-        coupon.save()
-        request.session.pop('coupon', None)
+        order.shipping_address = shipping
+        order.status = 'processing'
+        order.paid_amount = order.grand_total
+        order.due_amount = 0
+        order.save(update_fields=['shipping_address', 'status', 'paid_amount', 'due_amount'])
 
-    request.session['cart'] = {}
+        # Deactivate cart items (soft-delete)
+        CartItem.objects.filter(cart=get_user_cart(request), is_active=True).update(is_active=False)
 
-    return JsonResponse({
-        'success': True,
-        'order_id': order.id
-    })
+        return JsonResponse({
+            "success": True,
+            "order_id": order.id
+        })

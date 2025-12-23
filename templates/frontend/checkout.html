@@ -65,7 +65,7 @@
           <h6 class="text-white mb-3 fw-semibold">Have a coupon code?</h6>
           <div class="input-group input-group-lg">
             <input type="text" id="couponCode" class="form-control border-0 coupon-input" placeholder="Enter code">
-            <button type="button" class="btn btn-light px-4 fw-semibold" onclick="applyCoupon()">Apply</button>
+            <button type="button" class="btn btn-light px-4 fw-semibold" onclick="applyCoupon(document.getElementById('couponCode').value)">Apply</button>
           </div>
           <small class="text-white-50 d-block mt-2">Get instant discount on your order</small>
         </div>
@@ -84,12 +84,14 @@
               <span class="fw-semibold" id="subtotal" style="color: var(--text-primary);">$0.00</span>
             </div>
             
-            <div class="d-flex justify-content-between mb-3 pb-3 summary-border" id="discountRow" style="display: none !important;">
+            <div class="d-flex justify-content-between mb-3 pb-3 summary-border"
+                id="discountRow"
+                style="display: none;">
               <span class="text-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tag-fill me-1" viewBox="0 0 16 16">
-                  <path d="M2 1a1 1 0 0 0-1 1v4.586a1 1 0 0 0 .293.707l7 7a1 1 0 0 0 1.414 0l4.586-4.586a1 1 0 0 0 0-1.414l-7-7A1 1 0 0 0 6.586 1zm4 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
-                </svg>
-                Discount
+                Coupon Discount
+                <button type="button"
+                        class="btn btn-sm btn-link text-danger ms-2 p-0"
+                        onclick="removeCoupon()">Remove</button>
               </span>
               <span class="text-success fw-semibold" id="discount">-$0.00</span>
             </div>
@@ -144,56 +146,93 @@
   </div>
 </div>
 <script>
-let appliedCoupon = null;
+  let appliedCoupon = null;
+  const SHIPPING = 50;
 
-function applyCoupon() {
-  const couponInput = document.getElementById('couponCode');
-  
-  fetch("{% url 'apply_coupon' %}", {
-    method: "POST",
-    headers: {
-      "X-CSRFToken": "{{ csrf_token }}",
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
-    body: `code=${couponInput.value}`
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      appliedCoupon = data;
-      document.getElementById('discountRow').style.display = 'flex';
+  window.addEventListener('DOMContentLoaded', function () {
+      {% if applied_coupon %}
+          appliedCoupon = {
+              discount: {{ coupon_discount }}
+          };
+          document.getElementById('discountRow').style.display = 'flex';
+      {% endif %}
+
       calculateTotal();
-
-      couponInput.classList.add('is-valid');
-      setTimeout(() => couponInput.classList.remove('is-valid'), 3000);
-    } else {
-      alert(data.message);
-      couponInput.classList.add('is-invalid');
-      setTimeout(() => couponInput.classList.remove('is-invalid'), 3000);
-    }
-  })
-  .catch(err => {
-    console.error('Error applying coupon:', err);
-    alert('Failed to apply coupon. Please try again.');
   });
-}
 
-function calculateTotal() {
-  const subtotal = Number({{ cart_total }});
-  const discount = appliedCoupon ? Number(appliedCoupon.discount) : 0;
-  const shipping = 50;
+  function applyCoupon(code) {
+      if (!code) {
+          alert('Please enter a coupon code');
+          return;
+      }
 
-  document.getElementById("subtotal").innerText = `$${subtotal.toFixed(2)}`;
-  document.getElementById("discount").innerText = `-$${discount.toFixed(2)}`;
+      fetch("{% url 'apply_coupon' %}", {
+          method: "POST",
+          headers: {
+              "X-CSRFToken": "{{ csrf_token }}",
+              "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: `code=${encodeURIComponent(code)}`
+      })
+      .then(res => res.json())
+      .then(data => {
+          if (data.success) {
+              appliedCoupon = {
+                  discount: data.discount
+              };
 
-  const grandTotal = subtotal - discount + shipping;
-  document.getElementById("grandTotal").innerText = `$${grandTotal.toFixed(2)}`;
-  
-  if (discount > 0) {
-    document.getElementById('discountRow').style.display = 'flex';
+              document.getElementById('discountRow').style.display = 'flex';
+              calculateTotal();
+          } else {
+              alert(data.message);
+          }
+      });
   }
-}
 
-calculateTotal();
+  function removeCoupon() {
+      fetch("{% url 'remove_coupon' %}", {
+          method: "POST",
+          headers: {
+              "X-CSRFToken": "{{ csrf_token }}"
+          }
+      })
+      .then(() => {
+          appliedCoupon = null;
+          document.getElementById('discountRow').style.display = 'none';
+          calculateTotal();
+      });
+  }
+
+  function calculateTotal() {
+      const subtotal = Number({{ order_amount }});
+      const discount = appliedCoupon ? Number(appliedCoupon.discount) : 0;
+      const shipping = Number({{ shipping_charge }});
+
+      document.getElementById("subtotal").innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById("discount").innerText = `-$${discount.toFixed(2)}`;
+
+      const grandTotal = subtotal - discount + shipping;
+      document.getElementById("grandTotal").innerText = `$${grandTotal.toFixed(2)}`;
+  }
+
+  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    fetch("{% url 'place_order' %}", {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: new FormData(this)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `/order-success/${data.order_id}/`;
+        } else {
+            alert(data.message);
+        }
+    });
+});
 </script>
 {% endblock %}
