@@ -139,7 +139,7 @@ python manage.py test
 ## 📸 Screenshots
 Here are some screenshots of the application in action:
 
-<div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:12px;">
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:12px;">
 	<div style="flex:1 1 48%;min-width:220px"><img src="./static/screenshots/home.png" alt="Home Page" style="width:100%;height:auto;border-radius:8px;border:1px solid #e6e6e6"/></div>
 	<div style="flex:1 1 48%;min-width:220px"><img src="./static/screenshots/product_list.png" alt="Product Listing" style="width:100%;height:auto;border-radius:8px;border:1px solid #e6e6e6"/></div>
 	<div style="flex:1 1 48%;min-width:220px"><img src="./static/screenshots/product_detail.png" alt="Product Detail" style="width:100%;height:auto;border-radius:8px;border:1px solid #e6e6e6"/></div>
