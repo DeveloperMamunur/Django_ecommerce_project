@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from products.models import Product
-from .models import Cart, CartItem, Coupon, ShippingAddress, Order, OrderDetail
+from .models import Cart, CartItem, Coupon, ShippingAddress, BillingAddress, Order, OrderDetail
 from django.utils import timezone
 from decimal import Decimal
 
@@ -331,7 +331,17 @@ def place_order(request):
             zip_code=request.POST['zip']
         )
 
+        billing = BillingAddress.objects.create(
+            phone=request.user.profile.phone,
+            address=request.user.profile.address,
+            city=request.user.profile.city,
+            state=request.user.profile.state,
+            country=request.user.profile.country,
+            zip_code=request.user.profile.zipcode
+        )
+
         order.shipping_address = shipping
+        order.billing_address = billing
         order.status = 'processing'
         order.paid_amount = order.grand_total
         order.due_amount = 0
@@ -339,6 +349,7 @@ def place_order(request):
 
         # Deactivate cart items (soft-delete)
         CartItem.objects.filter(cart=get_user_cart(request), is_active=True).update(is_active=False)
+        request.session['coupon'] = None
 
         return JsonResponse({
             "success": True,

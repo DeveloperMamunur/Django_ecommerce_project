@@ -78,7 +78,14 @@
         <div class="checkout-card border-0 shadow-sm">
           <div class="card-body p-4">
             <h4 class="mb-4 fw-bold" style="color: var(--text-primary);">Order Summary</h4>
-            
+            <div class="mb-3">
+              {% for item in cart_items %}
+                <div class="d-flex justify-content-between small mb-2">
+                  <span>{{ item.product.name }} × {{ item.quantity }}</span>
+                  <span>${{ item.price|floatformat:2 }}</span>
+                </div>
+              {% endfor %}
+            </div>
             <div class="d-flex justify-content-between mb-3 pb-3 summary-border">
               <span style="color: var(--text-secondary);">Subtotal</span>
               <span class="fw-semibold" id="subtotal" style="color: var(--text-primary);">$0.00</span>
@@ -227,11 +234,28 @@
     })
     .then(res => res.json())
     .then(data => {
-        if (data.success) {
-            window.location.href = `/order-success/${data.order_id}/`;
-        } else {
+        if (!data.success) {
             alert(data.message);
+            return;
         }
+
+        // 🔥 Start payment
+        fetch("{% url 'start_payment' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `order_id=${data.order_id}`
+        })
+        .then(res => res.json())
+        .then(payment => {
+            if (payment.status === "SUCCESS") {
+                window.location.href = payment.GatewayPageURL;
+            } else {
+                alert(payment.message || "Payment failed");
+            }
+        });
     });
 });
 </script>
