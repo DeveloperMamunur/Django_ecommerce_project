@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from accounts.models import UserPermission
 from .models import MenuList
 from .permissions import CheckUserPermission
+from products.models import Wishlist
 
 def menu_permissions(request):
     if not request.user.is_authenticated:
@@ -30,3 +31,12 @@ def menu_permissions(request):
         permissions[f'can_delete_{base}'] = CheckUserPermission(request, 'can_delete', menu)
 
     return permissions
+
+
+
+def wishlist_counter(request):
+    if request.user.is_authenticated:
+        return {
+            "wishlist_count": Wishlist.objects.filter(user=request.user).count()
+        }
+    return {"wishlist_count": 0}

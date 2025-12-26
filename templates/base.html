@@ -43,8 +43,13 @@
                             <a class="nav-link" href="{% url 'accounts:login' %}"><i class="fas fa-user"></i></a>
                         {% endif %}
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:frontend_wishlist' %}"><i class="fas fa-heart"></i></a>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="{% url 'products:frontend_wishlist' %}">
+                            <i class="fas fa-heart"></i>
+                            <span class="wishlist-badge position-absolute top-1 end-0 translate-middle" id="wishlistCount">
+                                {{ wishlist_count }}
+                            </span>
+                        </a>
                     </li>
                     <li class="nav-item position-relative">
                         <a class="nav-link" href="#" onclick="toggleCart()">
