@@ -45,4 +45,9 @@ urlpatterns = [
     path('products/<int:product_id>/inventory/add/', views.inventory_log_create_view, name='inventory_log_create'),
     path('products/inventory/<int:pk>/edit/', views.inventory_log_update_view, name='inventory_log_update'),
     path('products/inventory/<int:pk>/delete/', views.inventory_log_delete_view, name='inventory_log_delete'),
+
+    # product wishlist
+    path('wishlist/toggle/', views.toggle_wishlist, name='toggle_wishlist'),
+    path('backend/wishlist/', views.wishlist_view, name='wishlist'),
+    path('wishlist/', views.frontend_wishlist_view, name='frontend_wishlist'),
 ]

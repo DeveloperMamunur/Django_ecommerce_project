@@ -18,7 +18,9 @@
             <div class="logo-icon bg-primary text-white me-2">
                 <i class="bi bi-speedometer2 me-2"></i>
             </div>
-            <span class="logo-text fs-5 fw-bold">Dashboard</span>
+            <span class="logo-text fs-5 fw-bold">
+                <a href="{% url 'home' %}">ModernShop</a>
+            </span>
         </div>
         
         <!-- Navigation -->
@@ -59,9 +61,15 @@
                     <span class="nav-text">Product</span>
                 </a>
             {% endif %}
-            <a href="{% url 'coupon_list' %}" class="nav-link {% if request.resolver_match.url_name == 'coupon_list' %}active{% endif %}">
+            {% if can_view_coupon_list %}
+                <a href="{% url 'coupon_list' %}" class="nav-link {% if request.resolver_match.url_name == 'coupon_list' %}active{% endif %}">
+                    <i class="bi bi-grid me-2"></i>
+                    <span class="nav-text">Coupons</span>
+                </a>
+            {% endif %}
+            <a href="{% url 'products:wishlist' %}" class="nav-link {% if request.resolver_match.url_name == 'wishlist' and request.resolver_match.namespace == 'products' %}active{% endif %}">
                 <i class="bi bi-grid me-2"></i>
-                <span class="nav-text">Coupons</span>
+                <span class="nav-text">Wish List</span>
             </a>
 
         </nav>

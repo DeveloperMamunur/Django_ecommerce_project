@@ -43,8 +43,8 @@
               {% endif %}
             </div>
             <img id="mainImage" src="{{ product.get_primary_image }}" alt="{{ product.name }}" class="img-fluid main-product-image">
-            <button class="btn-wishlist" onclick="toggleWishlist({{ product.id }})">
-              <i class="far fa-heart"></i>
+            <button class="btn-wishlist" onclick="toggleWishlist(this, {{ product.id }})">
+              <i class="{% if product.id in user_wishlist_ids %}fas{% else %}far{% endif %} fa-heart"></i>
             </button>
           </div>
 
@@ -148,7 +148,7 @@
             <h6 class="fw-bold mb-3">Quantity:</h6>
             <div class="quantity-selector">
               <button class="qty-btn" onclick="decreaseQuantity()">-</button>
-              <input type="number" id="quantity" value="1" min="1" max="{{ product.stock_quantity }}" readonly>
+              <input type="number" id="quantity" class="qty-input" value="1" min="1" max="5" readonly>
               <button class="qty-btn" onclick="increaseQuantity()">+</button>
             </div>
             <span class="stock-info text-muted ms-3">{{ product.stock_quantity }} items available</span>
@@ -228,15 +228,7 @@
     const input = document.getElementById("quantity");
     if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
   }
-  function toggleWishlist(id) {
-    const btn = document.querySelector(".btn-wishlist i");
-    btn.classList.toggle("far");
-    btn.classList.toggle("fas");
-  }
-  function addToCart(id) {
-    const qty = document.getElementById("quantity").value;
-    console.log(`Add product ${id} x${qty} to cart`);
-  }
+  
   function buyNow(id) {
     const qty = document.getElementById("quantity").value;
     console.log(`Buy product ${id} x${qty}`);

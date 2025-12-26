@@ -7,11 +7,14 @@ from products.models import Product
 from .models import Cart, CartItem, Coupon, ShippingAddress, BillingAddress, Order, OrderDetail
 from django.utils import timezone
 from decimal import Decimal
+from core.permissions import CheckUserPermission
 
 
 
 @login_required
 def coupon_list(request):
+    if not CheckUserPermission(request, 'can_view', 'coupon_list'):
+        return render(request, '403.html')
     coupons = Coupon.objects.all()
     if request.method == 'POST':
         coupon_id = request.POST.get('coupon_id')
@@ -48,12 +51,16 @@ def coupon_list(request):
 
 @login_required
 def delete_coupon(request, coupon_id):
+    if not CheckUserPermission(request, 'can_delete', 'delete_coupon'):
+        return render(request, '403.html')
     coupon = get_object_or_404(Coupon, id=coupon_id)
     coupon.delete()
     return redirect('coupon_list')
 
 @login_required
 def toggle_coupon_status(request, coupon_id):
+    if not CheckUserPermission(request, 'can_update', 'toggle_coupon_status'):
+        return render(request, '403.html')
     coupon = get_object_or_404(Coupon, id=coupon_id)
     coupon.is_active = not coupon.is_active
     coupon.save()
@@ -77,27 +84,25 @@ def get_cart_items(cart):
 def add_to_cart(request):
     if request.method == "POST":
         product_id = request.POST.get("product_id")
+        qty = int(request.POST.get("quantity"))
         product = get_object_or_404(Product, id=product_id)
         cart = get_user_cart(request)
         order = Order.objects.filter(customer=request.user, status='pending', is_active=True).first()
 
         with transaction.atomic():
-            try:
-                cart_item, created = CartItem.all_objects.update_or_create(
-                    cart=cart,
-                    product=product,
-                    defaults={
-                        'is_active': True,
-                        'price': float(product.sale_price if product.on_sale else product.price),
-                        'quantity': 1
-                    }
-                )
-                if not created:
-                    cart_item.quantity += 1
-                    cart_item.save()
-            except IntegrityError:
-                cart_item = CartItem.objects.get(cart=cart, product=product)
-                cart_item.quantity += 1
+            cart_item, created = CartItem.all_objects.get_or_create(
+                cart=cart,
+                product=product,
+                defaults={
+                    'is_active': True,
+                    'price': float(product.sale_price if product.on_sale else product.price),
+                    'quantity': qty
+                }
+            )
+
+            if not created:
+                cart_item.quantity += qty
+                cart_item.is_active = True
                 cart_item.save()
 
         return JsonResponse({"success": True, "cart": serialize_cart(cart)})

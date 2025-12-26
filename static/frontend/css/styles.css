@@ -270,6 +270,29 @@ body {
     font-size: 2rem;
 }
 
+.card-wishlist {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    font-size: 1.2rem;
+    color: #ef4444;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.card-wishlist:hover {
+    background: #ef4444;
+    color: white;
+    transform: scale(1.1);
+}
+
+
 /* Mobile Menu Styles */
 @media (max-width: 991px) {
     .navbar-collapse {

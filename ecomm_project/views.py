@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from products.models import Product, ProductMainCategory, ProductSubCategory
+from products.models import Product, ProductMainCategory, ProductSubCategory, Wishlist
 from django.db.models import Q, Count
 from django.core.paginator import Paginator
 from django.utils import timezone
@@ -51,6 +51,12 @@ def home(request):
     top_selling = [(p, ("🏆 Best Seller", "bg-warning text-dark")) for p in Product.objects.filter(is_active=True).order_by('-total_views')[:8]]
     all_products = [(p, p.display_badge) for p in page_obj.object_list]
 
+    wishlist_ids = []
+    if request.user.is_authenticated:
+        wishlist_ids = Wishlist.objects.filter(
+            user=request.user
+        ).values_list('product_id', flat=True)
+
     context = {
         'categories': categories,
         'new_arrivals': new_arrivals,
@@ -59,6 +65,8 @@ def home(request):
         'products': all_products,
         'page_obj': page_obj,
         'search': search,
+        'main_category_id': main_category_id,
+        'user_wishlist_ids': wishlist_ids
     }
 
     return render(request, 'frontend/home.html', context)
@@ -135,12 +143,19 @@ def product_list(request):
     selected_categories = [int(cat_id) for cat_id in category_ids if cat_id.isdigit()]
     selected_ratings = ratings
 
+    wishlist_ids = []
+    if request.user.is_authenticated:
+        wishlist_ids = Wishlist.objects.filter(
+            user=request.user
+        ).values_list('product_id', flat=True)
+
     context = {
         'products': page_obj,
         'categories': categories,
         'selected_categories': selected_categories,
         'selected_ratings': selected_ratings,
         'request': request,
+        'user_wishlist_ids': wishlist_ids
     }
     return render(request, 'frontend/products.html', context)
 
@@ -151,7 +166,15 @@ def product_detail(request, slug):
     related_products = Product.objects.filter(
         main_category=product.main_category
     ).exclude(id=product.id)[:4]
+
+    wishlist_ids = []
+    if request.user.is_authenticated:
+        wishlist_ids = Wishlist.objects.filter(
+            user=request.user
+        ).values_list('product_id', flat=True)
+
     return render(request, 'frontend/product_details.html', {
         'product': product,
         'related_products': related_products,
+        'user_wishlist_ids': wishlist_ids
     })

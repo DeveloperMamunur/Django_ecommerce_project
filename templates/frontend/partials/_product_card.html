@@ -12,6 +12,13 @@
           {{ badge }}
         </div>
       {% endif %}
+      <button
+        type="button"
+        class="btn-wishList card-wishlist position-absolute top-0 end-0 mt-2 me-2"
+        aria-label="Add to wishlist"
+        onclick="toggleWishlist(this, {{ product.id }})">
+        <i class="{% if product.id in user_wishlist_ids %}fas{% else %}far{% endif %} fa-heart"></i>
+      </button>
     </div>
 
     <div class="card-body text-center">

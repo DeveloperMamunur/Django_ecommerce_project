@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Brand, ProductMainCategory, ProductSubCategory, Product, ProductImage, ProductVariant, InventoryLog
+from .models import Brand, ProductMainCategory, ProductSubCategory, Product, ProductImage, ProductVariant, InventoryLog, Wishlist
 from django.utils.text import slugify
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -568,3 +568,66 @@ def inventory_log_delete_view(request, pk):
     log.delete()
     messages.success(request, "Inventory deleted successfully.")
     return redirect('products:inventory_log_list', product_id=product_id)
+
+@login_required(login_url='accounts:login')
+def toggle_wishlist(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        product = get_object_or_404(Product, id=product_id)
+
+        wishlist_item = Wishlist.objects.filter(
+            user=request.user,
+            product=product
+        ).first()
+
+        if wishlist_item:
+            wishlist_item.delete()
+            return JsonResponse({
+                "success": True,
+                "action": "removed"
+            })
+        else:
+            Wishlist.objects.create(
+                user=request.user,
+                product=product
+            )
+            return JsonResponse({
+                "success": True,
+                "action": "added"
+            })
+
+    return JsonResponse({"success": False}, status=400)
+
+@login_required(login_url='accounts:login')
+def wishlist_view(request):
+    wishlist_qs = (
+        Wishlist.objects
+        .filter(user=request.user)
+        .select_related('product')
+    )
+
+    products = [w.product for w in wishlist_qs]
+
+    user_wishlist_ids = set(w.product_id for w in wishlist_qs)
+
+    return render(request, 'products/wishlist/index.html', {
+        'products': products,
+        'user_wishlist_ids': user_wishlist_ids,
+    })
+
+@login_required(login_url='accounts:login')
+def frontend_wishlist_view(request):
+    wishlist_qs = (
+        Wishlist.objects
+        .filter(user=request.user)
+        .select_related('product')
+    )
+
+    products = [w.product for w in wishlist_qs]
+
+    user_wishlist_ids = set(w.product_id for w in wishlist_qs)
+
+    return render(request, 'frontend/wishlist.html', {
+        'products': products,
+        'user_wishlist_ids': user_wishlist_ids,
+    })
