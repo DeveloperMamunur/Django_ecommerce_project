@@ -1,13 +1,15 @@
 from django.db import transaction, IntegrityError
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from products.models import Product
 from .models import Cart, CartItem, Coupon, ShippingAddress, BillingAddress, Order, OrderDetail
 from django.utils import timezone
 from decimal import Decimal
 from core.permissions import CheckUserPermission
+from django.http import FileResponse
+from .utils import generate_invoice
 
 
 
@@ -213,22 +215,26 @@ def checkout(request):
         - coupon_discount
     )
 
-    order, created = Order.objects.get_or_create(
+    order = Order.objects.filter(
         customer=request.user,
         status='pending',
-        defaults={
-            'order_amount': order_amount,
-            'coupon_discount': coupon_discount,
-            'vat_amount': vat_amount,
-            'tax_amount': tax_amount,
-            'shipping_charge': shipping_charge,
-            'grand_total': grand_total,
-            'paid_amount': Decimal('0.00'),
-            'due_amount': grand_total
-        }
-    )
+        is_active=True
+    ).first()
 
-    if not created:
+    if not order:
+        order = Order.objects.create(
+            customer=request.user,
+            status='pending',
+            order_amount=order_amount,
+            coupon_discount=coupon_discount,
+            vat_amount=vat_amount,
+            tax_amount=tax_amount,
+            shipping_charge=shipping_charge,
+            grand_total=grand_total,
+            paid_amount=Decimal('0.00'),
+            due_amount=grand_total
+        )
+    else:
         order.order_amount = order_amount
         order.coupon_discount = coupon_discount
         order.vat_amount = vat_amount
@@ -347,10 +353,7 @@ def place_order(request):
 
         order.shipping_address = shipping
         order.billing_address = billing
-        order.status = 'processing'
-        order.paid_amount = order.grand_total
-        order.due_amount = 0
-        order.save(update_fields=['shipping_address', 'status', 'paid_amount', 'due_amount'])
+        order.save(update_fields=['shipping_address', 'billing_address'])
 
         # Deactivate cart items (soft-delete)
         CartItem.objects.filter(cart=get_user_cart(request), is_active=True).update(is_active=False)
@@ -360,3 +363,23 @@ def place_order(request):
             "success": True,
             "order_id": order.id
         })
+
+@login_required
+def order_list(request):
+    orders = Order.objects.filter(customer=request.user).prefetch_related('order_payments').order_by('-created_at')
+    return render(request, 'orders/index.html', {'orders': orders})
+
+@login_required
+def download_invoice(request, order_id):
+    order = get_object_or_404(Order, id=order_id, customer=request.user)
+
+    if order.paid_status != 'paid':
+        return HttpResponse("Invoice available after payment", status=403)
+
+    pdf_buffer = generate_invoice(order)
+
+    return FileResponse(
+        pdf_buffer,
+        as_attachment=True,
+        filename=f"Invoice_{order.order_number}.pdf"
+    )

@@ -7,6 +7,8 @@ urlpatterns = [
     path('coupons/<int:coupon_id>/delete/', views.delete_coupon, name='delete_coupon'),
     path('coupons/<int:coupon_id>/toggle/', views.toggle_coupon_status, name='toggle_coupon_status'),
 
+    path('orders/', views.order_list, name='order_list'),
+
     # frontend urls for cart
     path("cart/add/", views.add_to_cart, name="add_to_cart"),
     path("cart/remove/", views.remove_from_cart, name="remove_from_cart"),
@@ -23,4 +25,7 @@ urlpatterns = [
     path('payment/cancel/<str:str_data>/', views_payment.payment_cancel, name='payment_cancel'),
     path('payment/fail/<str:str_data>/', views_payment.payment_failed, name='payment_failed'),
     path('payment/check/<str:str_data>/', views_payment.payment_check, name="payment_check"),
+
+    # Invoice
+    path('invoice/<int:order_id>/', views.download_invoice, name='download_invoice')
 ]

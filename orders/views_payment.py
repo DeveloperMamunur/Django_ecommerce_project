@@ -1,9 +1,10 @@
+from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.core import signing
-from django.db.models import Sum
+from django.db.models import Sum, F
 from django.utils import timezone
 from django.conf import settings
 from uuid import uuid4
@@ -11,7 +12,7 @@ import requests
 from django.contrib.auth.decorators import login_required
 
 
-from .models import Order, OnlinePaymentRequest, OrderPayment
+from .models import Order, OnlinePaymentRequest, OrderPayment, Coupon
 
 
 @login_required
@@ -96,7 +97,7 @@ def create_payment_request(request, order_id):
         'cus_name': user.get_full_name() or user.username,
         'cus_email': user.email,
         'cus_phone': user.profile.phone,
-        'cus_add1': order_obj.billing_address,
+        'cus_add1': order_obj.billing_address.address if order_obj.billing_address else '',
         'cus_city': 'Dhaka',
         'cus_country': 'Bangladesh',
         'shipping_method': 'NO',
@@ -141,13 +142,9 @@ def payment_complete(request, str_data):
         status_data = verify_ssl_payment(val_id)
 
         if status_data:
-            # Save details to the order
-            payment_object.payment_status = "Paid"
-            payment_object.save()
-
             update_payment_in_order(payment_object.transaction_id)
-
             messages.success(request, f"Payment confirmed for order {payment_object.order.id}")
+
         else:
             messages.error(request, "Payment verification failed")
             return redirect('home')
@@ -178,13 +175,11 @@ def verify_ssl_payment(val_id):
 @csrf_exempt
 def payment_check(request, str_data):
     pk = signing.loads(str_data)
-
     payment_object = OnlinePaymentRequest.objects.get(id=pk)
-    if payment_object.payment_method_id == 1:
-        if payment_object.transaction_id:
-            status = verify_ssl_payment(payment_object.transaction_id)
 
-            return JsonResponse({'status': status})
+    if payment_object.transaction_id:
+        status = verify_ssl_payment(payment_object.transaction_id)
+        return JsonResponse({'status': status})
 
     return JsonResponse({'status': False})
 
@@ -211,23 +206,60 @@ def payment_failed(request, str_data):
     return redirect('home')
 
 
+@transaction.atomic
 def update_payment_in_order(transaction_id):
-    payment_object = OnlinePaymentRequest.objects.filter(transaction_id=transaction_id).first()
+    payment_object = OnlinePaymentRequest.objects.select_for_update().filter(
+        transaction_id=transaction_id
+    ).first()
 
-    if payment_object:
-        payment_object.payment_status = "Paid"
-        payment_object.updated_at = timezone.now()
-        payment_object.save()
+    if not payment_object:
+        return False
 
-        OrderPayment.objects.create(
-            order=payment_object.order, payment_method="SSL",
-            amount=payment_object.amount, transaction_id=transaction_id
-        )
+    order = payment_object.order  # ✅ ASSIGN EARLY
 
-        total_paid = OrderPayment.objects.filter(order=payment_object.order, is_active=True).aggregate(total_paid=Sum('amount'))['total_paid']
+    # Prevent double processing
+    if payment_object.payment_status == "Paid":
+        return True
 
-        payment_object.order.paid_amount = total_paid
-        payment_object.order.due_amount = payment_object.order.grand_total - total_paid
-        payment_object.order.save()
+    # Mark payment as paid
+    payment_object.payment_status = "Paid"
+    payment_object.updated_at = timezone.now()
+    payment_object.save(update_fields=["payment_status", "updated_at"])
+
+    # Create order payment record
+    OrderPayment.objects.create(
+        order=order,
+        payment_method="SSL",
+        amount=payment_object.amount,
+        transaction_id=transaction_id
+    )
+
+    # Recalculate total paid
+    total_paid = OrderPayment.objects.filter(
+        order=order,
+        is_active=True
+    ).aggregate(
+        total_paid=Sum('amount')
+    )['total_paid'] or Decimal('0.00')
+
+    order.paid_amount = total_paid
+    order.due_amount = order.grand_total - total_paid
+
+    # Coupon usage update (SAFE)
+    if order.coupon_discount > 0 and hasattr(order, 'applied_coupon') and order.applied_coupon:
+        Coupon.objects.filter(
+            id=order.applied_coupon.id
+        ).update(used_count=F('used_count') + 1)
+
+    if order.due_amount <= 0:
+        order.paid_status = 'paid'
+        order.status = 'processing'
+
+    order.save(update_fields=[
+        'paid_amount',
+        'due_amount',
+        'paid_status',
+        'status'
+    ])
 
     return True

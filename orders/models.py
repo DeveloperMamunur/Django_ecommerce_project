@@ -99,10 +99,16 @@ class Order(TimeStampedModel, SoftDeleteModel):
         ('cancelled', 'Cancelled'),
     )
 
+    PAID_STATUS_CHOICES = (
+        ('paid', 'Paid'),
+        ('unpaid', 'Unpaid'),
+    )
+
     order_number = models.CharField(max_length=100, blank=True, null=True)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     billing_address = models.OneToOneField(BillingAddress, on_delete=models.SET_NULL, blank=True, null=True, related_name='order_billing')
     shipping_address = models.OneToOneField(ShippingAddress, on_delete=models.SET_NULL, blank=True, null=True, related_name='order_shipping')
+    paid_status = models.CharField(max_length=20, choices=PAID_STATUS_CHOICES, default='unpaid')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
 
     order_amount = models.DecimalField(default=0, max_digits=20, decimal_places=2)
@@ -125,7 +131,9 @@ class Order(TimeStampedModel, SoftDeleteModel):
         import datetime
         if not self.order_number:
             today = datetime.date.today()
-            count = Order.objects.filter(order_number__startswith=f"{today:%Y%m}").count()
+            count = Order.objects.filter(
+                order_number__startswith=f"{today:%Y%m}"
+            ).count()
             self.order_number = f"{today:%Y%m}{count + 1:04d}{today:%d}{self.customer.id}"
         super().save(*args, **kwargs)
 
