@@ -113,8 +113,8 @@
                         <tr>
                             <th>Product</th>
                             <th>Qty</th>
-                            <th>Price</th>
-                            <th>Total</th>
+                            <th>Unit Price</th>
+                            <th>Total Price</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -122,7 +122,7 @@
                         <tr>
                             <td>{{ item.product.name }}</td>
                             <td>{{ item.quantity }}</td>
-                            <td>${{ item.price|floatformat:2 }}</td>
+                            <td>${{ item.unit_price|floatformat:2 }}</td>
                             <td>${{ item.total_price|floatformat:2 }}</td>
                         </tr>
                         {% empty %}

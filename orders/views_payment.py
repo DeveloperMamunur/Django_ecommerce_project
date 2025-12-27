@@ -10,6 +10,7 @@ from django.conf import settings
 from uuid import uuid4
 import requests
 from django.contrib.auth.decorators import login_required
+from .email_utils import send_payment_success_email, send_order_status_email
 
 
 from .models import Order, OnlinePaymentRequest, OrderPayment, Coupon
@@ -261,5 +262,10 @@ def update_payment_in_order(transaction_id):
         'paid_status',
         'status'
     ])
+
+    try:
+        send_payment_success_email(order)
+    except Exception as e:
+        print(f"Failed to send payment email: {e}")
 
     return True
