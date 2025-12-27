@@ -56,6 +56,13 @@
                                     data-bs-target="#orderDetailsModal{{ order.id }}">
                                     View Details
                                 </button>
+                                {% if order.status == 'pending' and order.paid_status == 'unpaid' %}
+                                    <button
+                                        class="btn btn-success btn-sm ms-2 pay-btn"
+                                        data-order-id="{{ order.id }}">
+                                        Pay Now
+                                    </button>
+                                {% endif %}
                                 {% if order.paid_status == 'paid' %}
                                     <a href="{% url 'download_invoice' order.id %}" class="btn btn-primary mt-3">
                                         Download Invoice
@@ -129,6 +136,12 @@
 
             <div class="modal-footer">
                 <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                {% if order.status == 'pending' and order.paid_status == 'unpaid' %}
+                    <button class="btn btn-success pay-btn"
+                            data-order-id="{{ order.id }}">
+                        Pay Now
+                    </button>
+                {% endif %}
                 {% if order.paid_status == 'paid' %}
                 <a href="{% url 'download_invoice' order.id %}" class="btn btn-primary">
                     Download Invoice
@@ -140,6 +153,34 @@
     </div>
 </div>
 {% endfor %}
+<script>
+document.querySelectorAll('.pay-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        const orderId = this.dataset.orderId;
+        this.disabled = true;
+        this.innerText = 'Processing...';
+
+        fetch("{% url 'start_payment' %}", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": "{{ csrf_token }}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `order_id=${orderId}`
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === "SUCCESS") {
+                window.location.href = data.GatewayPageURL;
+            } else {
+                alert(data.message || "Payment failed");
+                this.disabled = false;
+                this.innerText = 'Pay Now';
+            }
+        });
+    });
+});
+</script>
 
 {% endblock content %}
 
